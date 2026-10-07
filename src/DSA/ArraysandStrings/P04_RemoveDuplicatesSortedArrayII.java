@@ -1,0 +1,49 @@
+package DSA.ArraysandStrings;
+
+import java.util.Arrays;
+
+/**
+ * ============================================================================
+ * [04 / 24] - REMOVE DUPLICATES FROM SORTED ARRAY II (LeetCode 80)
+ * ============================================================================
+ * 
+ * PROBLEM:
+ *   Given a sorted integer array, remove duplicates in-place such that each
+ *   unique element appears at most TWICE. Return k.
+ *
+ * INTERVIEW INTUITION & "AHA!" MOMENT:
+ *   - Universal pattern for "at most K duplicates":
+ *     When deciding whether `nums[read]` can be accepted, compare it against the
+ *     element placed `k` positions behind the write pointer: `nums[write - 2]`.
+ *   - If `nums[read] == nums[write - 2]`, accepting it would make it the 3rd duplicate.
+ *   - If `nums[read] != nums[write - 2]`, it is safe to keep.
+ *   - Works cleanly without tracking explicit frequencies or edge cases.
+ *
+ * COMPLEXITY:
+ *   - Time:  O(n) - Single pass starting from index 2.
+ *   - Space: O(1) - Constant auxiliary space.
+ */
+public class P04_RemoveDuplicatesSortedArrayII {
+
+    public static int removeDuplicates(int[] nums) {
+        if (nums.length <= 2) return nums.length;
+
+        int write = 2;
+        for (int read = 2; read < nums.length; read++) {
+            // Compare candidate against the element 2 slots back in our valid window
+            if (nums[read] != nums[write - 2]) {
+                nums[write] = nums[read];
+                write++;
+            }
+        }
+
+        return write;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {1, 1, 1, 2, 2, 3};
+        int k = removeDuplicates(nums);
+        System.out.println("P04 Output: k = " + k + ", prefix = " + Arrays.toString(Arrays.copyOf(nums, k)));
+        // Expected: k = 5, prefix = [1, 1, 2, 2, 3]
+    }
+}
