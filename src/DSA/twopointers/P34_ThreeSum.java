@@ -32,6 +32,13 @@ import java.util.List;
  * COMPLEXITY:
  *   - Time:  O(n^2) - Sorting takes O(n log n). The nested two-pointer loop takes O(n^2).
  *   - Space: O(log n) to O(n) - Sorting recursion stack.
+ *
+ * CRITICAL THINKING CHECKPOINTS:
+ *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
+ *   2. What invariant must remain true after every loop iteration?
+ *   3. Why is each pointer/state update safe, and what counterexample would break it?
+ *   4. Which edge cases change the control flow (empty input, one item, duplicates, or boundaries)?
+ *   5. Can you derive the time and extra-space complexity without looking at the answer?
  */
 public class P34_ThreeSum {
 

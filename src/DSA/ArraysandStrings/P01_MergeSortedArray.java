@@ -26,6 +26,13 @@ import java.util.Arrays;
  * COMPLEXITY:
  *   - Time:  O(m + n) - Each element is placed exactly once.
  *   - Space: O(1)     - In-place modification with zero extra memory.
+ *
+ * CRITICAL THINKING CHECKPOINTS:
+ *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
+ *   2. What invariant must remain true after every loop iteration?
+ *   3. Why is each pointer/state update safe, and what counterexample would break it?
+ *   4. Which edge cases change the control flow (empty input, one item, duplicates, or boundaries)?
+ *   5. Can you derive the time and extra-space complexity without looking at the answer?
  */
 public class P01_MergeSortedArray {
 

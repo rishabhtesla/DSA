@@ -24,6 +24,13 @@ import java.util.Deque;
  * COMPLEXITY:
  *   - Time:  O(n) - Single pass over the token list.
  *   - Space: O(n) - Stack stores operands.
+ *
+ * CRITICAL THINKING CHECKPOINTS:
+ *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
+ *   2. What invariant must remain true after every loop iteration?
+ *   3. Why is each pointer/state update safe, and what counterexample would break it?
+ *   4. Which edge cases change the control flow (empty input, one item, duplicates, or boundaries)?
+ *   5. Can you derive the time and extra-space complexity without looking at the answer?
  */
 public class P69_EvaluateReversePolishNotation {
 

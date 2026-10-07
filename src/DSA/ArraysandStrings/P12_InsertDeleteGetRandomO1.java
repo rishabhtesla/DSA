@@ -29,6 +29,13 @@ import java.util.Random;
  * COMPLEXITY:
  *   - Time:  O(1) average for insert, remove, and getRandom.
  *   - Space: O(n) to store values and their index mappings.
+ *
+ * CRITICAL THINKING CHECKPOINTS:
+ *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
+ *   2. What invariant must remain true after every loop iteration?
+ *   3. Why is each pointer/state update safe, and what counterexample would break it?
+ *   4. Which edge cases change the control flow (empty input, one item, duplicates, or boundaries)?
+ *   5. Can you derive the time and extra-space complexity without looking at the answer?
  */
 public class P12_InsertDeleteGetRandomO1 {
 
