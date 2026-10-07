@@ -1,0 +1,69 @@
+package DSA.Stack;
+
+import java.util.ArrayDeque;
+import java.util.Deque;
+
+/**
+ * ============================================================================
+ * [69 / 73] - EVALUATE REVERSE POLISH NOTATION (LeetCode 150)
+ * ============================================================================
+ * 
+ * PROBLEM:
+ *   Evaluate the value of an arithmetic expression in Reverse Polish Notation (RPN).
+ *   Valid operators are '+', '-', '*', and '/'. Division truncates toward zero.
+ *
+ * INTERVIEW INTUITION & "AHA!" MOMENT:
+ *   - Postfix expressions inherently resolve operands before operators.
+ *   - Stack Algorithm:
+ *     1. Scan tokens left to right.
+ *     2. If token is a number -> push onto stack.
+ *     3. If token is an operator -> pop `b` (second operand), then pop `a` (first operand).
+ *        Compute `result = a op b`, and push `result` back onto stack.
+ *     *Order matters for subtraction and division: `a - b` and `a / b`!*
+ *
+ * COMPLEXITY:
+ *   - Time:  O(n) - Single pass over the token list.
+ *   - Space: O(n) - Stack stores operands.
+ */
+public class P69_EvaluateReversePolishNotation {
+
+    public static int evalRPN(String[] tokens) {
+        Deque<Integer> stack = new ArrayDeque<>();
+
+        for (String token : tokens) {
+            switch (token) {
+                case "+":
+                    stack.push(stack.pop() + stack.pop());
+                    break;
+                case "-": {
+                    int b = stack.pop();
+                    int a = stack.pop();
+                    stack.push(a - b);
+                    break;
+                }
+                case "*":
+                    stack.push(stack.pop() * stack.pop());
+                    break;
+                case "/": {
+                    int b = stack.pop();
+                    int a = stack.pop();
+                    stack.push(a / b);
+                    break;
+                }
+                default:
+                    stack.push(Integer.parseInt(token));
+                    break;
+            }
+        }
+
+        return stack.pop();
+    }
+
+    public static void main(String[] args) {
+        String[] tokens1 = {"2", "1", "+", "3", "*"};
+        System.out.println("P69 Output (Test 1): " + evalRPN(tokens1)); // Expected: 9 ((2 + 1) * 3)
+
+        String[] tokens2 = {"4", "13", "5", "/", "+"};
+        System.out.println("P69 Output (Test 2): " + evalRPN(tokens2)); // Expected: 6 (4 + (13 / 5))
+    }
+}
