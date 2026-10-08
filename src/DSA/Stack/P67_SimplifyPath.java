@@ -28,6 +28,13 @@ import java.util.Deque;
  *   - Time:  O(n) - Splitting and processing path tokens.
  *   - Space: O(n) - Stack and string tokens.
  *
+ *
+ * EXAMPLE:
+ *   The first main path is "/home/"; expected canonical path is "/home".
+ *
+ * VISUAL DRY RUN:
+ *   Split tokens ["", "home", ""]. Ignore empty tokens, push home -> stack=[home];
+ *   join with a leading slash -> "/home".
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

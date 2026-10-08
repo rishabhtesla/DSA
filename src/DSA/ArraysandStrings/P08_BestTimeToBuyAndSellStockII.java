@@ -20,6 +20,21 @@ package DSA.ArraysandStrings;
  *   - Time:  O(n) - Single linear iteration.
  *   - Space: O(1) - Constant auxiliary memory.
  *
+ *
+ * EXAMPLE:
+ *   Input: prices = [7, 1, 5, 3, 6, 4]
+ *   Output: 7
+ *
+ * VISUAL DRY RUN:
+ *   - 7 -> 1: price decreases; add 0. totalProfit=0
+ *   - 1 -> 5: price increases; add 5-1=4. totalProfit=4
+ *   - 5 -> 3: price decreases; add 0. totalProfit=4
+ *   - 3 -> 6: price increases; add 6-3=3. totalProfit=7
+ *   - 6 -> 4: price decreases; add 0. totalProfit=7
+ *   The two profitable rises represent buy at 1/sell at 5 and buy at 3/sell
+ *   at 6, for the maximum total profit of 7.
+ *
+ *
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

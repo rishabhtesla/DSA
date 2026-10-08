@@ -26,6 +26,13 @@ import java.util.Map;
  *   - Time:  O(n) where n is total characters in s (splitting and hashing words).
  *   - Space: O(w) where w is the number of unique words/characters.
  *
+ *
+ * EXAMPLE:
+ *   The first main input is pattern="abba", s="dog cat cat dog"; expected result is true.
+ *
+ * VISUAL DRY RUN:
+ *   Pairs are a/dog (map both ways), b/cat (map both ways), b/cat (consistent),
+ *   a/dog (consistent). Both maps end as a<->dog,b<->cat; return true.
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

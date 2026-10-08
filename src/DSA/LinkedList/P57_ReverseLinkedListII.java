@@ -24,6 +24,13 @@ package DSA.LinkedList;
  *   - Time:  O(n) - Single pass over the list.
  *   - Space: O(1) - Constant pointer manipulation.
  *
+ *
+ * EXAMPLE:
+ *   The first main list is 1->2->3->4->5 with left=2,right=4; expected 1->4->3->2->5.
+ *
+ * VISUAL DRY RUN:
+ *   prev stops at 1, curr=2. Two head-insertions move 3, then 4 after prev: the
+ *   sublist changes 2->3->4 to 3->2->4, then 4->3->2; reconnect to 1 and 5 -> output.
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

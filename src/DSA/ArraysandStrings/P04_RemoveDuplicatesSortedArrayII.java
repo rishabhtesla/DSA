@@ -23,6 +23,28 @@ import java.util.Arrays;
  *   - Time:  O(n) - Single pass starting from index 2.
  *   - Space: O(1) - Constant auxiliary space.
  *
+ *
+ * EXAMPLE:
+ *   Input:  nums = [1, 1, 1, 2, 2, 3]
+ *   Output: k = 5, prefix = [1, 1, 2, 2, 3]
+ *
+ * VISUAL DRY RUN:
+ *   The first two values are always allowed, so write = 2.
+ *   From read = 2 onward, compare the candidate with nums[write - 2].
+ *   If they are equal, the candidate would be a third copy.
+ *
+ *   - read=2, candidate=1, nums[write-2]=nums[0]=1
+ *     Third 1 -> skip. write=2, valid prefix=[1,1].
+ *   - read=3, candidate=2, nums[write-2]=nums[0]=1
+ *     Safe -> nums[2]=2. write=3, prefix=[1,1,2].
+ *   - read=4, candidate=2, nums[write-2]=nums[1]=1
+ *     Safe -> nums[3]=2. write=4, prefix=[1,1,2,2].
+ *   - read=5, candidate=3, nums[write-2]=nums[2]=2
+ *     Safe -> nums[4]=3. write=5, prefix=[1,1,2,2,3].
+ *
+ *   Return write = 5. Only the first five positions are part of the answer.
+ *
+ *
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

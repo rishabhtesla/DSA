@@ -25,6 +25,15 @@ package DSA.ArraysandStrings;
  *   - Time:  O(n) - Single pass where left and right converge.
  *   - Space: O(1) - Pointers and maximum height trackers only.
  *
+ *
+ * EXAMPLE:
+ *   First main input is height=[0,1,0,2,1,0,1,3,2,1,2,1]; expected water is 6.
+ *
+ * VISUAL DRY RUN:
+ *   Start L=0,R=11,leftMax=rightMax=0,total=0. The smaller-side decisions advance
+ *   the pointers: L0->1 (max 0), R11->10 (max 1), L1->2 (max 1), L2 adds 1,
+ *   R10->9 (max 2), R9 adds 1, R8->7 (max 2), then L3->4 (max 2), L4 adds 1,
+ *   L5 adds 2, and L6 adds 1. Running total: 1+1+1+2+1=6.
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

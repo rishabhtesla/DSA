@@ -25,6 +25,13 @@ package DSA.ArraysandStrings;
  *   - Time:  O(n) - Visits each character in s exactly once.
  *   - Space: O(n) - StringBuilders storing characters for each row.
  *
+ *
+ * EXAMPLE:
+ *   The first main call converts "PAYPALISHIRING" with numRows=3 and expects "PAHNAPLSIIGYIR".
+ *
+ * VISUAL DRY RUN:
+ *   Row pointer/direction visits rows 0,1,2,1 repeatedly. Appending characters gives
+ *   row0="PAHN", row1="APLSIIG", row2="YIR"; concatenate rows -> "PAHNAPLSIIGYIR".
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

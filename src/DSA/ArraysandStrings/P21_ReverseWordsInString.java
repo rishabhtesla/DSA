@@ -23,6 +23,14 @@ package DSA.ArraysandStrings;
  *   - Time:  O(n) - Single backward pass over the string.
  *   - Space: O(n) - StringBuilder for final result.
  *
+ *
+ * EXAMPLE:
+ *   The first main input is "the sky is blue"; the expected output is "blue is sky the".
+ *
+ * VISUAL DRY RUN:
+ *   Read words left to right into the builder: [the, sky, is, blue]. Pop from the end
+ *   (or prepend while scanning backward): blue -> "blue", is -> "blue is", sky ->
+ *   "blue is sky", the -> "blue is sky the"; repeated spaces would be skipped.
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

@@ -22,6 +22,14 @@ package DSA.LinkedList;
  *   - Time:  O(n) - Three linear passes.
  *   - Space: O(1) - In-place pointer manipulation without a hash table.
  *
+ *
+ * EXAMPLE:
+ *   The first main list is 7->13->11 with 13.random=7 and 11.random=13; it expects
+ *   cloned head 7 and cloned node 2 random value 7.
+ *
+ * VISUAL DRY RUN:
+ *   Interleave copies: 7->7'->13->13'->11->11'. Set 7'.random=null, 13'.random=7',
+ *   11'.random=13'; unweave restores the original and returns 7'->13'->11'.
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

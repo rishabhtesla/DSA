@@ -25,6 +25,14 @@ import java.util.Deque;
  *   - Time:  O(1) for push, pop, top, and getMin.
  *   - Space: O(n) worst case.
  *
+ *
+ * EXAMPLE:
+ *   The first main operations push -2, 0, -3, getMin, pop, top, getMin; expected
+ *   outputs are -3, 0, -2.
+ *
+ * VISUAL DRY RUN:
+ *   Push -2 -> stack=[-2], min=-2; push 0 -> min=-2; push -3 -> min=-3.
+ *   getMin=-3; pop -3 restores min=-2; top=0 and getMin=-2.
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

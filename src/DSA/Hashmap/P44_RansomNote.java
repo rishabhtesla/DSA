@@ -24,6 +24,13 @@ package DSA.Hashmap;
  *   - Time:  O(m + n) where m = ransomNote.length(), n = magazine.length().
  *   - Space: O(1) - Fixed integer array of size 26.
  *
+ *
+ * EXAMPLE:
+ *   The first main call checks ransomNote="a", magazine="b"; expected result is false.
+ *
+ * VISUAL DRY RUN:
+ *   Count magazine: b=1, all other counts 0. Read ransom character a: decrement a from
+ *   0 to -1, detect a negative count, and return false immediately.
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

@@ -25,6 +25,18 @@ package DSA.ArraysandStrings;
  *   - Time:  O(n) - Single pass.
  *   - Space: O(1) - Constant tracking variables.
  *
+ *
+ * EXAMPLE: gas=[1,2,3,4,5], cost=[3,4,5,1,2] -> start index 3
+ *
+ * VISUAL DRY RUN:
+ *   Net gain at each station is [-2,-2,-2,3,3].
+ *   - i=0: tank=-2 -> fail; reset start=1, tank=0.
+ *   - i=1: tank=-2 -> fail; reset start=2.
+ *   - i=2: tank=-2 -> fail; reset start=3.
+ *   - i=3: tank=3, continue.
+ *   - i=4: tank=6. Total net gain is 0, so start=3 completes the circuit.
+ *
+ *
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

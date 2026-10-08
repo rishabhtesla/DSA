@@ -22,6 +22,52 @@ import java.util.Arrays;
  *   - Time:  O(n) - Single linear scan.
  *   - Space: O(1) - In-place array update.
  *
+ * EXAMPLE:
+ *   Input:  nums = [0, 0, 1, 1, 1, 2, 2, 3, 3, 4]
+ *   Output: k = 5, and the first k values are [0, 1, 2, 3, 4]
+ *
+ * VISUAL DRY RUN:
+ *   `write` starts at 1 because nums[0] = 0 is already the first unique value.
+ *   `read` checks each next value against the value immediately before it.
+ *
+ *   Initial: read = 1, write = 1
+ *            nums = [0, 0, 1, 1, 1, 2, 2, 3, 3, 4]
+ *
+ *   - read = 1: nums[1] = 0, previous = 0
+ *     Duplicate -> skip it. write remains 1.
+ *
+ *   - read = 2: nums[2] = 1, previous = 0
+ *     New value -> nums[write] = nums[2], so nums[1] = 1.
+ *     nums = [0, 1, 1, 1, 1, 2, 2, 3, 3, 4], write = 2
+ *
+ *   - read = 3: nums[3] = 1, previous = 1
+ *     Duplicate -> skip it. write remains 2.
+ *
+ *   - read = 4: nums[4] = 1, previous = 1
+ *     Duplicate -> skip it. write remains 2.
+ *
+ *   - read = 5: nums[5] = 2, previous = 1
+ *     New value -> nums[2] = 2.
+ *     nums = [0, 1, 2, 1, 1, 2, 2, 3, 3, 4], write = 3
+ *
+ *   - read = 6: nums[6] = 2, previous = 2
+ *     Duplicate -> skip it. write remains 3.
+ *
+ *   - read = 7: nums[7] = 3, previous = 2
+ *     New value -> nums[3] = 3.
+ *     nums = [0, 1, 2, 3, 1, 2, 2, 3, 3, 4], write = 4
+ *
+ *   - read = 8: nums[8] = 3, previous = 3
+ *     Duplicate -> skip it. write remains 4.
+ *
+ *   - read = 9: nums[9] = 4, previous = 3
+ *     New value -> nums[4] = 4.
+ *     nums = [0, 1, 2, 3, 4, 2, 2, 3, 3, 4], write = 5
+ *
+ *   The loop ends. Return write = 5.
+ *   Only the first five positions matter: [0, 1, 2, 3, 4].
+ *
+ *
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

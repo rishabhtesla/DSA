@@ -25,6 +25,14 @@ package DSA.slidingwindow;
  *   - Time:  O(n) - Both left and right pointers traverse the array at most once.
  *   - Space: O(1) - Constant auxiliary space.
  *
+ *
+ * EXAMPLE:
+ *   The first main target=7 and nums=[2,3,1,2,4,3]; expected minimum length is 2 ([4,3]).
+ *
+ * VISUAL DRY RUN:
+ *   Expand right sums 2,5,6,8; at right=3 shrink left 2 -> sum=6, best=4 ([3,1,2,4]).
+ *   Add 4 -> sum=10; remove 3 ->7 (best=3), then remove 1 ->6. Add 3 ->9;
+ *   remove 2 ->7 (window [4,3], best=2), then remove 4 ->3. Return 2.
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

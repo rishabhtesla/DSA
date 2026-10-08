@@ -32,6 +32,13 @@ import java.util.Arrays;
  *   - Time:  O(n log n) - Dominated by sorting balloons by endpoint.
  *   - Space: O(log n) - Sorting stack.
  *
+ *
+ * EXAMPLE:
+ *   The first main points are [[10,16],[2,8],[1,6],[7,12]]; expected two arrows at x=6 and x=12.
+ *
+ * VISUAL DRY RUN:
+ *   Sort by end: [1,6],[2,8],[7,12],[10,16]. Shoot at 6 (bursts first two); [7,12]
+ *   starts after 6, so shoot again at 12 (also bursts [10,16]). arrows=2.
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

@@ -20,6 +20,14 @@ package DSA.ArraysandStrings;
  *   - Time:  O(1) - The range is bounded (num < 4000), total loop iterations <= 15.
  *   - Space: O(1) - Fixed symbol arrays and bounded StringBuilder output.
  *
+ *
+ * EXAMPLE:
+ *   The first main call converts 3749 and expects "MMMDCCXLIX".
+ *
+ * VISUAL DRY RUN:
+ *   Greedy value/symbol picks consume the number: 3000 -> "MMM", 700 -> "DCC",
+ *   40 -> "XL", and 9 -> "IX". Concatenating the selected symbols returns
+ *   "MMMDCCXLIX".
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

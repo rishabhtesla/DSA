@@ -26,6 +26,20 @@ import java.util.Arrays;
  *   - Time:  O(n) - Two passes over the array.
  *   - Space: O(1) - Auxiliary space (the output array does not count toward space complexity).
  *
+ *
+ * EXAMPLE: nums = [1, 2, 3, 4] -> [24, 12, 8, 6]
+ *
+ * VISUAL DRY RUN:
+ *   Prefix pass builds res = [1, 1, 2, 6]:
+ *   res[i] is the product of values strictly to the left of i.
+ *   Suffix pass:
+ *   - i=3: res[3]=6*1=6; suffix becomes 4.
+ *   - i=2: res[2]=2*4=8; suffix becomes 12.
+ *   - i=1: res[1]=1*12=12; suffix becomes 24.
+ *   - i=0: res[0]=1*24=24.
+ *   Final result: [24, 12, 8, 6].
+ *
+ *
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

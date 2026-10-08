@@ -31,6 +31,14 @@ package DSA.slidingwindow;
  *            in s is visited at most twice (by right pointer and left pointer).
  *   - Space: O(1) - Fixed ASCII frequency tables of size 128.
  *
+ *
+ * EXAMPLE:
+ *   The first main input is s="ADOBECODEBANC", t="ABC"; expected minimum window is "BANC".
+ *
+ * VISUAL DRY RUN:
+ *   Expand right until "ADOBEC" contains A,B,C; shrink left to remove A, leaving "DOBEC".
+ *   Continue expansion to "DOBECODEBA" then shrink; at the end window "BANC" contains
+ *   all targets and has length 4, smaller than earlier "ADOBEC" length 6. Return "BANC".
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

@@ -23,6 +23,18 @@ package DSA.ArraysandStrings;
  *   - Time:  O(n) - Two linear passes (one to bucket, one to aggregate).
  *   - Space: O(n) - Size n + 1 bucket array.
  *
+ *
+ * EXAMPLE: citations = [3, 0, 6, 1, 5] -> h-index = 3
+ *
+ * VISUAL DRY RUN:
+ *   Buckets (citation count, with 5 meaning 5 or more): [1,1,0,1,0,2].
+ *   Scan backwards:
+ *   - h=5: paperCount=2, but 2 < 5.
+ *   - h=4: paperCount=2, but 2 < 4.
+ *   - h=3: paperCount=3, and 3 >= 3 -> return 3.
+ *   Three papers have at least three citations: 3, 6, and 5.
+ *
+ *
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

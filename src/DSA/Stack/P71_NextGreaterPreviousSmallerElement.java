@@ -29,6 +29,13 @@ import java.util.Deque;
  *   - Time:  O(n) - Each element is pushed and popped at most once.
  *   - Space: O(n) - Monotonic stack auxiliary memory.
  *
+ *
+ * EXAMPLE:
+ *   The first main nums=[4,5,2,10,8]; expected NGE=[5,10,10,-1,-1] and PSE indices=[-1,0,-1,2,2].
+ *
+ * VISUAL DRY RUN:
+ *   NGE monotonic stack: 4 waits, 5 resolves 4->5; 2 waits; 10 resolves 2 and 5 ->10;
+ *   8 waits, so unresolved 10,8 become -1. PSE increasing stack yields indices [-1,0,-1,2,2].
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

@@ -23,6 +23,13 @@ package DSA.ArraysandStrings;
  *   - Time:  O(N + M) where N = haystack.length(), M = needle.length().
  *   - Space: O(M) for the LPS array.
  *
+ *
+ * EXAMPLE:
+ *   The first main input is haystack="sadbutsad", needle="sad"; expected index is 0.
+ *
+ * VISUAL DRY RUN:
+ *   KMP builds lps=[0,0,0]. At text index 0, window s-a-d matches pattern indices
+ *   0,1,2; j reaches 3, so return i-j+1 = 0 without scanning the later "sad".
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

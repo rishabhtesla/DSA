@@ -25,6 +25,14 @@ import java.util.Map;
  *   - Time:  O(n) - Single pass over the string length (n <= 15).
  *   - Space: O(1) - Constant memory.
  *
+ *
+ * EXAMPLE:
+ *   The first main call converts "III"; each symbol is additive, so the expected result is 3.
+ *
+ * VISUAL DRY RUN:
+ *   Scan left to right with total=0: i=0 'I' (1) -> total=1; i=1 'I' -> 2;
+ *   i=2 'I' -> 3. No symbol has a larger value on its right, so no subtraction occurs;
+ *   return 3.
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

@@ -19,6 +19,13 @@ package DSA.Hashmap;
  *   - Time:  O(n) - Single linear scan.
  *   - Space: O(1) - Fixed integer array of size 26.
  *
+ *
+ * EXAMPLE:
+ *   The first main strings are "anagram" and "nagaram"; expected result is true.
+ *
+ * VISUAL DRY RUN:
+ *   Increment counts for a,n,a,g,r,a,m, then decrement while reading n,a,g,a,r,a,m.
+ *   Every count stays non-negative and finishes at zero, so the strings are anagrams.
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

@@ -27,6 +27,20 @@ import java.util.Arrays;
  *   - Time:  O(n) - One pass left-to-right, one pass right-to-left.
  *   - Space: O(n) - Candies distribution array.
  *
+ *
+ * EXAMPLE: ratings = [1, 0, 2] -> minimum candies = 5
+ *
+ * VISUAL DRY RUN:
+ *   Start candies=[1,1,1].
+ *   Left-to-right:
+ *   - 0 is not greater than 1: [1,1,1].
+ *   - 2 is greater than 0: candies[2]=2 -> [1,1,2].
+ *   Right-to-left:
+ *   - rating 0 is not greater than 2: unchanged.
+ *   - rating 1 is greater than 0: candies[0]=max(1,1+1)=2.
+ *   Final candies=[2,1,2], total=5.
+ *
+ *
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

@@ -28,6 +28,13 @@ import java.util.Deque;
  *   - Time:  O(n) - Single pass through string s.
  *   - Space: O(n) - Stack depth bounded by nesting of parentheses.
  *
+ *
+ * EXAMPLE:
+ *   The first main expression is "1 + 1"; expected value is 2.
+ *
+ * VISUAL DRY RUN:
+ *   Read 1 -> number=1; '+' commits sign +1, sum=1; read 1 -> number=1; end commits
+ *   +1 -> sum=2. Parenthesis stack is unused for this first expression; return 2.
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

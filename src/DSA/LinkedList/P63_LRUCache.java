@@ -26,6 +26,14 @@ import java.util.Map;
  *   - Time:  O(1) for both get and put.
  *   - Space: O(capacity) to store mappings and nodes.
  *
+ *
+ * EXAMPLE:
+ *   The first main uses capacity 2: put(1,1), put(2,2), get(1), put(3,3), put(4,4),
+ *   then gets 2,1,3,4; expected values are 1,-1,-1,3,4.
+ *
+ * VISUAL DRY RUN:
+ *   Order after puts is [1,2]; get(1) makes [2,1]. put(3) evicts least-recent 2 -> [1,3].
+ *   put(4) evicts 1 -> [3,4]; get(1)=-1, get(3)=3, get(4)=4.
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

@@ -24,6 +24,13 @@ package DSA.twopointers;
  *   - Time:  O(n) - Single pass inwards.
  *   - Space: O(1) - Two pointer variables, no new strings created.
  *
+ *
+ * EXAMPLE:
+ *   The first main input is "A man, a plan, a canal: Panama"; expected result is true.
+ *
+ * VISUAL DRY RUN:
+ *   L/R skip punctuation and compare case-insensitively: A=a, m=m, a=a, n=n, ...;
+ *   every pair matches until the pointers cross at the center. Return true.
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

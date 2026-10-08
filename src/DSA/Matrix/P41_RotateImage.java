@@ -22,6 +22,14 @@ import java.util.Arrays;
  *   - Time:  O(n^2) - Transpose takes n^2 / 2 swaps; row reversal takes n^2 / 2 swaps.
  *   - Space: O(1) - Fully in-place swaps.
  *
+ *
+ * EXAMPLE:
+ *   The first main matrix is [[1,2,3],[4,5,6],[7,8,9]]; expected rotation is
+ *   [[7,4,1],[8,5,2],[9,6,3]].
+ *
+ * VISUAL DRY RUN:
+ *   Transpose swaps (0,1):2<->4, (0,2):3<->7, (1,2):6<->8 -> [[1,4,7],[2,5,8],[3,6,9]].
+ *   Reverse each row -> [7,4,1], [8,5,2], [9,6,3].
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

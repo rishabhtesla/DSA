@@ -21,6 +21,13 @@ package DSA.LinkedList;
  *   - Time:  O(n) - Single pass through list.
  *   - Space: O(1) - Re-linking existing nodes.
  *
+ *
+ * EXAMPLE:
+ *   The first main list is 1->4->3->2->5->2 with x=3; expected 1->2->2->4->3->5.
+ *
+ * VISUAL DRY RUN:
+ *   Append values <3 to the less chain: 1,2,2; append others to greater: 4,3,5.
+ *   Join less tail to greater head and terminate greater tail -> 1->2->2->4->3->5.
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

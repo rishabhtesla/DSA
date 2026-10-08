@@ -31,6 +31,14 @@ import java.util.Deque;
  *   - Time:  O(n) - Monotonic stack passes to compute PSE and NSE + linear fill.
  *   - Space: O(n) - Stack and boundary arrays.
  *
+ *
+ * EXAMPLE:
+ *   The first main nums=[10,20,50,10]; for window sizes 1..4 expected [50,20,10,10].
+ *
+ * VISUAL DRY RUN:
+ *   Monotonic-stack spans give each element's maximal window: 50 spans size 1 (candidate
+ *   50), 20 spans size 2 (20), and the rightmost 10 spans size 4 (10). Fill missing
+ *   sizes from right to left so answers become [50,20,10,10].
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

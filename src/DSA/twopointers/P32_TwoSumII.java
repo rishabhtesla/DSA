@@ -25,6 +25,13 @@ import java.util.Arrays;
  *   - Time:  O(n) - Each step moves left or right; at most n iterations.
  *   - Space: O(1) - Constant auxiliary space.
  *
+ *
+ * EXAMPLE:
+ *   The first main numbers are [2,7,11,15] and target=9; expected 1-indexed result [1,2].
+ *
+ * VISUAL DRY RUN:
+ *   L=0,R=3 gives 2+15=17>9, decrement R to 2; 2+11=13>9, decrement R to 1;
+ *   2+7=9, return [L+1,R+1]=[1,2].
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

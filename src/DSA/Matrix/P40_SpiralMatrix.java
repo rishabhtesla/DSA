@@ -28,6 +28,14 @@ import java.util.List;
  *   - Time:  O(m * n) - Each cell is visited exactly once.
  *   - Space: O(1) - Auxiliary space (excluding the output list).
  *
+ *
+ * EXAMPLE:
+ *   The first main matrix is [[1,2,3],[4,5,6],[7,8,9]], expecting [1,2,3,6,9,8,7,4,5].
+ *
+ * VISUAL DRY RUN:
+ *   Boundaries top=0,bottom=2,left=0,right=2: traverse top [1,2,3], right [6,9],
+ *   bottom [8,7], left upward [4]. Narrow to the center and append [5]; output order is
+ *   [1,2,3,6,9,8,7,4,5].
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

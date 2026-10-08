@@ -24,6 +24,15 @@
  *   - Time:  O(1) - Constant 81 cells checked.
  *   - Space: O(1) - Fixed boolean arrays of size 9x9.
  *
+ *
+ * EXAMPLE:
+ *   The first main board begins row 0 with 5,3,.,.,7,... and the complete board is the
+ *   standard valid Sudoku from main; expected result is true.
+ *
+ * VISUAL DRY RUN:
+ *   Scan row-major, mapping each digit to row/column/3x3-box flags: (0,0)=5 marks box0,
+ *   (0,1)=3, (0,4)=7, then row 1 marks 6,1,9,5 in distinct flags. Every filled cell
+ *   is new in all three sets; scan ends without a collision -> true.
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

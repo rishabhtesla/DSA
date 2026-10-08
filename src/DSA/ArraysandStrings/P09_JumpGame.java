@@ -22,6 +22,23 @@ package DSA.ArraysandStrings;
  *   - Time:  O(n) - Single scan.
  *   - Space: O(1) - Single tracker variable.
  *
+ *
+ * EXAMPLE:
+ *   Input 1: nums = [2, 3, 1, 1, 4] -> true
+ *   Input 2: nums = [3, 2, 1, 0, 4] -> false
+ *
+ * VISUAL DRY RUN (Input 1):
+ *   - i=0, nums[0]=2: maxReach=max(0,0+2)=2
+ *   - i=1, nums[1]=3: maxReach=max(2,1+3)=4
+ *     maxReach >= last index 4 -> return true.
+ *
+ * VISUAL DRY RUN (Input 2):
+ *   - i=0, nums[0]=3: maxReach=3
+ *   - i=1, nums[1]=2: maxReach=3
+ *   - i=2, nums[2]=1: maxReach=3
+ *   - i=3, nums[3]=0: maxReach=3
+ *   - i=4 is beyond maxReach=3 -> return false.
+ *
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

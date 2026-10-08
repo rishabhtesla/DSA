@@ -23,6 +23,13 @@ package DSA.twopointers;
  *   - Time:  O(len(t)) - At most one full pass through string t.
  *   - Space: O(1) - Two indices only.
  *
+ *
+ * EXAMPLE:
+ *   The first main call asks whether "abc" is a subsequence of "ahbgdc"; expected true.
+ *
+ * VISUAL DRY RUN:
+ *   s pointer j=0 scans t: a matches -> j=1; h,b are skipped; b matches -> j=2;
+ *   g is skipped; c matches -> j=3==s.length(). Return true.
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

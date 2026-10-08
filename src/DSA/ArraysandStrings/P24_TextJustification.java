@@ -35,6 +35,15 @@ import java.util.List;
  *   - Time:  O(N) total characters processed where N is total length of all words.
  *   - Space: O(N) to construct the justified output lines.
  *
+ *
+ * EXAMPLE:
+ *   The first main words are [This,is,an,example,of,text,justification.] with maxWidth=16.
+ *   Expected lines are "This    is    an", "example  of text", and "justification.  ".
+ *
+ * VISUAL DRY RUN:
+ *   Pack words while length<=16: [This,is,an] (10 letters, 2 gaps) gets 6 extra spaces,
+ *   split 3/3 -> "This    is    an". Next [example,of,text] gets 2 extra spaces, split
+ *   1/1 -> "example  of text". The final word is left-justified and padded -> output above.
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

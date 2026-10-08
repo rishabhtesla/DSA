@@ -21,6 +21,13 @@ package DSA.ArraysandStrings;
  *   - Time:  O(n) worst case (O(k) where k is distance from end to start of last word).
  *   - Space: O(1) - Two integer variables, zero memory allocations.
  *
+ *
+ * EXAMPLE:
+ *   The first main call uses "Hello World" and expects 5.
+ *
+ * VISUAL DRY RUN:
+ *   Scan from the end: 'd','l','r','o','W' are non-space, so length grows 1,2,3,4,5;
+ *   the scan reaches the preceding space and stops. The last word is "World", length 5.
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

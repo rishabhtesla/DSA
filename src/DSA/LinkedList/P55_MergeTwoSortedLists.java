@@ -21,6 +21,13 @@ package DSA.LinkedList;
  *   - Time:  O(m + n) - Linear traversal across both lists.
  *   - Space: O(1) - Splicing existing nodes in-place.
  *
+ *
+ * EXAMPLE:
+ *   The first main lists are 1->2->4 and 1->3->4; expected 1->1->2->3->4->4.
+ *
+ * VISUAL DRY RUN:
+ *   Compare heads: choose l1=1, then l2=1, then l1=2, l2=3, l1=4, l2=4;
+ *   append the remaining tail each time. Dummy.next is 1->1->2->3->4->4.
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

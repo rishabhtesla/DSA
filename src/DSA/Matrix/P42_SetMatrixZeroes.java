@@ -30,6 +30,15 @@ import java.util.Arrays;
  *   - Time:  O(m * n) - Two complete matrix sweeps.
  *   - Space: O(1) - Constant tracking variables.
  *
+ *
+ * EXAMPLE:
+ *   The first main matrix is [[1,1,1],[1,0,1],[1,1,1]]; expected result is
+ *   [[1,0,1],[0,0,0],[1,0,1]].
+ *
+ * VISUAL DRY RUN:
+ *   The zero at (1,1) marks row flag matrix[1][0]=0 and column flag matrix[0][1]=0.
+ *   Inner pass zeros row 1 and column 1; first row/column flags then produce exactly
+ *   [[1,0,1],[0,0,0],[1,0,1]].
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

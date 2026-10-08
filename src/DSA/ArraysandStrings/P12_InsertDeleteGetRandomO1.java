@@ -30,6 +30,16 @@ import java.util.Random;
  *   - Time:  O(1) average for insert, remove, and getRandom.
  *   - Space: O(n) to store values and their index mappings.
  *
+ *
+ * EXAMPLE:
+ *   The first main sequence inserts 1, attempts to remove 2, inserts 2, samples,
+ *   removes 1, then samples again; the deterministic state outputs are true, false,
+ *   true, (1 or 2), true, 2.
+ *
+ * VISUAL DRY RUN:
+ *   list=[] map={}; insert(1) -> list=[1], map={1:0}; remove(2) misses -> unchanged.
+ *   insert(2) -> list=[1,2], map={1:0,2:1}; remove(1) swaps 2 into index 0 and pops:
+ *   list=[2], map={2:0}; the final getRandom() can only return 2.
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

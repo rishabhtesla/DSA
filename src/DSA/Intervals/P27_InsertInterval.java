@@ -32,6 +32,14 @@ import java.util.List;
  *   - Time:  O(n) - Single pass through intervals.
  *   - Space: O(1) - Auxiliary space (ignoring the output list).
  *
+ *
+ * EXAMPLE:
+ *   Insert newInterval=[4,8] into [[1,2],[3,5],[6,7],[8,10],[12,16]]; expected
+ *   [[1,2],[3,10],[12,16]].
+ *
+ * VISUAL DRY RUN:
+ *   [1,2] is before 4, emit it. [3,5] overlaps -> merge new=[3,8]; [6,7] -> [3,8];
+ *   [8,10] touches/overlaps -> [3,10]. [12,16] is after, emit [3,10], then [12,16].
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

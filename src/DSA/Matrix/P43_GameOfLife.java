@@ -31,6 +31,15 @@ import java.util.Arrays;
  *   - Time:  O(m * n) - Check 8 neighbors for every cell, then a second pass to decode.
  *   - Space: O(1) - In-place integer status encodings.
  *
+ *
+ * EXAMPLE:
+ *   The first main board is [[0,1,0],[0,0,1],[1,1,1],[0,0,0]]; expected next board is
+ *   [[0,0,0],[1,0,1],[0,1,1],[0,1,0]].
+ *
+ * VISUAL DRY RUN:
+ *   Count neighbors using encoded states: (0,1) has 1 -> dies (2), (1,0) has 3 -> born
+ *   (3), and the middle cells update similarly without losing old values. Decode 2->0 and
+ *   3->1 after the pass, yielding the expected board.
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

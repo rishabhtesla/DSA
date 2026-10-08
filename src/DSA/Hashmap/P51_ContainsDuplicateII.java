@@ -25,6 +25,13 @@ import java.util.Map;
  *   - Time:  O(n) - Single linear pass.
  *   - Space: O(min(n, k)) - Map stores unique values.
  *
+ *
+ * EXAMPLE:
+ *   The first main nums=[1,2,3,1] and k=3; expected result is true.
+ *
+ * VISUAL DRY RUN:
+ *   Store last indices: i=0 map 1->0, i=1 2->1, i=2 3->2; at i=3 value 1 was at
+ *   index 0, distance 3<=k, so return true.
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

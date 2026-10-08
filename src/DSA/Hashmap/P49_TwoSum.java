@@ -26,6 +26,13 @@ import java.util.Map;
  *   - Time:  O(n) - Single pass with O(1) average lookup per item.
  *   - Space: O(n) - Hash map storing up to n elements.
  *
+ *
+ * EXAMPLE:
+ *   The first main nums=[2,7,11,15], target=9; expected zero-based indices are [0,1].
+ *
+ * VISUAL DRY RUN:
+ *   i=0 value 2, complement 7 absent -> map={2:0}; i=1 value 7, complement 2 found
+ *   at index 0 -> return [0,1].
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

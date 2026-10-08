@@ -24,6 +24,13 @@ import java.util.Arrays;
  *   - Time:  O(n) - Single pass over string s.
  *   - Space: O(1) - Fixed ASCII direct-address table of size 128.
  *
+ *
+ * EXAMPLE:
+ *   The first main string is "abcabcbb"; expected longest length is 3 ("abc").
+ *
+ * VISUAL DRY RUN:
+ *   Window grows a-b-c (best=3). At the next a, lastSeen[a]=0 moves left to 1;
+ *   window b-c-a remains length 3. Repeated b's later move left past the old b; best stays 3.
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

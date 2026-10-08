@@ -20,6 +20,13 @@ package DSA.LinkedList;
  *   - Time:  O(n) - Finding mid + reversing half + comparing values.
  *   - Space: O(1) - In-place reversal.
  *
+ *
+ * EXAMPLE:
+ *   The first main list is 1->2->2->1; expected result is true.
+ *
+ * VISUAL DRY RUN:
+ *   Slow/fast find the midpoint; reverse the second half 2->1 to 1->2. Compare first
+ *   half 1,2 with reversed half 1,2: both pairs match, so return true.
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

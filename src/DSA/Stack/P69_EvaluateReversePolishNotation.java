@@ -25,6 +25,13 @@ import java.util.Deque;
  *   - Time:  O(n) - Single pass over the token list.
  *   - Space: O(n) - Stack stores operands.
  *
+ *
+ * EXAMPLE:
+ *   The first main tokens are ["2","1","+","3","*"]; expected value is 9.
+ *
+ * VISUAL DRY RUN:
+ *   Push 2 -> [2], push 1 -> [2,1]; '+' pops 1,2 and pushes 3 -> [3]; push 3 -> [3,3];
+ *   '*' pops 3,3 and pushes 9. Final stack top is 9.
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

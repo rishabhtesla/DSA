@@ -28,6 +28,14 @@ package DSA.twopointers;
  *   - Time:  O(n) - Both phases traverse at most linear steps.
  *   - Space: O(1) - Pointers only. Array is untouched.
  *
+ *
+ * EXAMPLE:
+ *   The first main array is [1,3,4,2,2], whose duplicate is 2.
+ *
+ * VISUAL DRY RUN:
+ *   Treat nums as next pointers: initially slow=fast=1; one iteration gives slow=3,
+ *   fast=2, and the next gives slow=2, fast=2, so they meet. Reset slow to nums[0]=1;
+ *   advance both (1->3->2 and 2->4->2), meeting at 2, the cycle entry and duplicate.
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

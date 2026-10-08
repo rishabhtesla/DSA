@@ -20,6 +20,13 @@ package DSA.LinkedList;
  *   - Time:  O(n) - Linear traversal.
  *   - Space: O(1) - Two reference pointers.
  *
+ *
+ * EXAMPLE:
+ *   The first main list is 3->2->0->-4 with -4.next pointing back to node 2; expected true.
+ *
+ * VISUAL DRY RUN:
+ *   Floyd starts slow=3, fast=3; after one step slow=2, fast=0; next slow=0, fast=2;
+ *   next slow=-4, fast=-4, so pointers meet inside the cycle and return true.
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

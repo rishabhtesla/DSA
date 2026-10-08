@@ -25,6 +25,13 @@ package DSA.twopointers;
  *   - Time:  O(n) - Left and right converge inward in a single scan.
  *   - Space: O(1) - Constant memory.
  *
+ *
+ * EXAMPLE:
+ *   The first main heights are [1,8,6,2,5,4,8,3,7]; expected maximum area is 49.
+ *
+ * VISUAL DRY RUN:
+ *   L=0,R=8 area=min(1,7)*8=8, move L; L=1,R=8 area=min(8,7)*7=49, best=49,
+ *   move the shorter R. Continue shrinking the shorter side; no later pair exceeds 49.
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

@@ -29,6 +29,13 @@ import java.util.List;
  *   - Time:  O(n) - Single pass where inner loop advances index `i`.
  *   - Space: O(1) - Auxiliary space (ignoring the output list).
  *
+ *
+ * EXAMPLE:
+ *   The first main array is [0,1,2,4,5,7], expecting ["0->2", "4->5", "7"].
+ *
+ * VISUAL DRY RUN:
+ *   Start range at 0; 1 and 2 are consecutive, so close it at 2 -> "0->2". Start 4,
+ *   extend through 5 -> "4->5". Start 7; it has no successor, so emit "7".
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

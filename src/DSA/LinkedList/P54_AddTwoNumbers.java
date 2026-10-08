@@ -22,6 +22,13 @@ package DSA.LinkedList;
  *   - Time:  O(max(m, n)) - Traversing the longer list.
  *   - Space: O(max(m, n)) - Output list nodes.
  *
+ *
+ * EXAMPLE:
+ *   The first main lists represent 342 (2->4->3) and 465 (5->6->4); expected 7->0->8 (807).
+ *
+ * VISUAL DRY RUN:
+ *   Add digits from the heads: 2+5=7 carry0 -> node7; 4+6=10 -> node0 carry1;
+ *   3+4+1=8 carry0 -> node8. Return 7->0->8.
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

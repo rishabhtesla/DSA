@@ -21,6 +21,13 @@ package DSA.LinkedList;
  *   - Time:  O(m + n) - At most two passes per pointer.
  *   - Space: O(1) - Two reference pointers.
  *
+ *
+ * EXAMPLE:
+ *   The first main lists are A=4->1->8->4->5 and B=5->6->1->8->4->5; expected intersection value 8.
+ *
+ * VISUAL DRY RUN:
+ *   pA traverses A then switches to B; pB traverses B then switches to A. After equalizing
+ *   the different prefixes, both pointers reach the shared node 8 simultaneously; return it.
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

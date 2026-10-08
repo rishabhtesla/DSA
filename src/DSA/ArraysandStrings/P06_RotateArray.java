@@ -24,6 +24,22 @@ import java.util.Arrays;
  *   - Time:  O(n) - Reversing takes linear time total across 3 passes.
  *   - Space: O(1) - In-place element swaps.
  *
+ *
+ * EXAMPLE:
+ *   Input: nums = [1, 2, 3, 4, 5, 6, 7], k = 3
+ *   Output: [5, 6, 7, 1, 2, 3, 4]
+ *
+ * VISUAL DRY RUN:
+ *   - Reverse the whole array:
+ *     [1,2,3,4,5,6,7] -> [7,6,5,4,3,2,1]
+ *   - Reverse the first k=3 values:
+ *     [7,6,5,4,3,2,1] -> [5,6,7,4,3,2,1]
+ *   - Reverse the remaining values from index 3:
+ *     [5,6,7,4,3,2,1] -> [5,6,7,1,2,3,4]
+ *   The last three original values are now at the front, which is a right
+ *   rotation by three positions.
+ *
+ *
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

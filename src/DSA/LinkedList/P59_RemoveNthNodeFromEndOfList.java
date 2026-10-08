@@ -20,6 +20,13 @@ package DSA.LinkedList;
  *   - Time:  O(n) - Single pass.
  *   - Space: O(1) - Pointers only.
  *
+ *
+ * EXAMPLE:
+ *   The first main list is 1->2->3->4->5 with n=2; expected output is 1->2->3->5.
+ *
+ * VISUAL DRY RUN:
+ *   Advance fast two nodes from dummy, then move fast/slow together until fast reaches the
+ *   tail: slow is at node 3, so slow.next (node 4, the 2nd from end) is bypassed. Return 1->2->3->5.
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

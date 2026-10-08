@@ -34,6 +34,14 @@ import java.util.Map;
  *   - Time:  O(wordLen * (n / wordLen)) = O(n) total word comparisons/hash operations.
  *   - Space: O(k) where k is total unique words stored in frequency maps.
  *
+ *
+ * EXAMPLE:
+ *   The first main input is s="barfoothefoobarman", words=["foo","bar"]; expected indices [0,9].
+ *
+ * VISUAL DRY RUN:
+ *   targetCount={foo:1,bar:1}, wordLen=3. Offset 0 reads bar,foo -> seen matches both,
+ *   record left=0. Reset at the invalid "the"; then read foo,bar -> record left=9;
+ *   all other offsets/windows are incomplete. Return [0,9].
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

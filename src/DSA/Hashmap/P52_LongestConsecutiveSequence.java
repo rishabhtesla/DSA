@@ -29,6 +29,13 @@ import java.util.Set;
  *   - Time:  O(n) - Linear lookups; each number enters the inner loop at most once.
  *   - Space: O(n) - Hash set storing unique values.
  *
+ *
+ * EXAMPLE:
+ *   The first main nums=[100,4,200,1,3,2]; expected longest length is 4 ([1,2,3,4]).
+ *
+ * VISUAL DRY RUN:
+ *   Set contains all values. Start only at 1 (0 absent), extend 1->2->3->4 for length 4;
+ *   4 is not a start, and 100/200 each give length 1. maxLen=4.
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

@@ -30,6 +30,13 @@ import java.util.List;
  *   - Time:  O(n log n) - Dominated by sorting the intervals.
  *   - Space: O(log n) to O(n) - Sorting recursion stack / output list.
  *
+ *
+ * EXAMPLE:
+ *   The first main intervals are [[1,3],[2,6],[8,10],[15,18]], expecting [[1,6],[8,10],[15,18]].
+ *
+ * VISUAL DRY RUN:
+ *   Current=[1,3]; [2,6] overlaps (2<=3), merge -> [1,6]. [8,10] starts after 6,
+ *   emit [1,6] and set current=[8,10]; [15,18] is separate. Emit both remaining ranges.
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

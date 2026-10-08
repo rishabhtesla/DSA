@@ -33,6 +33,14 @@ import java.util.List;
  *   - Time:  O(n^2) - Sorting takes O(n log n). The nested two-pointer loop takes O(n^2).
  *   - Space: O(log n) to O(n) - Sorting recursion stack.
  *
+ *
+ * EXAMPLE:
+ *   The first main array is [-1,0,1,2,-1,-4]; expected triples are [[-1,-1,2],[-1,0,1]].
+ *
+ * VISUAL DRY RUN:
+ *   Sort -> [-4,-1,-1,0,1,2]. Fix -4: remaining sums never reach 4. Fix -1 at index 1:
+ *   L=2,R=5 gives 0; move L; 0+2=2 -> record [-1,-1,2], then move both; 0+1=1 ->
+ *   record [-1,0,1]. Skip duplicate fixed -1; later starts cannot make a new triple.
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

@@ -22,6 +22,13 @@ package DSA.LinkedList;
  *   - Time:  O(n) - Every node is checked once and reversed once.
  *   - Space: O(1) - Iterative reversal.
  *
+ *
+ * EXAMPLE:
+ *   The first main list is 1->2->3->4->5 with k=2; expected 2->1->4->3->5.
+ *
+ * VISUAL DRY RUN:
+ *   First complete group [1,2] reverses to [2,1]; groupPrev moves to 1. Next [3,4]
+ *   reverses to [4,3]; only node 5 remains (<k), so leave it unchanged -> 2->1->4->3->5.
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

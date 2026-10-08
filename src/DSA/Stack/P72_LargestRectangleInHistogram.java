@@ -30,6 +30,13 @@ import java.util.Deque;
  *   - Time:  O(n) - Each index is pushed and popped at most once.
  *   - Space: O(n) - Monotonic stack of indices.
  *
+ *
+ * EXAMPLE:
+ *   The first main heights=[2,1,5,6,2,3]; expected largest area is 10 (bars 5 and 6).
+ *
+ * VISUAL DRY RUN:
+ *   Stack indices stay increasing: when height 2 at i=4 arrives, pop 6 (width 1 area 6),
+ *   pop 5 (width 2 area 10), then push 4. Flush at the sentinel: max remains 10.
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

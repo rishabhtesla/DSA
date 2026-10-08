@@ -25,6 +25,13 @@ package DSA.Hashmap;
  *   - Time:  O(log n) - Number of digits drops rapidly; cycle detection takes few steps.
  *   - Space: O(1) - Pointers only; avoids `HashSet<Integer>`.
  *
+ *
+ * EXAMPLE:
+ *   The first main number is 19; expected result is true.
+ *
+ * VISUAL DRY RUN:
+ *   Replace n by squared digits: 19 -> 1^2+9^2=82 -> 68 -> 100 -> 1. The seen set
+ *   never repeats before 1, so return true (the second main case 2 eventually cycles).
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

@@ -23,6 +23,13 @@ package DSA.Hashmap;
  *   - Time:  O(n) - Single pass over the strings.
  *   - Space: O(1) - Two fixed ASCII tables of size 256.
  *
+ *
+ * EXAMPLE:
+ *   The first main call compares "egg" with "add"; expected result is true.
+ *
+ * VISUAL DRY RUN:
+ *   Pair map: e->a and a->e; next g->d and d->g; final g/d pair repeats the same mapping.
+ *   No conflicting forward or reverse mapping is found, so return true.
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

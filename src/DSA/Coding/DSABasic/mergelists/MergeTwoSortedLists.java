@@ -1,6 +1,6 @@
 package DSA.Coding.DSABasic.mergelists;
 
-import Coding.DSABasic.ListNode;
+import DSA.Coding.DSABasic.ListNode;
 
 import java.util.*;
 

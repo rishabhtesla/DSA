@@ -19,6 +19,13 @@ package DSA.LinkedList;
  *   - Time:  O(1) - Constant operation.
  *   - Space: O(1) - Zero allocations.
  *
+ *
+ * EXAMPLE:
+ *   The first main list is 4->5->1->9 and the node to delete is 5; expected 4->1->9.
+ *
+ * VISUAL DRY RUN:
+ *   The node itself is not the tail, so copy successor value 1 into the node (list appears
+ *   4->1->1->9), then link around its successor. The resulting links are 4->1->9.
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

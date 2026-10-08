@@ -23,6 +23,13 @@ package DSA.ArraysandStrings;
  *            Best case O(minLen * n) if mismatch occurs early.
  *   - Space: O(1) - Constant auxiliary space.
  *
+ *
+ * EXAMPLE:
+ *   The first main input is ["flower", "flow", "flight"] and the expected prefix is "fl".
+ *
+ * VISUAL DRY RUN:
+ *   Compare the first column: f=f=f -> prefix "f"; second: l=l=l -> "fl";
+ *   third differs (o,o,i), so stop immediately and return "fl".
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

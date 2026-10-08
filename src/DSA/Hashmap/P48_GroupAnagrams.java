@@ -28,6 +28,14 @@ import java.util.Map;
  *   - Time:  O(N * K log K) where N = strs.length and K = max word length.
  *   - Space: O(N * K) to store the grouped lists and map entries.
  *
+ *
+ * EXAMPLE:
+ *   The first main input is ["eat","tea","tan","ate","nat","bat"], expected groups
+ *   are [eat,tea,ate], [tan,nat], and [bat] (in any order).
+ *
+ * VISUAL DRY RUN:
+ *   Sorted-key map evolves: aet->[eat,tea], ant->[tan], aet->[eat,tea,ate], ant->[tan,nat],
+ *   abt->[bat]. Returning map.values() gives the three groups.
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

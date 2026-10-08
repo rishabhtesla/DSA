@@ -23,6 +23,23 @@ package DSA.ArraysandStrings;
  *   - Time:  O(n) - One pass.
  *   - Space: O(1) - Two primitive variables.
  *
+ *
+ * EXAMPLE:
+ *   Input: nums = [2, 2, 1, 1, 1, 2, 2]
+ *   Output: 2
+ *
+ * VISUAL DRY RUN:
+ *   candidate = -, count = 0
+ *   - num=2: count=0, choose candidate=2; same -> count=1
+ *   - num=2: same as candidate; count=2
+ *   - num=1: different; count=1
+ *   - num=1: different; count=0
+ *   - num=1: count=0, choose candidate=1; same -> count=1
+ *   - num=2: different; count=0
+ *   - num=2: count=0, choose candidate=2; same -> count=1
+ *   Final candidate = 2. The majority guarantee makes this candidate correct.
+ *
+ *
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

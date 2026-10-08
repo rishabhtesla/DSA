@@ -20,6 +20,13 @@ package DSA.LinkedList;
  *   - Time:  O(n) - Traverse to tail, then traverse to break point.
  *   - Space: O(1) - In-place rotation.
  *
+ *
+ * EXAMPLE:
+ *   The first main list is 1->2->3->4->5 with k=2; expected 4->5->1->2->3.
+ *
+ * VISUAL DRY RUN:
+ *   Length=5, so k%=5=2. Join tail to head, then walk newTail to node 3; break after it:
+ *   newHead=4 and the cycle becomes 4->5->1->2->3. Return newHead.
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

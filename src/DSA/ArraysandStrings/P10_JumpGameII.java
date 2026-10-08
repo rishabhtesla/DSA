@@ -22,6 +22,19 @@ package DSA.ArraysandStrings;
  *   - Time:  O(n) - Linear pass through the array.
  *   - Space: O(1) - Constant variables.
  *
+ *
+ * EXAMPLE: nums = [2, 3, 1, 1, 4] -> minimum jumps = 2
+ *
+ * VISUAL DRY RUN:
+ *   Start: jumps=0, currentEnd=0, farthest=0.
+ *   - i=0: farthest=max(0, 0+2)=2. i reached currentEnd, so finish jump 1
+ *     and set currentEnd=2.
+ *   - i=1: farthest=max(2, 1+3)=4.
+ *   - i=2: farthest=max(4, 2+1)=4. i reached currentEnd, so finish jump 2
+ *     and set currentEnd=4 (the last index).
+ *   Return jumps=2: path can be 0 -> 1 -> 4.
+ *
+ *
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

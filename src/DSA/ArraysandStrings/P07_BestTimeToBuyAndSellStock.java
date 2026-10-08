@@ -21,6 +21,23 @@ package DSA.ArraysandStrings;
  *   - Time:  O(n) - Single pass through the prices array.
  *   - Space: O(1) - Only two scalar tracking variables.
  *
+ *
+ * EXAMPLE:
+ *   Input: prices = [7, 1, 5, 3, 6, 4]
+ *   Output: 5
+ *
+ * VISUAL DRY RUN:
+ *   price | minPrice | profit if sold today | maxProfit
+ *   ------+----------+----------------------+----------
+ *     7   |    7     |          -           |    0
+ *     1   |    1     |          -           |    0
+ *     5   |    1     |          4           |    4
+ *     3   |    1     |          2           |    4
+ *     6   |    1     |          5           |    5
+ *     4   |    1     |          3           |    5
+ *   The best decision is buy at 1 and sell at 6, giving profit 5.
+ *
+ *
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

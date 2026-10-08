@@ -27,6 +27,13 @@ import java.util.Deque;
  *   - Time:  O(n) - Single pass through the string.
  *   - Space: O(n) - Stack stores unmatched brackets.
  *
+ *
+ * EXAMPLE:
+ *   The first main string is "()[]{}"; expected result is true.
+ *
+ * VISUAL DRY RUN:
+ *   Stack transitions: '(' -> [(]; ')' pops it -> []; '[' -> [[ ]; ']' pops; '{' pushes;
+ *   '}' pops. Stack is empty at the end and every closer matched, so return true.
  * CRITICAL THINKING CHECKPOINTS:
  *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
  *   2. What invariant must remain true after every loop iteration?

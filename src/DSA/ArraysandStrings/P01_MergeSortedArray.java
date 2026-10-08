@@ -33,6 +33,31 @@ import java.util.Arrays;
  *   3. Why is each pointer/state update safe, and what counterexample would break it?
  *   4. Which edge cases change the control flow (empty input, one item, duplicates, or boundaries)?
  *   5. Can you derive the time and extra-space complexity without looking at the answer?
+ *
+ * DRY RUN:
+ *   nums1 = [1, 2, 3, 0, 0, 0], m = 3
+ *   nums2 = [2, 5, 6],           n = 3
+ *
+ *   The meaningful part of nums1 ends at index 2. The zeros are free space.
+ *   We fill that free space from right to left so that an existing value is
+ *   moved only after it has already been read.
+ *
+ *   Step | p1/value | p2/value | write | Decision                    | nums1
+ *   -----+----------+----------+-------+-----------------------------+----------------------
+ *     0  | 2 / 3    | 2 / 6    |   5   | Start                       | [1, 2, 3, 0, 0, 0]
+ *     1  | 2 / 3    | 1 / 5    |   4   | Write 6 from nums2           | [1, 2, 3, 0, 0, 6]
+ *     2  | 2 / 3    | 0 / 5    |   3   | Write 5 from nums2           | [1, 2, 3, 0, 5, 6]
+ *     3  | 1 / 2    | 0 / 2    |   2   | Write 3 from nums1           | [1, 2, 3, 3, 5, 6]
+ *     4  | 1 / 2    | -1      |   1   | Write 2 from nums2           | [1, 2, 2, 3, 5, 6]
+ *
+ *   nums2 is now exhausted, so the loop stops. The remaining nums1 values
+ *   [1, 2] are already in their final positions at indices 0 and 1.
+ *
+ *   Important observation:
+ *   At every step, positions after `write` are finalized and contain the
+ *   largest values in sorted order. This is the loop invariant. When the
+ *   largest remaining value belongs to nums1, moving it to `write` is safe
+ *   because `write` is at or after the unread portion of nums1.
  */
 public class P01_MergeSortedArray {
 
@@ -41,9 +66,9 @@ public class P01_MergeSortedArray {
         int p2 = n - 1;          // Pointer to last item in nums2
         int write = m + n - 1;   // Pointer to back of nums1
 
-        // Loop as long as nums2 has items to merge
+        // The suffix after write is finalized after every iteration.
         while (p2 >= 0) {
-            // If nums1 has elements remaining AND its value is larger
+            // Compare the largest unread values and place the larger one at write.
             if (p1 >= 0 && nums1[p1] > nums2[p2]) {
                 nums1[write] = nums1[p1];
                 p1--;
