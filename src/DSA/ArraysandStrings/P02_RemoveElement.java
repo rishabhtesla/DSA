@@ -3,53 +3,60 @@ package DSA.ArraysandStrings;
 import java.util.Arrays;
 
 /**
- * ============================================================================
- * [02 / 24] - REMOVE ELEMENT (LeetCode 27)
- * ============================================================================
- * 
- * PROBLEM:
- *   Given an integer array nums and an integer val, remove all occurrences of val
- *   in-place. Return the number of elements (k) remaining. The first k elements
- *   must hold the non-val values.
+ - ============================================================================
+ - [02 / 24] - REMOVE ELEMENT (LeetCode 27)
+ - ============================================================================
+ -
+ - PROBLEM:
+ -   Given an integer array nums and an integer val, remove all occurrences of val
+ -   in-place. Return the number of elements (k) remaining. The first k elements
+ -   must hold the non-val values.
  *
- * INTERVIEW INTUITION & "AHA!" MOMENT:
- *   - Two-Pointer Reader/Writer pattern.
- *   - 'write' marks the index where the next valid element belongs.
- *   - 'read' iterates through every element.
- *   - Whenever nums[read] != val, write it into nums[write] and advance write.
- *   - Any element matching val is simply skipped by 'read'.
+ - INTERVIEW INTUITION & "AHA!" MOMENT:
+ - Two-Pointer Reader/Writer pattern.
+ - 'write' marks the index where the next valid element belongs.
+ - 'read' iterates through every element.
+ - Whenever nums[read] != val, write it into nums[write] and advance write.
+ - Any element matching val is simply skipped by 'read'.
  *
- * COMPLEXITY:
- *   - Time:  O(n) - Single pass through nums.
- *   - Space: O(1) - Constant auxiliary space.
+ - COMPLEXITY:
+ - Time:  O(n) - Single pass through nums.
+ - Space: O(1) - Constant auxiliary space.
  *
- * CRITICAL THINKING CHECKPOINTS:
- *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
- *   2. What invariant must remain true after every loop iteration?
- *   3. Why is each pointer/state update safe, and what counterexample would break it?
- *   4. Which edge cases change the control flow (empty input, one item, duplicates, or boundaries)?
- *   5. Can you derive the time and extra-space complexity without looking at the answer?
+ - EXAMPLE:
+ -   Input:  nums = [3, 2, 2, 3], val = 3
+ -   Output: k = 2, and the first k values are [2, 2]
  *
- * DRY RUN:
- *   nums = [3, 2, 2, 3], val = 3
+ - VISUAL DRY RUN:
+ -   `write` starts at 0 because the first position is available for valid values.
+ -   `read` checks each value against `val`.
  *
- *   `read` examines every element. `write` marks the next position where a
- *   value different from `val` should be stored. Therefore, `write` never
- *   moves ahead of `read`, so copying is always safe.
+ -   Initial: read = 0, write = 0
+ -            nums = [3, 2, 2, 3]
  *
- *   Step | read/value | write before | Decision             | Array after step | write after
- *   -----+------------+--------------+----------------------+------------------+------------
- *     1  | 0 / 3      |      0       | Skip: value == 3    | [3, 2, 2, 3]    |     0
- *     2  | 1 / 2      |      0       | Copy 2 to index 0   | [2, 2, 2, 3]    |     1
- *     3  | 2 / 2      |      1       | Copy 2 to index 1   | [2, 2, 2, 3]    |     2
- *     4  | 3 / 3      |      2       | Skip: value == 3    | [2, 2, 2, 3]    |     2
+ - read = 0: nums[0] = 3, val = 3
+ -     Match val -> skip it. write remains 0.
  *
- *   The method returns `write = 2`, so only the first two positions matter:
- *   prefix = [2, 2]. Values after index `write - 1` are irrelevant.
+ - read = 1: nums[1] = 2, val = 3
+ -     Different from val -> nums[write] = nums[1], so nums[0] = 2.
+ -     nums = [2, 2, 2, 3], write = 1
  *
- *   Loop invariant:
- *   Before reading index `read`, the prefix nums[0..write-1] contains exactly
- *   the non-`val` values seen so far, in their original relative order.
+ - read = 2: nums[2] = 2, val = 3
+ -     Different from val -> nums[write] = nums[2], so nums[1] = 2.
+ -     nums = [2, 2, 2, 3], write = 2
+ *
+ - read = 3: nums[3] = 3, val = 3
+ -     Match val -> skip it. write remains 2.
+ *
+ -   The loop ends. Return write = 2.
+ -   Only the first two positions matter: [2, 2].
+ *
+ - CRITICAL THINKING CHECKPOINTS:
+ - Before coding, what would the brute-force solution do, and where does it repeat work?
+ -   2. What invariant must remain true after every loop iteration?
+ -   3. Why is each pointer/state update safe, and what counterexample would break it?
+ -   4. Which edge cases change the control flow (empty input, one item, duplicates, or boundaries)?
+ -   5. Can you derive the time and extra-space complexity without looking at the answer?
  */
 public class P02_RemoveElement {
 
