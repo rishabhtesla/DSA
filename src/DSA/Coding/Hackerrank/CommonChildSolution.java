@@ -4,74 +4,100 @@ import java.util.Scanner;
 
 /**
  * ============================================================================
- * 1. PROBLEM STATEMENT (HackerRank: "Common Child")
+ * PROBLEM BREAKDOWN: "COMMON CHILD" (HackerRank) / LCS (LeetCode 1143)
  * ============================================================================
- * A string is said to be a child of another string if it can be formed by 
- * deleting 0 or more characters from the other string. Letters cannot be 
- * rearranged.
  *
- * Given two strings of equal length, what is the length of the longest string 
- * that can be constructed such that it is a child of both?
- *
- * In computer science, this is identical to the classic:
- * "Longest Common Subsequence (LCS)" problem.
- *
- * Example 1:
- *   s1 = "HARRY"
- *   s2 = "SALLY"
- *   Common children of both strings: "AY" (length 2).
- *   Output: 2
- *
- * Example 2:
- *   s1 = "AA"
- *   s2 = "BB"
- *   Output: 0 (No common characters)
- *
- * Example 3:
- *   s1 = "SHINCHAN"
- *   s2 = "NOHARAAA"
- *   Longest common child: "NHA" (length 3).
- *   Output: 3
- *
- * Constraints:
- *   - 1 <= |s1|, |s2| <= 5000
- *   - All characters are uppercase English letters (A-Z).
- *
- * ============================================================================
- * 2. LOGIC & DYNAMIC PROGRAMMING RECURRENCE
- * ============================================================================
- * Let DP[i][j] represent the length of the Longest Common Child of prefixes
- * s1[0...i-1] and s2[0...j-1].
- *
- * Base Case:
- *   DP[0][j] = 0 (empty prefix of s1)
- *   DP[i][0] = 0 (empty prefix of s2)
- *
- * Transitions:
- *   - If s1.charAt(i - 1) == s2.charAt(j - 1):
- *       DP[i][j] = 1 + DP[i - 1][j - 1]
- *       (Characters match: extend the subsequence by 1)
- *
- *   - Else:
- *       DP[i][j] = max(DP[i - 1][j], DP[i][j - 1])
- *       (Skip current char of s1 OR skip current char of s2)
- *
+ * 1. WHAT DOES "CHILD STRING" ACTUALLY MEAN?
  * ----------------------------------------------------------------------------
- * MEMORY OPTIMIZATION (Crucial for HackerRank 5000 x 5000 Constraint):
- * ----------------------------------------------------------------------------
- * A standard 5000 x 5000 int array requires:
- *   5000 * 5000 * 4 bytes ≈ 100 MB, which risks Memory Limit Exceeded in Java.
+ * A string S_child is a "child" of S_parent if you can create S_child by
+ * DELETING 0 or more characters from S_parent WITHOUT rearranging the order.
  *
- * Since row 'i' depends only on the previous row 'i - 1', we only need TWO rows:
- *   - prevRow[]
- *   - currRow[]
- * Space drops from O(M * N) to O(N) (5000 * 4 bytes ≈ 20 KB).
- * ============================================================================
+ * In standard Computer Science terminology:
+ *   "Child String" == "Subsequence"
+ *   "Longest Common Child" == "Longest Common Subsequence (LCS)"
+ *
+ * NOTE THE DIFFERENCE:
+ *   - Substring   -> MUST be contiguous (e.g., "ARR" is a substring of "HARRY").
+ *   - Subsequence -> Can have gaps (e.g., "AY" is formed by deleting 'H', 'R', 'R'
+ *                    from "HARRY" -> order is strictly preserved).
+ *
+ *
+ * 2. COMPREHENSIVE TEST CASES & INTUITION:
+ * ----------------------------------------------------------------------------
+ * Case 1: s1 = "HARRY", s2 = "SALLY"
+ *   - Potential common letters: 'A', 'Y'
+ *   - Relative order in s1: 'A' appears before 'Y'.
+ *   - Relative order in s2: 'A' appears before 'Y'.
+ *   - Valid common child: "AY" (Length = 2).
+ *
+ * Case 2: s1 = "SHINCHAN", s2 = "NOHARAAA"
+ *   - Look for matching letters appearing in identical left-to-right order:
+ *     s1: S  [H]  I  [N]  C  H  [A]  N
+ *     s2: [N]  O  [H]  A  R  [A]  A  A  -> Order mismatch between 'N' and 'H'.
+ *     Valid matching subsequence preserving order: "NHA" (Length = 3).
+ *
+ * Case 3: s1 = "ABCD", s2 = "DCBA"
+ *   - Characters are reversed. You cannot pick more than 1 character while
+ *     preserving order (e.g., picking 'A', 'B', 'C', or 'D').
+ *   - Output: 1
+ *
+ * Case 4: s1 = "ABC", s2 = "DEF"
+ *   - Completely disjoint sets of characters.
+ *   - Output: 0
+ *
+ *
+ * 3. DYNAMIC PROGRAMMING RECURRENCE & DECISION TREE:
+ * ----------------------------------------------------------------------------
+ * Let DP[i][j] = length of the Longest Common Child using prefixes:
+ *                s1[0 ... i-1] (first i characters of s1)
+ *                s2[0 ... j-1] (first j characters of s2)
+ *
+ * At any pair of characters (s1[i-1], s2[j-1]), there are two possible decisions:
+ *
+ * Case A: Characters MATCH (s1[i - 1] == s2[j - 1])
+ *   - Both characters contribute to the common child!
+ *   - Formula: DP[i][j] = 1 + DP[i - 1][j - 1]   (Diagonal top-left + 1)
+ *
+ * Case B: Characters MISMATCH (s1[i - 1] != s2[j - 1])
+ *   - Both characters CANNOT match at this step. We take the best option between:
+ *       1. Drop current char of s1: DP[i - 1][j] (look at the cell above)
+ *       2. Drop current char of s2: DP[i][j - 1] (look at the cell to the left)
+ *   - Formula: DP[i][j] = Math.max(DP[i - 1][j], DP[i][j - 1])
+ *
+ * Base Cases:
+ *   - DP[0][j] = 0 (comparing empty string against prefix of s2)
+ *   - DP[i][0] = 0 (comparing prefix of s1 against empty string)
+ *
+ *
+ * 4. WHY MEMORY OPTIMIZATION IS CRITICAL:
+ * ----------------------------------------------------------------------------
+ * Constraints: |s1|, |s2| <= 5000.
+ *
+ * - 2D Table:
+ *     A table of size 5001 x 5001 int values requires:
+ *     5001 * 5001 * 4 bytes ≈ 100,040,000 bytes ≈ 95.4 MB.
+ *     In competitive programming platforms like HackerRank, a 100 MB allocation
+ *     frequently triggers Memory Limit Exceeded (MLE) or heavy Garbage Collection pauses.
+ *
+ * - 1D Rolling Rows:
+ *     To calculate `currRow[j]`, we ONLY need:
+ *       1. `prevRow[j - 1]` (top-left diagonal)
+ *       2. `prevRow[j]`     (cell directly above)
+ *       3. `currRow[j - 1]` (cell to the left)
+ *     We only need TWO rows of size (N + 1):
+ *     2 * 5001 * 4 bytes ≈ 40 KB (a 2500x memory reduction!).
+ *
+ *
+ * 5. COMPLEXITY:
+ * ----------------------------------------------------------------------------
+ * - Time:  O(M * N) -> Nested loop visiting each character pair once.
+ * - Space: O(N)     -> Two 1D arrays of size (N + 1) for the optimized version.
+ *          O(M * N) -> Full table for the textbook 2D version.
  */
 public class CommonChildSolution {
 
     /**
-     * Memory-Optimized DP Solution (Recommended for HackerRank)
+     * Memory-Optimized DP Solution (Recommended for HackerRank & Production)
      * Time Complexity:  O(M * N) where M = s1.length(), N = s2.length()
      * Space Complexity: O(N) using only two 1D rows
      */
@@ -92,12 +118,12 @@ public class CommonChildSolution {
                     // Match: diagonal value + 1
                     currRow[j] = 1 + prevRow[j - 1];
                 } else {
-                    // Mismatch: max of left and top
+                    // Mismatch: max of left (currRow[j - 1]) and top (prevRow[j])
                     currRow[j] = Math.max(currRow[j - 1], prevRow[j]);
                 }
             }
 
-            // Copy currRow to prevRow for the next iteration
+            // Copy currRow to prevRow for the next character of s1
             System.arraycopy(currRow, 0, prevRow, 0, n + 1);
         }
 

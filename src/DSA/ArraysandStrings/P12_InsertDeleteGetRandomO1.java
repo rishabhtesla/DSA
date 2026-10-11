@@ -10,42 +10,89 @@ import java.util.Random;
  * ============================================================================
  * [12 / 24] - INSERT DELETE GETRANDOM O(1) (LeetCode 380)
  * ============================================================================
- * 
- * PROBLEM:
- *   Implement RandomizedSet with insert, remove, and getRandom operations,
- *   all running in average O(1) time complexity.
  *
- * INTERVIEW INTUITION & "AHA!" MOMENT:
- *   - Hash Map: O(1) insert/remove, but lacks index-based uniform random access.
- *   - ArrayList: O(1) getRandom by index, but remove(val) takes O(n) due to shifting.
- *   - Dual Data Structure Synergy:
- *     1. Use `ArrayList` to store elements sequentially for O(1) random lookup.
- *     2. Use `HashMap<Integer, Integer>` mapping val -> index in the list.
- *     3. Swap-and-Pop Deletion:
- *        To delete an element in O(1) without shifting, overwrite its slot with
- *        the array's last element, update the map index of the last element,
- *        and pop the last element from the list.
+ * 1. PROBLEM STATEMENT:
+ * ----------------------------------------------------------------------------
+ * Design a data structure `RandomizedSet` supporting three operations:
+ *   - insert(val):    Inserts `val` if not present. Returns true if added, false if already exists.
+ *   - remove(val):    Removes `val` if present. Returns true if removed, false if not found.
+ *   - getRandom():    Returns a random element from the current set.
+ *                     Each element MUST have the exact same probability of being chosen: 1 / N.
  *
- * COMPLEXITY:
- *   - Time:  O(1) average for insert, remove, and getRandom.
- *   - Space: O(n) to store values and their index mappings.
+ * CONSTRAINT:
+ *   All three operations must execute in AVERAGE O(1) time complexity.
  *
  *
- * EXAMPLE:
- *   The first main sequence inserts 1, attempts to remove 2, inserts 2, samples,
- *   removes 1, then samples again; the deterministic state outputs are true, false,
- *   true, (1 or 2), true, 2.
+ * 2. THE ARCHITECTURAL DILEMMA ("WHY A SINGLE STRUCTURE FAILS"):
+ * ----------------------------------------------------------------------------
+ * Attempt A: HashSet / HashMap alone
+ *   - insert(val): O(1) average.
+ *   - remove(val): O(1) average.
+ *   - getRandom(): FAILS O(1). Hash buckets have gaps/collisions and no contiguous
+ *     0-based index. To pick uniformly, you must traverse or convert to an array -> O(N).
  *
- * VISUAL DRY RUN:
- *   list=[] map={}; insert(1) -> list=[1], map={1:0}; remove(2) misses -> unchanged.
- *   insert(2) -> list=[1,2], map={1:0,2:1}; remove(1) swaps 2 into index 0 and pops:
- *   list=[2], map={2:0}; the final getRandom() can only return 2.
- * CRITICAL THINKING CHECKPOINTS:
- *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
- *   2. What invariant must remain true after every loop iteration?
- *   3. Why is each pointer/state update safe, and what counterexample would break it?
- *   4. Which edge cases change the control flow (empty input, one item, duplicates, or boundaries)?
- *   5. Can you derive the time and extra-space complexity without looking at the answer?
+ * Attempt B: Dynamic Array (ArrayList) alone
+ *   - getRandom(): O(1) via random index `rand.nextInt(list.size())`.
+ *   - insert(val): O(1) amortized append.
+ *   - remove(val): FAILS O(1). Deleting an element from the middle of an array
+ *     requires shifting all subsequent elements to the left -> O(N).
+ *
+ *
+ * 3. THE "AHA!" MOMENT: DUAL STRUCTURE + SWAP-AND-POP
+ * ----------------------------------------------------------------------------
+ * Combine both structures:
+ *   1. `ArrayList<Integer> list`:
+ *      Stores all distinct values contiguously so `getRandom()` is a trivial O(1) index lookup.
+ *   2. `HashMap<Integer, Integer> valToIndex`:
+ *      Maps `value -> its index in list`, giving O(1) lookup to check existence and position.
+ *
+ * THE "SWAP-AND-POP" TRICK FOR O(1) DELETION:
+ *   Removing the last element of an ArrayList takes O(1) because zero elements need to shift!
+ *   Therefore, to delete any arbitrary element at `index`:
+ *     Step a: Grab the very last element in the list: `lastVal = list.get(list.size() - 1)`.
+ *     Step b: Overwrite slot `index` with `lastVal`.
+ *     Step c: Update `valToIndex` so `lastVal` points to its new home (`index`).
+ *     Step d: Pop the duplicate trailing slot off the list: `list.remove(list.size() - 1)`.
+ *     Step e: Delete the original target `val` from the map.
+ *
+ *
+ * 4. DETAILED TRACE & EDGE CASES:
+ * ----------------------------------------------------------------------------
+ * Case 1: Standard Deletion (Element in the middle)
+ *   State: list = [10, 20, 30, 40], map = {10:0, 20:1, 30:2, 40:3}
+ *   Call:  remove(20)  (target index = 1, lastElement = 40)
+ *     1. Move 40 to index 1: list becomes [10, 40, 30, 40]
+ *     2. Update map: map.put(40, 1)
+ *     3. Pop tail: list becomes [10, 40, 30]
+ *     4. Remove 20 from map: map.remove(20)
+ *   Result: list = [10, 40, 30], map = {10:0, 40:1, 30:2} in O(1) time.
+ *
+ * Case 2: Removing the Last Element (No actual swap needed)
+ *   State: list = [10, 20, 30], map = {10:0, 20:1, 30:2}
+ *   Call:  remove(30)  (target index = 2, lastElement = 30)
+ *     1. list.set(2, 30) -> list stays [10, 20, 30]
+ *     2. map.put(30, 2)
+ *     3. list.remove(2)  -> list becomes [10, 20]
+ *     4. map.remove(30)  -> 30 removed from map
+ *   *Note: Because Step 1 and 2 write before Step 3 and 4 remove,
+ *          removing the tail works naturally without extra if/else checks!*
+ *
+ * Case 3: Removing the Only Element (Size = 1)
+ *   State: list = [5], map = {5:0}
+ *   Call:  remove(5)
+ *     - list.set(0, 5), map.put(5, 0)
+ *     - list.remove(0) -> list becomes empty []
+ *     - map.remove(5)  -> map becomes empty {}
+ *
+ *
+ * 5. COMPLEXITY:
+ * ----------------------------------------------------------------------------
+ * - Time:
+ *     - insert(val):  O(1) average (HashMap put + ArrayList append).
+ *     - remove(val):  O(1) average (HashMap get/remove + ArrayList set/remove last).
+ *     - getRandom():  O(1) (random integer generation + ArrayList index access).
+ * - Space:
+ *     - O(N) where N is the number of distinct elements stored across the list and map.
  */
 public class P12_InsertDeleteGetRandomO1 {
 
@@ -61,15 +108,19 @@ public class P12_InsertDeleteGetRandomO1 {
         }
 
         public boolean insert(int val) {
+            // Already present: cannot insert duplicates
             if (valToIndex.containsKey(val)) {
                 return false;
             }
+
+            // New element goes to the end of the list (index = current size)
             valToIndex.put(val, list.size());
             list.add(val);
             return true;
         }
 
         public boolean remove(int val) {
+            // Not present: nothing to remove
             if (!valToIndex.containsKey(val)) {
                 return false;
             }
@@ -77,11 +128,11 @@ public class P12_InsertDeleteGetRandomO1 {
             int index = valToIndex.get(val);
             int lastElement = list.get(list.size() - 1);
 
-            // Swap: move last element into the deleted slot
+            // Step 1: Overwrite target slot with the last element
             list.set(index, lastElement);
             valToIndex.put(lastElement, index);
 
-            // Pop: drop the trailing element
+            // Step 2: Delete the trailing element and clear target from the map
             list.remove(list.size() - 1);
             valToIndex.remove(val);
 
@@ -89,6 +140,7 @@ public class P12_InsertDeleteGetRandomO1 {
         }
 
         public int getRandom() {
+            // Pick a uniform random index from [0, list.size() - 1]
             return list.get(rand.nextInt(list.size()));
         }
     }
