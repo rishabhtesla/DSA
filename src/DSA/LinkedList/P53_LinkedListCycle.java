@@ -4,35 +4,48 @@ package DSA.LinkedList;
  * ============================================================================
  * [53 / 65] - LINKED LIST CYCLE (LeetCode 141)
  * ============================================================================
- * 
- * PROBLEM:
- *   Given head, the head of a linked list, determine if the linked list has a cycle in it.
- *   Return true if there is a cycle, or false otherwise.
  *
- * INTERVIEW INTUITION & "AHA!" MOMENT:
- *   - Floyd's Tortoise and Hare (Fast & Slow Pointers):
- *     Advance `slow` by 1 step and `fast` by 2 steps.
- *     If there is no cycle, `fast` or `fast.next` will reach null.
- *     If there is a cycle, the distance between fast and slow decreases by 1 node
- *     per iteration inside the cycle, guaranteeing they will meet without looping infinitely.
+ * PROBLEM STATEMENT:
+ * Given `head`, the head of a linked list, determine if the linked list has a cycle in it.
+ * Return `true` if there is a cycle, or `false` otherwise.
  *
+ * ----------------------------------------------------------------------------
+ * INTERVIEW INTUITION & EVOLUTION:
+ * ----------------------------------------------------------------------------
+ * 1. Naive / HashSet Approach:
+ *    - Use a `HashSet<ListNode>` to keep track of visited nodes. If we encounter a node
+ *      already present in the set, a cycle exists.
+ *    - Valid, but requires O(n) extra space.
+ *
+ * 2. Optimal Floyd's Tortoise and Hare Approach (O(n) Time | O(1) Space):
+ *    - **The Core Insight:** Use two pointers moving at different speeds: `slow` (advances by 1 step)
+ *      and `fast` (advances by 2 steps).
+ *    - If there is no cycle, `fast` or `fast.next` will naturally reach `null`.
+ *    - If there is a cycle, the distance between `fast` and `slow` decreases by 1 node per iteration
+ *      once inside the loop, mathematically guaranteeing that they will eventually meet without infinite looping.
+ *
+ * ----------------------------------------------------------------------------
  * COMPLEXITY:
- *   - Time:  O(n) - Linear traversal.
- *   - Space: O(1) - Two reference pointers.
+ * - Time:  O(n) - Linear traversal. In the worst case, `fast` traverses the cycle at most once before meeting `slow`.
+ * - Space: O(1) - Uses only two reference pointers (`slow` and `fast`), requiring constant auxiliary space.
  *
- *
+ * ----------------------------------------------------------------------------
  * EXAMPLE:
- *   The first main list is 3->2->0->-4 with -4.next pointing back to node 2; expected true.
+ * - List: `3 -> 2 -> 0 -> -4`, where `-4` points back to `2` -> `true`
  *
- * VISUAL DRY RUN:
- *   Floyd starts slow=3, fast=3; after one step slow=2, fast=0; next slow=0, fast=2;
- *   next slow=-4, fast=-4, so pointers meet inside the cycle and return true.
+ * VISUAL DRY RUN (for the cycle test case):
+ *   - Initial: `slow = 3`, `fast = 3`
+ *   - Iteration 1: `slow` moves to `2`, `fast` moves to `0`
+ *   - Iteration 2: `slow` moves to `0`, `fast` moves to `2`
+ *   - Iteration 3: `slow` moves to `-4`, `fast` moves to `-4`
+ *   - Pointers meet (`slow == fast`), returns `true`.
+ *
+ * ----------------------------------------------------------------------------
  * CRITICAL THINKING CHECKPOINTS:
- *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
- *   2. What invariant must remain true after every loop iteration?
- *   3. Why is each pointer/state update safe, and what counterexample would break it?
- *   4. Which edge cases change the control flow (empty input, one item, duplicates, or boundaries)?
- *   5. Can you derive the time and extra-space complexity without looking at the answer?
+ * 1. Why does Floyd's algorithm guarantee a meeting point inside a cycle?
+ *    (Because the fast pointer closes the gap by 1 node relative to the slow pointer during every single step inside the loop.)
+ * 2. What edge cases are handled upfront?
+ *    (A `null` head or a list with only a single node (`head.next == null`) immediately returns `false` since a cycle cannot form.)
  */
 public class P53_LinkedListCycle {
 

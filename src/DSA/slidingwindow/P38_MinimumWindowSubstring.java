@@ -4,47 +4,54 @@ package DSA.slidingwindow;
  * ============================================================================
  * [38 / 38] - MINIMUM WINDOW SUBSTRING (LeetCode 76)
  * ============================================================================
- * 
- * PROBLEM:
- *   Given two strings s and t of lengths m and n respectively, return the minimum
- *   window substring of s such that every character in t (including duplicates)
- *   is included in the window. If there is no such substring, return the empty string "".
  *
- * INTERVIEW INTUITION & "AHA!" MOMENT:
- *   - Two-Array Sliding Window with Match Counter:
- *     Use `int[128] target` for required counts from t, and `int[128] window` for counts in s.
- *     Track `formedChars`: the number of distinct characters that currently meet
- *     their required frequency threshold.
- *   - Algorithm:
- *     1. Count frequency of characters in t and find `requiredDistinct`.
- *     2. Expand `right`:
- *        - Increment `window[c]`.
- *        - If `target[c] > 0 && window[c] == target[c]`, increment `formedChars`.
- *     3. Shrink `left` while `formedChars == requiredDistinct`:
- *        - Record minimum window candidate: `right - left + 1`.
- *        - Decrement `window[s.charAt(left)]`.
- *        - If `target[c] > 0 && window[c] < target[c]`, decrement `formedChars`.
- *        - Advance `left++`.
+ * PROBLEM STATEMENT:
+ * Given two strings `s` and `t` of lengths `m` and `n` respectively, return the minimum
+ * window substring of `s` such that every character in `t` (including duplicates)
+ * is included in the window. If there is no such substring, return the empty string `""`.
  *
+ * ----------------------------------------------------------------------------
+ * INTERVIEW INTUITION & EVOLUTION:
+ * ----------------------------------------------------------------------------
+ * 1. Naive / Brute Force Approach:
+ *    - Check all possible substrings of `s` and verify if each contains all required character frequencies of `t`.
+ *    - Inefficient: takes $O(m^2)$ or $O(m^3)$ time, resulting in Time Limit Exceeded (TLE).
+ *
+ * 2. Optimal Two-Array Sliding Window with Match Counter (O(m + n) Time | O(1) Space):
+ *    - **The Core Insight:** Instead of checking validity from scratch on every window, we can dynamically
+ *      track character frequencies using ASCII tables and a `formedChars` match counter.
+ *    - **Step 1:** Populate `target[128]` with the required character counts from `t` and count how many
+ *      `requiredDistinct` characters exist.
+ *    - **Step 2 (Expand):** Expand the `right` pointer, incrementing `window[rightChar]`. If the current character's
+ *      frequency matches its target requirement, increment `formedChars`.
+ *    - **Step 3 (Contract):** Whenever `formedChars == requiredDistinct`, the window is valid. Record the minimum length candidate,
+ *      then shrink from the `left` pointer while decrementing counts until the window breaks validity.
+ *
+ * ----------------------------------------------------------------------------
  * COMPLEXITY:
- *   - Time:  O(m + n) - Linear pass through string t to build counts, then each character
- *            in s is visited at most twice (by right pointer and left pointer).
- *   - Space: O(1) - Fixed ASCII frequency tables of size 128.
+ * - Time:  O(m + n) - Linear pass to build counts for `t`, followed by `s` where each character is visited at most twice
+ *            (once by `right`, once by `left`).
+ * - Space: O(1) - Fixed ASCII frequency tables of size 128 require constant auxiliary space.
  *
- *
+ * ----------------------------------------------------------------------------
  * EXAMPLE:
- *   The first main input is s="ADOBECODEBANC", t="ABC"; expected minimum window is "BANC".
+ * - `s = "ADOBECODEBANC"`, `t = "ABC"`
+ * - Expected Minimum Window: `"BANC"`
  *
- * VISUAL DRY RUN:
- *   Expand right until "ADOBEC" contains A,B,C; shrink left to remove A, leaving "DOBEC".
- *   Continue expansion to "DOBECODEBA" then shrink; at the end window "BANC" contains
- *   all targets and has length 4, smaller than earlier "ADOBEC" length 6. Return "BANC".
+ * VISUAL DRY RUN (for `s = "ADOBECODEBANC"`, `t = "ABC"`):
+ *   - Expand `right` until substring `"ADOBEC"` contains all targets (`A`, `B`, `C`). `formedChars == requiredDistinct` (3).
+ *   - Shrink `left` to remove redundant prefix elements (`A`, `D`, `O`), refining the window to `"DOBEC"`.
+ *   - Continue expanding and contracting; later, window `"BANC"` satisfies all conditions with length 4,
+ *     which is smaller than previous valid windows. Returns `"BANC"`.
+ *
+ * ----------------------------------------------------------------------------
  * CRITICAL THINKING CHECKPOINTS:
- *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
- *   2. What invariant must remain true after every loop iteration?
- *   3. Why is each pointer/state update safe, and what counterexample would break it?
- *   4. Which edge cases change the control flow (empty input, one item, duplicates, or boundaries)?
- *   5. Can you derive the time and extra-space complexity without looking at the answer?
+ * 1. Why do we track `requiredDistinct` instead of matching total string lengths?
+ *    (Tracking the count of *distinct* characters whose frequencies have been completely fulfilled prevents
+ *    premature or delayed contraction when dealing with duplicate characters in `t`.)
+ * 2. What edge cases are handled automatically?
+ *    (If `s` is shorter than `t`, or if no valid window exists, `minLen` remains `Integer.MAX_VALUE`
+ *    and the function correctly returns an empty string `""`.)
  */
 public class P38_MinimumWindowSubstring {
 
@@ -53,10 +60,13 @@ public class P38_MinimumWindowSubstring {
             return "";
         }
 
+        // Build target frequency array for string t
         int[] target = new int[128];
         int requiredDistinct = 0;
         for (char c : t.toCharArray()) {
-            if (target[c] == 0) requiredDistinct++;
+            if (target[c] == 0) {
+                requiredDistinct++;
+            }
             target[c]++;
         }
 
@@ -67,6 +77,7 @@ public class P38_MinimumWindowSubstring {
         int minLen = Integer.MAX_VALUE;
         int minStart = 0;
 
+        // Expand window to the right
         for (int right = 0; right < s.length(); right++) {
             char rightChar = s.charAt(right);
             window[rightChar]++;
@@ -75,7 +86,7 @@ public class P38_MinimumWindowSubstring {
                 formedChars++;
             }
 
-            // Shrink window from the left while it remains valid
+            // Contract window from the left while it satisfies all criteria
             while (formedChars == requiredDistinct) {
                 int currentLen = right - left + 1;
                 if (currentLen < minLen) {
@@ -92,6 +103,7 @@ public class P38_MinimumWindowSubstring {
             }
         }
 
+        // Return empty string if no valid window was found, otherwise extract the substring
         return (minLen == Integer.MAX_VALUE) ? "" : s.substring(minStart, minStart + minLen);
     }
 

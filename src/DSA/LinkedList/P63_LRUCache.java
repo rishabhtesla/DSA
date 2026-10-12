@@ -7,39 +7,54 @@ import java.util.Map;
  * ============================================================================
  * [63 / 65] - LRU CACHE (LeetCode 146)
  * ============================================================================
- * 
- * PROBLEM:
- *   Design a data structure that follows the constraints of a Least Recently Used
- *   (LRU) cache with get and put in average O(1) time complexity.
  *
- * INTERVIEW INTUITION & "AHA!" MOMENT:
- *   - Hash Map + Doubly Linked List:
- *     - Hash Map provides O(1) node lookup by key.
- *     - Doubly Linked List provides O(1) insertion, deletion, and node relocation.
- *   - Setup:
- *     Dummy `head` (most recently used) and dummy `tail` (least recently used).
- *     - `get(key)`: If present, detach node and re-insert right after `head`.
- *     - `put(key, val)`: If key exists, update value and move to head. If new,
- *       insert after head. If capacity is exceeded, remove node right before `tail`.
+ * PROBLEM STATEMENT:
+ * Design a data structure that follows the constraints of a Least Recently Used (LRU) cache
+ * supporting `get` and `put` operations in **average O(1) time complexity**.
  *
+ * ----------------------------------------------------------------------------
+ * INTERVIEW INTUITION & EVOLUTION:
+ * ----------------------------------------------------------------------------
+ * 1. Naive / Array or Queue Approach:
+ *    - Use an array, list, or queue to maintain usage order.
+ *    - Inefficient: searches or deletions take O(n) time, violating the strict O(1) requirement.
+ *
+ * 2. Optimal Hash Map + Doubly Linked List Approach (O(1) Time | O(capacity) Space):
+ *    - **The Core Insight:** We need O(1) random access (provided by a Hash Map) combined with
+ *      O(1) insertion, deletion, and relocation (provided by a Doubly Linked List).
+ *    - **Map Structure:** Maps each `key` directly to its corresponding `Node` reference.
+ *    - **List Structure:** Maintain dummy `head` (most recently used marker) and dummy `tail` (least recently used marker).
+ *    - `get(key)`: If present, extract the node, detach it, and re-insert it right after `head`.
+ *    - `put(key, val)`: If the key exists, update its value and move it to the head. If new, insert it right after `head`.
+ *      If capacity is exceeded, evict the node right before `tail` (`tail.prev`) from both the list and the map.
+ *
+ * ----------------------------------------------------------------------------
  * COMPLEXITY:
- *   - Time:  O(1) for both get and put.
- *   - Space: O(capacity) to store mappings and nodes.
+ * - Time:  O(1) average time complexity for both `get` and `put` operations.
+ * - Space: O(capacity) to store the mapping entries and doubly linked list nodes up to the specified limit.
  *
- *
+ * ----------------------------------------------------------------------------
  * EXAMPLE:
- *   The first main uses capacity 2: put(1,1), put(2,2), get(1), put(3,3), put(4,4),
- *   then gets 2,1,3,4; expected values are 1,-1,-1,3,4.
+ * - Capacity = 2
+ * - `put(1, 1)`, `put(2, 2)`, `get(1)` -> returns 1
+ * - `put(3, 3)` -> evicts key `2`
+ * - `get(2)` -> returns `-1` (not found)
+ * - `put(4, 4)` -> evicts key `1`
+ * - `get(1)` -> `-1`, `get(3)` -> `3`, `get(4)` -> `4`
  *
  * VISUAL DRY RUN:
- *   Order after puts is [1,2]; get(1) makes [2,1]. put(3) evicts least-recent 2 -> [1,3].
- *   put(4) evicts 1 -> [3,4]; get(1)=-1, get(3)=3, get(4)=4.
+ *   - Order after puts: `[1, 2]`. `get(1)` relocates 1 to the front -> `[2, 1]`.
+ *   - `put(3, 3)` exceeds capacity: evicts LRU node (`2`) -> list becomes `[1, 3]`.
+ *   - `put(4, 4)` exceeds capacity: evicts LRU node (`1`) -> list becomes `[3, 4]`.
+ *
+ * ----------------------------------------------------------------------------
  * CRITICAL THINKING CHECKPOINTS:
- *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
- *   2. What invariant must remain true after every loop iteration?
- *   3. Why is each pointer/state update safe, and what counterexample would break it?
- *   4. Which edge cases change the control flow (empty input, one item, duplicates, or boundaries)?
- *   5. Can you derive the time and extra-space complexity without looking at the answer?
+ * 1. Why use a *doubly* linked list instead of a singly linked list?
+ *    (A doubly linked list allows O(1) removal of any node since each node has direct access to its predecessor (`prev`),
+ *    whereas a singly linked list would require an O(n) traversal to find the previous node before unlinking.)
+ * 2. What purpose do the dummy `head` and `tail` nodes serve?
+ *    (They act as boundary anchors that eliminate edge cases when inserting or removing nodes at the very ends of the list,
+ *    ensuring that `prev` and `next` pointer assignments never encounter unexpected `null` references.)
  */
 public class P63_LRUCache {
 

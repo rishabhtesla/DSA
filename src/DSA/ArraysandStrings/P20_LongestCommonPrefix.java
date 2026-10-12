@@ -4,38 +4,56 @@ package DSA.ArraysandStrings;
  * ============================================================================
  * [20 / 24] - LONGEST COMMON PREFIX (LeetCode 14)
  * ============================================================================
- * 
- * PROBLEM:
- *   Write a function to find the longest common prefix string amongst an array of
- *   strings. If there is no common prefix, return an empty string "".
  *
- * INTERVIEW INTUITION & "AHA!" MOMENT:
- *   - Horizontal Scanning: Compare prefix of (str[0], str[1]), then with str[2], etc.
- *   - Vertical Scanning (Better early-exit in practice):
- *     Compare characters column by column across all strings.
- *     At column `col`, take `char c = strs[0].charAt(col)`:
- *     Check every other string `strs[i]`. If `col == strs[i].length()` or
- *     `strs[i].charAt(col) != c`, the common prefix stops immediately before `col`.
- *     Return `strs[0].substring(0, col)`.
+ * PROBLEM STATEMENT:
+ * Write a function to find the longest common prefix string amongst an array of strings.
+ * If there is no common prefix, return an empty string `""`.
  *
+ * ----------------------------------------------------------------------------
+ * INTERVIEW INTUITION & EVOLUTION:
+ * ----------------------------------------------------------------------------
+ * 1. Horizontal Scanning Approach:
+ *    - Find the common prefix of `strs[0]` and `strs[1]`, then take that result and
+ *      find the common prefix with `strs[2]`, and so on.
+ *
+ * 2. Optimal Vertical Scanning Approach (O(S) Time | O(1) Space):
+ *    - Instead of reducing pairwise strings horizontally, compare characters **column by column**
+ *      across all strings simultaneously.
+ *    - **The Rule:** Pick the first string (`strs[0]`) as our base. For each character column `col`,
+ *      check if every other string `strs[i]` matches `strs[0].charAt(col)` at that exact index.
+ *    - **Early Exit:** The moment we find a string shorter than `col` or a character mismatch,
+ *      we stop immediately and return the substring from index `0` up to `col`.
+ *
+ * ----------------------------------------------------------------------------
  * COMPLEXITY:
- *   - Time:  O(S) where S is the sum of characters across all strings.
- *            Best case O(minLen * n) if mismatch occurs early.
- *   - Space: O(1) - Constant auxiliary space.
+ * - Time:  O(S) in the worst case, where `S` is the sum of all characters across all strings in the array.
+ *           In practice, it has an optimal best-case running time of O(minLen * n) when a mismatch occurs early.
+ * - Space: O(1) - Constant auxiliary space.
  *
+ * ----------------------------------------------------------------------------
+ * EXAMPLES:
+ * - ["flower", "flow", "flight"] -> "fl"
+ * - ["dog", "racecar", "car"]    -> ""
  *
- * EXAMPLE:
- *   The first main input is ["flower", "flow", "flight"] and the expected prefix is "fl".
+ * VISUAL DRY RUN (for Test 1: `["flower", "flow", "flight"]`):
+ *   - Base string: `"flower"`
+ *   - `col = 0`: character is `'f'`
+ *     - `strs[1]` ('flow') at col 0 is `'f'` (Match)
+ *     - `strs[2]` ('flight') at col 0 is `'f'` (Match)
+ *   - `col = 1`: character is `'l'`
+ *     - `strs[1]` at col 1 is `'l'` (Match)
+ *     - `strs[2]` at col 1 is `'l'` (Match)
+ *   - `col = 2`: character is `'o'`
+ *     - `strs[1]` at col 2 is `'o'` (Match)
+ *     - `strs[2]` at col 2 is `'i'` -> **Mismatch!**
+ *   - Loop terminates immediately, returns `base.substring(0, 2)` -> `"fl"`.
  *
- * VISUAL DRY RUN:
- *   Compare the first column: f=f=f -> prefix "f"; second: l=l=l -> "fl";
- *   third differs (o,o,i), so stop immediately and return "fl".
+ * ----------------------------------------------------------------------------
  * CRITICAL THINKING CHECKPOINTS:
- *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
- *   2. What invariant must remain true after every loop iteration?
- *   3. Why is each pointer/state update safe, and what counterexample would break it?
- *   4. Which edge cases change the control flow (empty input, one item, duplicates, or boundaries)?
- *   5. Can you derive the time and extra-space complexity without looking at the answer?
+ * 1. Why is vertical scanning often preferred over horizontal scanning in interviews?
+ *    (It allows for immediate early-exit on the very first mismatch without processing redundant characters further down the array.)
+ * 2. What edge cases are handled automatically?
+ *    (Empty array inputs, arrays with a single string, or strings with an empty string `""` element.)
  */
 public class P20_LongestCommonPrefix {
 

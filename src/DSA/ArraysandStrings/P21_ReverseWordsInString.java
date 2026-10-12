@@ -4,39 +4,58 @@ package DSA.ArraysandStrings;
  * ============================================================================
  * [21 / 24] - REVERSE WORDS IN A STRING (LeetCode 151)
  * ============================================================================
- * 
- * PROBLEM:
- *   Given an input string s, reverse the order of the words. Words are separated
- *   by at least one space. Return a string of the words in reverse order concatenated
- *   by a single space, with no leading, trailing, or multiple spaces.
  *
- * INTERVIEW INTUITION & "AHA!" MOMENT:
- *   - Direct Backward Word Extraction:
- *     Instead of tokenizing, trimming, reversing, and joining (which creates lots of temp strings):
- *     1. Start index `i = s.length() - 1`.
- *     2. Skip spaces backward to find the end of a word (`end = i`).
- *     3. Continue backward until finding a space or the start of the string (`start = i + 1`).
- *     4. Append `s.substring(start, end + 1)` and a single space separator.
- *     5. Trim the trailing space at the end.
+ * PROBLEM STATEMENT:
+ * Given an input string `s`, reverse the order of the words.
+ * Words are defined as sequences of non-space characters separated by at least one space.
+ * Return a string of the words in reverse order concatenated by a single space,
+ * with no leading, trailing, or multiple spaces between them.
  *
+ * ----------------------------------------------------------------------------
+ * INTERVIEW INTUITION & EVOLUTION:
+ * ----------------------------------------------------------------------------
+ * 1. Naive / Regex-Based Approach:
+ *    - `s.trim().split("\\s+")` followed by a reverse loop and joining.
+ *    - Inefficient because it triggers heavy regex parsing, multiple temporary array
+ *      allocations, and creates unnecessary string objects.
+ *
+ * 2. Optimal Backward Word Extraction Approach (O(n) Time | O(n) Space):
+ *    - Since we want the words in reverse order, scanning the string **backwards** from right to left
+ *      allows us to extract and append words directly in the correct final order.
+ *    - **Step 1:** Start a pointer `i` at `s.length() - 1` and skip any trailing or intervening spaces backwards.
+ *    - **Step 2:** Mark the end of a word at `end = i`.
+ *    - **Step 3:** Continue scanning backwards until hitting a space or the beginning of the string to find `start = i + 1`.
+ *    - **Step 4:** Extract the substring `s.substring(start, end + 1)` and append it to a `StringBuilder`,
+ *      ensuring a single space separates words.
+ *
+ * ----------------------------------------------------------------------------
  * COMPLEXITY:
- *   - Time:  O(n) - Single backward pass over the string.
- *   - Space: O(n) - StringBuilder for final result.
+ * - Time:  O(n) - Single linear backward pass over the characters of the string.
+ * - Space: O(n) - `StringBuilder` required to store and return the final reordered string.
  *
+ * ----------------------------------------------------------------------------
+ * EXAMPLES:
+ * - "the sky is blue"     -> "blue is sky the"
+ * - "  hello world  "     -> "world hello"
+ * - "a good   example"    -> "example good a"
  *
- * EXAMPLE:
- *   The first main input is "the sky is blue"; the expected output is "blue is sky the".
+ * VISUAL DRY RUN (for `"the sky is blue"`):
+ *   - Start: `i = 14` (pointing at the last character 'e' of "blue")
+ *   - Word 1: `end = 14`, backward scan stops at space before "blue" (`i = 9`, `start = 10`).
+ *     - Substring extracted: `"blue"` -> Appended to `sb`.
+ *   - Spaces skipped (`i` moves back past spaces to 's' of "is").
+ *   - Word 2: `end = 8`, backward scan finds start at `i = 6` (`start = 7`).
+ *     - Substring extracted: `"is"` -> Appended with space: `"blue is"`.
+ *   - Word 3: extracts `"sky"` -> `"blue is sky"`
+ *   - Word 4: extracts `"the"` -> `"blue is sky the"`
+ *   - Returns: `"blue is sky the"`.
  *
- * VISUAL DRY RUN:
- *   Read words left to right into the builder: [the, sky, is, blue]. Pop from the end
- *   (or prepend while scanning backward): blue -> "blue", is -> "blue is", sky ->
- *   "blue is sky", the -> "blue is sky the"; repeated spaces would be skipped.
+ * ----------------------------------------------------------------------------
  * CRITICAL THINKING CHECKPOINTS:
- *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
- *   2. What invariant must remain true after every loop iteration?
- *   3. Why is each pointer/state update safe, and what counterexample would break it?
- *   4. Which edge cases change the control flow (empty input, one item, duplicates, or boundaries)?
- *   5. Can you derive the time and extra-space complexity without looking at the answer?
+ * 1. Why do we append a space *before* appending a word (when `sb.length() > 0`) instead of after?
+ *    (Doing it before ensures we never leave a trailing space at the very end of our final result string.)
+ * 2. How are multiple consecutive spaces (like `"a good   example"`) naturally handled?
+ *    (The inner space-skipping loop effortlessly devours any number of consecutive spaces in O(1) time per batch.)
  */
 public class P21_ReverseWordsInString {
 

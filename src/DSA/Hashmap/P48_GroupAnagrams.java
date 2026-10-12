@@ -10,38 +10,49 @@ import java.util.Map;
  * ============================================================================
  * [48 / 52] - GROUP ANAGRAMS (LeetCode 49)
  * ============================================================================
- * 
- * PROBLEM:
- *   Given an array of strings strs, group the anagrams together. You can return
- *   the answer in any order.
  *
- * INTERVIEW INTUITION & "AHA!" MOMENT:
- *   - Canonical Key Hashing:
- *     Two strings are anagrams if and only if they produce the same canonical key.
- *   - Option A: Sort characters of each string -> O(K log K) per string.
- *   - Option B: Count frequencies into a 26-char signature (e.g., "#1#0#2...") -> O(K) per string.
- *     In practice with short strings (lengths <= 100), `char[] -> Arrays.sort() -> String.valueOf()`
- *     is clean, fast, and cache-friendly.
- *   - Group using `Map<String, List<String>>`.
+ * PROBLEM STATEMENT:
+ * Given an array of strings `strs`, group the anagrams together.
+ * You can return the answer in any order.
+ * An anagram is a word or phrase formed by rearranging the letters of a different word,
+ * typically using all the original letters exactly once.
  *
+ * ----------------------------------------------------------------------------
+ * INTERVIEW INTUITION & EVOLUTION:
+ * ----------------------------------------------------------------------------
+ * 1. Canonical Key Hashing Approach:
+ *    - Two strings are anagrams if and only if they share the exact same canonical representation.
+ *    - **Option A (Sorting):** Convert each string to a character array, sort it, and convert it back
+ *      to a string to serve as the map key. (Takes O(K log K) per string, where K is length).
+ *    - **Option B (Frequency Signature):** Count character frequencies into a delimited string signature
+ *      (e.g., `#1#0#2...`), taking O(K) time.
+ *    - *Interview Best Practice:* For typical interview constraints where word lengths are short (`K <= 100`),
+ *      the sorting approach (`char[] -> Arrays.sort() -> String.valueOf()`) is clean, concise,
+ *      and extremely fast.
+ *
+ * ----------------------------------------------------------------------------
  * COMPLEXITY:
- *   - Time:  O(N * K log K) where N = strs.length and K = max word length.
- *   - Space: O(N * K) to store the grouped lists and map entries.
+ * - Time:  O(N * K log K) where `N` is `strs.length` and `K` is the maximum length of a string in `strs`.
+ * - Space: O(N * K) to store all grouped lists and hash map key-value entries.
  *
+ * ----------------------------------------------------------------------------
+ * EXAMPLES:
+ * - `strs = ["eat", "tea", "tan", "ate", "nat", "bat"]`
+ *   -> `[["eat", "tea", "ate"], ["tan", "nat"], ["bat"]]` (in any order)
  *
- * EXAMPLE:
- *   The first main input is ["eat","tea","tan","ate","nat","bat"], expected groups
- *   are [eat,tea,ate], [tan,nat], and [bat] (in any order).
+ * VISUAL DRY RUN (for `["eat", "tea", "tan"]`):
+ *   - "eat": sorted chars are `['a', 'e', 't']` -> key: `"aet"`. Map: `{"aet" -> ["eat"]}`
+ *   - "tea": sorted chars are `['a', 'e', 't']` -> key: `"aet"`. Map: `{"aet" -> ["eat", "tea"]}`
+ *   - "tan": sorted chars are `['a', 'n', 't']` -> key: `"ant"`. Map: `{"aet" -> [...], "ant" -> ["tan"]}`
+ *   - Returning `map.values()` aggregates the grouped lists.
  *
- * VISUAL DRY RUN:
- *   Sorted-key map evolves: aet->[eat,tea], ant->[tan], aet->[eat,tea,ate], ant->[tan,nat],
- *   abt->[bat]. Returning map.values() gives the three groups.
+ * ----------------------------------------------------------------------------
  * CRITICAL THINKING CHECKPOINTS:
- *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
- *   2. What invariant must remain true after every loop iteration?
- *   3. Why is each pointer/state update safe, and what counterexample would break it?
- *   4. Which edge cases change the control flow (empty input, one item, duplicates, or boundaries)?
- *   5. Can you derive the time and extra-space complexity without looking at the answer?
+ * 1. Why do we use `computeIfAbsent()` in Java instead of manual `containsKey()` checks?
+ *    (It provides a concise, idiomatic way to initialize a new `ArrayList` only if the canonical key
+ *    does not already exist in the map.)
+ * 2. What edge cases are handled upfront?
+ *    (Null or empty arrays return an empty list instantly, avoiding runtime exceptions.)
  */
 public class P48_GroupAnagrams {
 

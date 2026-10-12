@@ -4,38 +4,53 @@ package DSA.ArraysandStrings;
  * ============================================================================
  * [23 / 24] - FIND THE INDEX OF FIRST OCCURRENCE IN STRING (LeetCode 28 / KMP)
  * ============================================================================
- * 
- * PROBLEM:
- *   Given two strings needle and haystack, return the index of the first
- *   occurrence of needle in haystack, or -1 if needle is not part of haystack.
  *
- * INTERVIEW INTUITION & "AHA!" MOMENT:
- *   - Brute Force: Slide needle along haystack and check match -> O(N * M) time.
- *   - Knuth-Morris-Pratt (KMP) Algorithm -> O(N + M) time:
- *     When a mismatch occurs at needle[j], we know needle[0..j-1] already matched
- *     haystack[i-j..i-1].
- *     Instead of rewinding haystack pointer `i`, we use a precomputed LPS array
- *     (Longest Proper Prefix which is also Suffix).
- *     `lps[k]` tells us the longest matching prefix length for needle[0..k].
- *     On mismatch, reset `j = lps[j - 1]` without backtracking `i`.
+ * PROBLEM STATEMENT:
+ * Given two strings `needle` and `haystack`, return the index of the first
+ * occurrence of `needle` in `haystack`, or `-1` if `needle` is not part of `haystack`.
  *
+ * ----------------------------------------------------------------------------
+ * INTERVIEW INTUITION & EVOLUTION:
+ * ----------------------------------------------------------------------------
+ * 1. Naive / Brute Force Approach (O(N * M) Time):
+ *    - Slide `needle` along `haystack` one character at a time, checking matching sequences.
+ *    - Inefficient because it repeatedly rescans characters in `haystack` upon a mismatch.
+ *
+ * 2. Optimal Knuth-Morris-Pratt (KMP) Algorithm (O(N + M) Time | O(M) Space):
+ *    - **The Core Insight:** When a mismatch occurs at `needle[j]`, we already know that
+ *      the preceding segment `needle[0..j-1]` successfully matched `haystack`.
+ *    - Instead of rewinding the haystack pointer `i` back and repeating work, we use a
+ *      precomputed **LPS (Longest Proper Prefix which is also Suffix)** table.
+ *    - `lps[k]` tells us the length of the longest matching prefix of the pattern that is
+ *      also a suffix up to index `k`. On a mismatch, we can shift our pattern safely by
+ *      jumping `j = lps[j - 1]` without ever moving `i` backward!
+ *
+ * ----------------------------------------------------------------------------
  * COMPLEXITY:
- *   - Time:  O(N + M) where N = haystack.length(), M = needle.length().
- *   - Space: O(M) for the LPS array.
+ * - Time:  O(N + M) where `N` is haystack length and `M` is needle length.
+ *           (Building LPS takes O(M); searching takes O(N) with zero backtracking of `i`).
+ * - Space: O(M) - Auxiliary storage for the `lps` integer array of size `M`.
  *
+ * ----------------------------------------------------------------------------
+ * EXAMPLES:
+ * - `haystack = "sadbutsad"`, `needle = "sad"` -> 0
+ * - `haystack = "leetcode"`, `needle = "leeto"`     -> -1
  *
- * EXAMPLE:
- *   The first main input is haystack="sadbutsad", needle="sad"; expected index is 0.
+ * VISUAL DRY RUN (for `"sadbutsad"` / `"sad"`):
+ *   - `lps` table for `"sad"` is `[0, 0, 0]` (no proper prefixes match suffixes).
+ *   - `i` scans haystack while `j` tracks needle.
+ *   - At `i = 0, 1, 2`, characters 's', 'a', 'd' match seamlessly (`j` reaches 3).
+ *   - `j == needle.length()` is triggered -> returns `i - j` = `3 - 3 = 0` immediately,
+ *     bypassing the second occurrence of "sad".
  *
- * VISUAL DRY RUN:
- *   KMP builds lps=[0,0,0]. At text index 0, window s-a-d matches pattern indices
- *   0,1,2; j reaches 3, so return i-j+1 = 0 without scanning the later "sad".
+ * ----------------------------------------------------------------------------
  * CRITICAL THINKING CHECKPOINTS:
- *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
- *   2. What invariant must remain true after every loop iteration?
- *   3. Why is each pointer/state update safe, and what counterexample would break it?
- *   4. Which edge cases change the control flow (empty input, one item, duplicates, or boundaries)?
- *   5. Can you derive the time and extra-space complexity without looking at the answer?
+ * 1. Why is the haystack pointer `i` never decremented during a mismatch in KMP?
+ *    (Because the LPS table mathematically guarantees that the skipped characters already match
+ *    a valid prefix of the needle, making re-checking them redundant.)
+ * 2. What edge cases are handled upfront?
+ *    (An empty `needle` returns 0 instantly per problem constraints, and a `haystack` shorter
+ *    than `needle` returns -1 immediately.)
  */
 public class P23_FindIndexOfFirstOccurrence {
 

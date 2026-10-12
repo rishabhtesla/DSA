@@ -7,42 +7,54 @@ import java.util.Deque;
  * ============================================================================
  * [72 / 73] - LARGEST RECTANGLE IN HISTOGRAM (LeetCode 84)
  * ============================================================================
- * 
- * PROBLEM:
- *   Given an array of integers heights representing the histogram's bar height
- *   where the width of each bar is 1, return the area of the largest rectangle
- *   in the histogram.
  *
- * INTERVIEW INTUITION & "AHA!" MOMENT:
- *   - For each bar `i`, what is the largest rectangle where `heights[i]` is the bottleneck?
- *     It extends left until the first bar strictly shorter than `heights[i]` (PSE),
- *     and right until the first bar strictly shorter than `heights[i]` (NSE).
- *     `width = NSE_index - PSE_index - 1`.
- *   - Single-Pass Monotonic Stack (Increasing):
- *     Store bar indices in strictly increasing order of height.
- *     When `heights[i] < heights[stack.peek()]`:
- *     - The popped bar's right boundary is `i`.
- *     - The popped bar's left boundary is the new top of stack.
- *     - Area = `poppedHeight * (i - stack.peek() - 1)`.
- *   - Append a dummy height of 0 at index `n` to automatically flush all remaining bars!
+ * PROBLEM STATEMENT:
+ * Given an array of integers `heights` representing the histogram's bar heights
+ * where the width of each bar is `1`, return the area of the largest rectangle in the histogram.
  *
+ * ----------------------------------------------------------------------------
+ * INTERVIEW INTUITION & EVOLUTION:
+ * ----------------------------------------------------------------------------
+ * 1. Naive / Brute Force Approach:
+ *    - For every bar, expand outwards to the left and right until encountering a shorter bar to find its max width.
+ *    - Inefficient: takes $O(n^2)$ time, which will result in TLE for large test cases.
+ *
+ * 2. Optimal Monotonic Increasing Stack Approach (O(n) Time | O(n) Space):
+ *    - **The Core Insight:** For each bar `i`, what is the largest rectangle where `heights[i]` acts as the bottleneck (height)?
+ *      It extends left to the first bar strictly shorter than `heights[i]` (Previous Smaller Element / PSE)
+ *      and right to the first bar strictly shorter (Next Smaller Element / NSE).
+ *    - **Width Formula:** `width = NSE_index - PSE_index - 1`.
+ *    - **Step 1:** Maintain a monotonic increasing stack storing bar indices.
+ *    - **Step 2:** When a bar smaller than the stack's top arrives (`heights[i] < heights[stack.peek()]`),
+ *      pop the stack: the popped bar's right boundary is `i` (NSE), and its left boundary is the new stack top (PSE).
+ *    - **Step 3 (Sentinel Trick):** Append a dummy height of `0` at index `n` to automatically flush and evaluate
+ *      all remaining bars left in the stack at the end of the loop.
+ *
+ * ----------------------------------------------------------------------------
  * COMPLEXITY:
- *   - Time:  O(n) - Each index is pushed and popped at most once.
- *   - Space: O(n) - Monotonic stack of indices.
+ * - Time:  O(n) - Each bar index is pushed and popped from the stack at most once.
+ * - Space: O(n) - Monotonic stack storage for indices.
  *
- *
+ * ----------------------------------------------------------------------------
  * EXAMPLE:
- *   The first main heights=[2,1,5,6,2,3]; expected largest area is 10 (bars 5 and 6).
+ * - Heights: `[2, 1, 5, 6, 2, 3]`
+ * - Expected Largest Area: `10` (formed by bars of height `5` and `6` with widths spanning indices `[2, 3]`)
  *
- * VISUAL DRY RUN:
- *   Stack indices stay increasing: when height 2 at i=4 arrives, pop 6 (width 1 area 6),
- *   pop 5 (width 2 area 10), then push 4. Flush at the sentinel: max remains 10.
+ * VISUAL DRY RUN (for `[2, 1, 5, 6, 2, 3]`):
+ *   - Stack tracks increasing heights. When height `2` at index `4` arrives:
+ *     - Pops `6` (width 1, area = 6 * 1 = 6).
+ *     - Pops `5` (width 2, area = 5 * 2 = 10).
+ *     - Pushes index `4`.
+ *   - Sentinel `0` at the end flushes remaining bars. Max area recorded remains `10`.
+ *
+ * ----------------------------------------------------------------------------
  * CRITICAL THINKING CHECKPOINTS:
- *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
- *   2. What invariant must remain true after every loop iteration?
- *   3. Why is each pointer/state update safe, and what counterexample would break it?
- *   4. Which edge cases change the control flow (empty input, one item, duplicates, or boundaries)?
- *   5. Can you derive the time and extra-space complexity without looking at the answer?
+ * 1. Why is appending a height of `0` at index `n` (the sentinel trick) so powerful?
+ *    (Without a sentinel, any bars left in the stack at the end of the array would require an extra cleanup loop
+ *    to compute their areas. The sentinel forces a final flush by being smaller than all positive heights.)
+ * 2. How does the stack compute the left boundary (PSE) when it becomes empty after a pop?
+ *    (If the stack is empty after popping, it means there is no smaller element to the left,
+ *    so the rectangle extends all the way to index `0` (`width = i`).)
  */
 public class P72_LargestRectangleInHistogram {
 
@@ -53,12 +65,14 @@ public class P72_LargestRectangleInHistogram {
         Deque<Integer> stack = new ArrayDeque<>();
         int maxArea = 0;
 
-        // Iterate up to n; treat heights[n] as 0 to flush remaining bars in stack
+        // Iterate up to n; treat heights[n] as 0 to automatically flush remaining bars in the stack
         for (int i = 0; i <= n; i++) {
             int currentHeight = (i == n) ? 0 : heights[i];
 
+            // If current bar is shorter than the stack's top bar, pop and calculate max area
             while (!stack.isEmpty() && currentHeight < heights[stack.peek()]) {
                 int height = heights[stack.pop()];
+                // If stack is empty, width spans from index 0 to i; otherwise between stack.peek() and i
                 int width = stack.isEmpty() ? i : (i - stack.peek() - 1);
                 maxArea = Math.max(maxArea, height * width);
             }

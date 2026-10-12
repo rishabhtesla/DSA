@@ -1,44 +1,60 @@
 package DSA.ArraysandStrings;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * ============================================================================
  * [17 / 24] - ROMAN TO INTEGER (LeetCode 13)
  * ============================================================================
- * 
- * PROBLEM:
- *   Given a Roman numeral s, convert it to an integer.
- *   Symbols: I=1, V=5, X=10, L=50, C=100, D=500, M=1000.
- *   Subtractive rule: If a smaller value appears before a larger value (e.g., IV=4, IX=9),
- *   it is subtracted rather than added.
  *
- * INTERVIEW INTUITION & "AHA!" MOMENT:
- *   - Iterate from left to right through the string.
- *   - For each character at index i:
- *     - If `val(s[i]) < val(s[i + 1])`, it belongs to a subtractive pair -> subtract `val(s[i])`.
- *     - Otherwise, add `val(s[i])`.
- *   - Switch-case helper avoids HashMap lookup overhead in Java.
+ * PROBLEM STATEMENT:
+ * Given a Roman numeral string `s`, convert it to an integer.
+ * Roman numerals are represented by seven different symbols:
+ * I=1, V=5, X=10, L=50, C=100, D=500, M=1000.
  *
+ * Subtractive Rule: Usually, Roman numerals are written largest to smallest from left to right.
+ * However, the numeral for subtraction uses specific pairs where a smaller value appears before
+ * a larger value (e.g., IV = 4, IX = 9, XL = 40, XC = 90, CD = 400, CM = 900).
+ * In these cases, the smaller value is subtracted from the larger value rather than added.
+ *
+ * ----------------------------------------------------------------------------
+ * INTERVIEW INTUITION & EVOLUTION:
+ * ----------------------------------------------------------------------------
+ * 1. Naive / String Replacement Approach:
+ *    - Search and replace subtractive pairs ("IV" -> "IIII", etc.) then sum up.
+ *    - Inefficient due to multiple string scanning passes.
+ *
+ * 2. Optimal Left-to-Right Single Pass (O(n) Time | O(1) Space):
+ *    - Instead of looking ahead to group pairs, we can evaluate character by character from left to right.
+ *    - **The Rule:** Compare the value of the current symbol `s[i]` with the next symbol `s[i + 1]`.
+ *      - If `current < next`, it is a subtractive combination -> **subtract** `current`.
+ *      - Otherwise, it is an additive combination -> **add** `current`.
+ *    - **Optimization:** Using a `switch-case` helper method instead of a `HashMap` avoids
+ *      object allocation and hash lookup overhead, maximizing runtime performance.
+ *
+ * ----------------------------------------------------------------------------
  * COMPLEXITY:
- *   - Time:  O(n) - Single pass over the string length (n <= 15).
- *   - Space: O(1) - Constant memory.
+ * - Time:  O(n) - Single pass over the string length (`n <= 15` per constraints).
+ * - Space: O(1) - Constant auxiliary space for variables.
  *
+ * ----------------------------------------------------------------------------
+ * EXAMPLES:
+ * - "III" -> 3
+ * - "LVIII" -> 58 (L = 50, V = 5, III = 3)
+ * - "MCMXCIV" -> 1994 (M = 1000, CM = 900, XC = 90, IV = 4)
  *
- * EXAMPLE:
- *   The first main call converts "III"; each symbol is additive, so the expected result is 3.
+ * VISUAL DRY RUN (for "III"):
+ *   - Start: `total = 0`, `n = 3`
+ *   - i = 0: 'I' (1). Next is 'I' (1). 1 < 1 is false -> `total += 1` (total = 1)
+ *   - i = 1: 'I' (1). Next is 'I' (1). 1 < 1 is false -> `total += 1` (total = 2)
+ *   - i = 2: 'I' (1). No next character (`i < n - 1` is false) -> `total += 1` (total = 3)
+ *   - Returns: 3.
  *
- * VISUAL DRY RUN:
- *   Scan left to right with total=0: i=0 'I' (1) -> total=1; i=1 'I' -> 2;
- *   i=2 'I' -> 3. No symbol has a larger value on its right, so no subtraction occurs;
- *   return 3.
+ * ----------------------------------------------------------------------------
  * CRITICAL THINKING CHECKPOINTS:
- *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
- *   2. What invariant must remain true after every loop iteration?
- *   3. Why is each pointer/state update safe, and what counterexample would break it?
- *   4. Which edge cases change the control flow (empty input, one item, duplicates, or boundaries)?
- *   5. Can you derive the time and extra-space complexity without looking at the answer?
+ * 1. Why does the left-to-right subtractive rule work correctly without breaking the math?
+ *    (Because if a smaller value precedes a larger one, subtracting it now correctly cancels out
+ *    the contribution when we eventually add the larger value in the next iteration.)
+ * 2. What edge cases are handled automatically?
+ *    (Single-character strings like "I" skip the lookahead bounds check (`i < n - 1`) and add correctly.)
  */
 public class P17_RomanToInteger {
 

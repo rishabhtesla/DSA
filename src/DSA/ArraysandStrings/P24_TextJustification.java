@@ -7,49 +7,53 @@ import java.util.List;
  * ============================================================================
  * [24 / 24] - TEXT JUSTIFICATION (LeetCode 68)
  * ============================================================================
- * 
- * PROBLEM:
- *   Given an array of strings words and a width maxWidth, format the text such
- *   that each line has exactly maxWidth characters and is fully (left and right)
- *   justified.
- *   - Pack as many words as possible per line.
- *   - Pad extra spaces between words as evenly as possible. If uneven, distribute
- *     extra spaces starting from the left.
- *   - The last line and lines with only 1 word must be left-justified (no extra
- *     spaces between words, pad spaces at the very end).
  *
- * INTERVIEW INTUITION & "AHA!" MOMENT:
- *   - Greedy line grouping:
- *     Keep adding words to the line as long as:
- *     `currentWordsLength + wordCount - 1 + nextWord.length() <= maxWidth`.
- *   - Justification Rules:
- *     1. If last line OR line has only 1 word:
- *        Join words with a single space, then pad right with spaces to fill `maxWidth`.
- *     2. Regular line:
- *        `totalSpaces = maxWidth - wordsLength`.
- *        `gaps = wordCount - 1`.
- *        `spacesPerGap = totalSpaces / gaps`.
- *        `extraSpaces = totalSpaces % gaps` (the first `extraSpaces` gaps get +1 space).
+ * PROBLEM STATEMENT:
+ * Given an array of strings `words` and a width `maxWidth`, format the text such
+ * that each line has exactly `maxWidth` characters and is fully (left and right) justified.
  *
+ * Rules:
+ * 1. Pack as many words as possible per line (greedy approach).
+ * 2. Pad extra spaces between words as evenly as possible. If the number of spaces
+ *    does not divide evenly, distribute extra spaces starting from the left gaps.
+ * 3. The last line and lines with only 1 word must be left-justified (no extra spaces
+ *    between words, with padding spaces added at the very end).
+ *
+ * ----------------------------------------------------------------------------
+ * INTERVIEW INTUITION & EVOLUTION:
+ * ----------------------------------------------------------------------------
+ * 1. Greedy Line Grouping Approach (O(N) Time | O(N) Space):
+ *    - **Step 1:** Pack words into the current line as long as the cumulative length satisfies:
+ *      `currentWordsLength + wordCount - 1 + nextWord.length() <= maxWidth`.
+ *    - **Step 2:** Handle formatting based on two distinct control flows:
+ *      - **Case 1 (Last Line or Single Word):** Join words with a single space, then pad right with spaces
+ *        until length equals `maxWidth`.
+ *      - **Case 2 (Fully Justified Line):**
+ *        - Calculate `totalSpaces = maxWidth - lineLetters`.
+ *        - Calculate `gaps = wordCount - 1`.
+ *        - Determine `baseSpaces = totalSpaces / gaps` and `extraSpaces = totalSpaces % gaps`.
+ *        - Distribute `baseSpaces + 1` to the first `extraSpaces` gaps, and `baseSpaces` to the remaining gaps.
+ *
+ * ----------------------------------------------------------------------------
  * COMPLEXITY:
- *   - Time:  O(N) total characters processed where N is total length of all words.
- *   - Space: O(N) to construct the justified output lines.
+ * - Time:  O(N) - Processes every character across all words linearly.
+ * - Space: O(N) - Storage for the resulting list of justified strings and line builders.
  *
- *
- * EXAMPLE:
- *   The first main words are [This,is,an,example,of,text,justification.] with maxWidth=16.
- *   Expected lines are "This    is    an", "example  of text", and "justification.  ".
+ * ----------------------------------------------------------------------------
+ * EXAMPLE: `words = ["This", "is", "an", "example", "of", "text", "justification."]`, `maxWidth = 16`
  *
  * VISUAL DRY RUN:
- *   Pack words while length<=16: [This,is,an] (10 letters, 2 gaps) gets 6 extra spaces,
- *   split 3/3 -> "This    is    an". Next [example,of,text] gets 2 extra spaces, split
- *   1/1 -> "example  of text". The final word is left-justified and padded -> output above.
+ *   - Line 1: `["This", "is", "an"]` (10 letters, 2 gaps). Total spaces = 6. Split as 3 and 3 -> `"This    is    an"`
+ *   - Line 2: `["example", "of", "text"]` (14 letters, 2 gaps). Total spaces = 2. Split as 1 and 1 -> `"example  of text"`
+ *   - Line 3: `["justification."]`: Left-justified and padded right -> `"justification.  "`
+ *
+ * ----------------------------------------------------------------------------
  * CRITICAL THINKING CHECKPOINTS:
- *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
- *   2. What invariant must remain true after every loop iteration?
- *   3. Why is each pointer/state update safe, and what counterexample would break it?
- *   4. Which edge cases change the control flow (empty input, one item, duplicates, or boundaries)?
- *   5. Can you derive the time and extra-space complexity without looking at the answer?
+ * 1. Why do we check `j == n` alongside `wordCount == 1` for left justification?
+ *    (Because per the problem description, the final line of text must always be left-justified,
+ *    regardless of how many words it contains.)
+ * 2. How does the modulo operation (`extraSpaces = totalSpaces % gaps`) handle uneven space distribution?
+ *    (It ensures that any remainder spaces are assigned progressively to the leftmost gaps first.)
  */
 public class P24_TextJustification {
 
@@ -80,7 +84,7 @@ public class P24_TextJustification {
                 while (line.length() < maxWidth) {
                     line.append(' ');
                 }
-            } 
+            }
             // Case 2: Fully justified line
             else {
                 int totalSpaces = maxWidth - lineLetters;

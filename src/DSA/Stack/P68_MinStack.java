@@ -5,40 +5,59 @@ import java.util.Deque;
 
 /**
  * ============================================================================
- * [68 / 73] - MIN STACK (LeetCode 155)
+ * [68 / 73] - MIN Stack (LeetCode 155)
  * ============================================================================
- * 
- * PROBLEM:
- *   Design a stack that supports push, pop, top, and retrieving the minimum
- *   element in constant time O(1).
  *
- * INTERVIEW INTUITION & "AHA!" MOMENT:
- *   - Two Stacks vs Single Interleaved Stack:
- *     Approach 1: Auxiliary `minStack` where each entry stores the min up to that height.
- *     Approach 2 (Single Stack with Encoded Previous Min):
- *     When a new minimum `val <= min` arrives, push the OLD `min` first onto the stack,
- *     then update `min = val` and push `val`.
- *     When popping: if popped element == `min`, pop once more to restore the previous `min`.
- *     This avoids a second stack while retaining clean O(1) operations.
+ * PROBLEM STATEMENT:
+ * Design a stack that supports `push`, `pop`, `top`, and retrieving the minimum
+ * element in **constant time O(1)**.
  *
+ * ----------------------------------------------------------------------------
+ * INTERVIEW INTUITION & EVOLUTION:
+ * ----------------------------------------------------------------------------
+ * 1. Naive / Auxiliary Stack Approach:
+ *    - Maintain a second companion `minStack` where each entry stores the minimum value up to that height.
+ *    - Valid and straightforward, but uses extra memory for a secondary stack.
+ *
+ * 2. Optimal Single Stack with Difference Encoding Approach (O(1) Time | O(n) Space):
+ *    - **The Core Insight:** Instead of maintaining a separate stack, we can encode the difference between
+ *      the incoming value and the current minimum directly into the primary stack (`val - min`).
+ *    - **Push Logic:**
+ *      - If the stack is empty, push `0L` and set `min = val`.
+ *      - Otherwise, push the difference `(long) val - min`. If `val < min`, update `min = val`.
+ *    - **Pop Logic:**
+ *      - If the popped difference is negative (`diff < 0`), it indicates that a new minimum was introduced.
+ *        We restore the previous minimum via `min = min - diff`.
+ *    - **Top Logic:**
+ *      - If the top difference is negative, the top element is the current `min`.
+ *      - Otherwise, the actual value is `min + diff`.
+ *
+ * ----------------------------------------------------------------------------
  * COMPLEXITY:
- *   - Time:  O(1) for push, pop, top, and getMin.
- *   - Space: O(n) worst case.
+ * - Time:  O(1) constant time complexity for all operations (`push`, `pop`, `top`, `getMin`).
+ * - Space: O(n) worst-case storage space to maintain the primary stack elements.
  *
- *
+ * ----------------------------------------------------------------------------
  * EXAMPLE:
- *   The first main operations push -2, 0, -3, getMin, pop, top, getMin; expected
- *   outputs are -3, 0, -2.
+ * - Operations: `push(-2)`, `push(0)`, `push(-3)`, `getMin()`, `pop()`, `top()`, `getMin()`
+ * - Expected Outputs: `-3`, `0`, `-2`
  *
  * VISUAL DRY RUN:
- *   Push -2 -> stack=[-2], min=-2; push 0 -> min=-2; push -3 -> min=-3.
- *   getMin=-3; pop -3 restores min=-2; top=0 and getMin=-2.
+ *   - Push `-2` -> stack has diff `0`, `min = -2`.
+ *   - Push `0` -> difference `0 - (-2) = 2`, `min` remains `-2`.
+ *   - Push `-3` -> difference `-3 - (-2) = -1` (negative, so new min), `min` updates to `-3`.
+ *   - `getMin()` returns `-3`.
+ *   - `pop()` pops `-1` (negative), restores previous `min = -3 - (-1) = -2`.
+ *   - `top()` returns `0`, `getMin()` returns `-2`.
+ *
+ * ----------------------------------------------------------------------------
  * CRITICAL THINKING CHECKPOINTS:
- *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
- *   2. What invariant must remain true after every loop iteration?
- *   3. Why is each pointer/state update safe, and what counterexample would break it?
- *   4. Which edge cases change the control flow (empty input, one item, duplicates, or boundaries)?
- *   5. Can you derive the time and extra-space complexity without looking at the answer?
+ * 1. Why use `long` primitives for stack storage when the problem specifies standard `int` values?
+ *    (Using `long` prevents potential integer overflow/underflow issues when calculating differences `val - min`
+ *    if `val` and `min` reside near opposite ends of the 32-bit integer range.)
+ * 2. How does difference encoding save space compared to a two-stack approach?
+ *    (It eliminates the overhead of managing synchronized node allocations in a secondary collection
+ *    while packing metadata seamlessly into existing stack elements.)
  */
 public class P68_MinStack {
 
@@ -55,10 +74,10 @@ public class P68_MinStack {
                 stack.push(0L);
                 min = val;
             } else {
-                // Store difference: val - min
+                // Store the difference between val and current min
                 stack.push((long) val - min);
                 if (val < min) {
-                    min = val; // Record new minimum
+                    min = val; // Record the new minimum
                 }
             }
         }
@@ -66,7 +85,7 @@ public class P68_MinStack {
         public void pop() {
             if (stack.isEmpty()) return;
             long diff = stack.pop();
-            // If diff < 0, this element was a new minimum; restore previous min
+            // If diff is negative, this element was a new minimum; restore the previous min
             if (diff < 0) {
                 min = min - diff;
             }

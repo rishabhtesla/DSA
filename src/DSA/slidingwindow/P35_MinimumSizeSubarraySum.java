@@ -4,41 +4,52 @@ package DSA.slidingwindow;
  * ============================================================================
  * [35 / 38] - MINIMUM SIZE SUBARRAY SUM (LeetCode 209)
  * ============================================================================
- * 
- * PROBLEM:
- *   Given an array of positive integers nums and a positive integer target, return
- *   the minimal length of a subarray whose sum is greater than or equal to target.
- *   If there is no such subarray, return 0 instead.
  *
- * INTERVIEW INTUITION & "AHA!" MOMENT:
- *   - Variable-Size Sliding Window (Shrinkable Window):
- *     Because all numbers in nums are POSITIVE, adding elements monotonically increases
- *     the window sum, and removing elements from the left monotonically decreases it.
- *   - Algorithm:
- *     1. Expand window to the right by adding nums[right] to running sum.
- *     2. As long as `sum >= target`, update `minLen = Math.min(minLen, right - left + 1)`.
- *        Then shrink the window from the left (`sum -= nums[left++]`) to find the
- *        tightest valid subarray.
- *     3. Each element is added once and removed at most once -> strict O(n) total operations.
+ * PROBLEM STATEMENT:
+ * Given an array of positive integers `nums` and a positive integer `target`, return
+ * the minimal length of a subarray whose sum is greater than or equal to `target`.
+ * If there is no such subarray, return `0` instead.
  *
+ * ----------------------------------------------------------------------------
+ * INTERVIEW INTUITION & EVOLUTION:
+ * ----------------------------------------------------------------------------
+ * 1. Naive / Brute Force Approach:
+ *    - Check all possible subarrays using nested loops to compute their sums.
+ *    - Inefficient: takes $O(n^2)$ or $O(n^3)$ time, which will TLE (Time Limit Exceeded) for large inputs.
+ *
+ * 2. Optimal Variable-Size Sliding Window (Shrinkable Window) Approach (O(n) Time | O(1) Space):
+ *    - **The Core Insight:** Because all numbers in `nums` are **positive**, adding elements monotonically
+ *      increases the window sum, and removing elements from the left monotonically decreases it.
+ *    - **Step 1 (Expand):** Expand the window to the right by adding `nums[right]` to a running `currentSum`.
+ *    - **Step 2 (Contract):** As long as `currentSum >= target`, update the minimum length found so far
+ *      (`minLength = Math.min(minLength, right - left + 1)`), and then shrink the window from the left
+ *      (`currentSum -= nums[left++]`) to find the tightest possible valid subarray.
+ *    - **Step 3:** Because each element is added once and removed at most once, total operations are strictly linear.
+ *
+ * ----------------------------------------------------------------------------
  * COMPLEXITY:
- *   - Time:  O(n) - Both left and right pointers traverse the array at most once.
- *   - Space: O(1) - Constant auxiliary space.
+ * - Time:  O(n) - Both the `right` and `left` pointers traverse the array at most once.
+ * - Space: O(1) - Constant auxiliary tracking space.
  *
- *
+ * ----------------------------------------------------------------------------
  * EXAMPLE:
- *   The first main target=7 and nums=[2,3,1,2,4,3]; expected minimum length is 2 ([4,3]).
+ * - `target = 7`, `nums = [2, 3, 1, 2, 4, 3]`
+ * - Expected Minimum Length: `2` (corresponding to subarray `[4, 3]`)
  *
  * VISUAL DRY RUN:
- *   Expand right sums 2,5,6,8; at right=3 shrink left 2 -> sum=6, best=4 ([3,1,2,4]).
- *   Add 4 -> sum=10; remove 3 ->7 (best=3), then remove 1 ->6. Add 3 ->9;
- *   remove 2 ->7 (window [4,3], best=2), then remove 4 ->3. Return 2.
+ *   - Expand `right` pointer, sums accumulate: `2`, `5`, `6`, `8`.
+ *   - At `right = 3`, `currentSum >= target` (8 >= 7). Update length to 4. Shrink from left (`left` moves to 1), sum becomes 6.
+ *   - Continue expanding and shrinking: when window hits `[4, 3]`, sum is 7, length is 2 (new minimum).
+ *   - Final minimum length returned is `2`.
+ *
+ * ----------------------------------------------------------------------------
  * CRITICAL THINKING CHECKPOINTS:
- *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
- *   2. What invariant must remain true after every loop iteration?
- *   3. Why is each pointer/state update safe, and what counterexample would break it?
- *   4. Which edge cases change the control flow (empty input, one item, duplicates, or boundaries)?
- *   5. Can you derive the time and extra-space complexity without looking at the answer?
+ * 1. Why does this sliding window approach require all numbers to be positive?
+ *    (If negative numbers were allowed, adding an element could *decrease* the sum, meaning expanding the window
+ *    would no longer guarantee a monotonic increase, breaking the shrinkable sliding window invariant.)
+ * 2. What edge cases are handled correctly?
+ *    (If no subarray sums up to or exceeds the target, `minLength` remains `Integer.MAX_VALUE`,
+ *    triggering the ternary operator to return `0` cleanly.)
  */
 public class P35_MinimumSizeSubarraySum {
 
@@ -47,10 +58,11 @@ public class P35_MinimumSizeSubarraySum {
         int currentSum = 0;
         int minLength = Integer.MAX_VALUE;
 
+        // Expand the window to the right
         for (int right = 0; right < nums.length; right++) {
             currentSum += nums[right];
 
-            // Contract window from the left while current sum meets or exceeds target
+            // Contract the window from the left while the sum meets or exceeds the target
             while (currentSum >= target) {
                 minLength = Math.min(minLength, right - left + 1);
                 currentSum -= nums[left];
@@ -58,6 +70,7 @@ public class P35_MinimumSizeSubarraySum {
             }
         }
 
+        // Return 0 if no valid subarray was found
         return (minLength == Integer.MAX_VALUE) ? 0 : minLength;
     }
 

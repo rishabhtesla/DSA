@@ -4,36 +4,53 @@ package DSA.LinkedList;
  * ============================================================================
  * [62 / 65] - PARTITION LIST (LeetCode 86)
  * ============================================================================
- * 
- * PROBLEM:
- *   Given head and a value x, partition it such that all nodes less than x come
- *   before nodes greater than or equal to x while preserving relative order.
  *
- * INTERVIEW INTUITION & "AHA!" MOMENT:
- *   - Two Separate Chains:
- *     Use two dummy nodes: `lessDummy` and `greaterDummy`.
- *     Traverse input list:
- *     - If `curr.val < x`: link to `less` chain.
- *     - If `curr.val >= x`: link to `greater` chain.
- *     Splice the two chains: `less.next = greaterDummy.next`, and ensure `greater.next = null`.
+ * PROBLEM STATEMENT:
+ * Given the `head` of a linked list and a value `x`, partition it such that all nodes
+ * less than `x` come before nodes greater than or equal to `x`, while preserving
+ * the original relative order of the nodes in each of the two partitions.
  *
+ * ----------------------------------------------------------------------------
+ * INTERVIEW INTUITION & EVOLUTION:
+ * ----------------------------------------------------------------------------
+ * 1. Naive / Array Partitioning Approach:
+ *    - Collect all node values into an array or two separate lists, partition them by sorting or
+ *      bucket separation, and reconstruct a new linked list.
+ *    - Valid, but requires extra space allocation.
+ *
+ * 2. Optimal Two-Chain Dummy Splice Approach (O(n) Time | O(1) Space):
+ *    - **The Core Insight:** Instead of rearranging nodes in-place within a single list (which is prone to pointer corruption),
+ *      split the input list into **two separate chains**: one for elements `< x` and one for elements `>= x`.
+ *    - **Step 1:** Use two dummy nodes, `lessDummy` and `greaterDummy`, acting as anchors for the two chains.
+ *    - **Step 2:** Iterate through the original list. If `head.val < x`, append the node to the `less` chain;
+ *      otherwise, append it to the `greater` chain.
+ *    - **Step 3:** Terminate the `greater` chain (`greater.next = null`) to **prevent cyclic pointer bugs**,
+ *      then connect the tail of the `less` chain to the head of the `greater` chain (`less.next = greaterDummy.next`).
+ *
+ * ----------------------------------------------------------------------------
  * COMPLEXITY:
- *   - Time:  O(n) - Single pass through list.
- *   - Space: O(1) - Re-linking existing nodes.
+ * - Time:  O(n) - Single linear pass through the input linked list.
+ * - Space: O(1) - Constant auxiliary memory by re-linking existing nodes in-place.
  *
- *
+ * ----------------------------------------------------------------------------
  * EXAMPLE:
- *   The first main list is 1->4->3->2->5->2 with x=3; expected 1->2->2->4->3->5.
+ * - List: `1 -> 4 -> 3 -> 2 -> 5 -> 2`, `x = 3`
+ * - Result: `1 -> 2 -> 2 -> 4 -> 3 -> 5`
  *
- * VISUAL DRY RUN:
- *   Append values <3 to the less chain: 1,2,2; append others to greater: 4,3,5.
- *   Join less tail to greater head and terminate greater tail -> 1->2->2->4->3->5.
+ * VISUAL DRY RUN (for `x = 3`):
+ *   - Appends nodes `< 3` to `less` chain: `1 -> 2 -> 2`.
+ *   - Appends nodes `>= 3` to `greater` chain: `4 -> 3 -> 5`.
+ *   - Sets `greater.next = null` to terminate.
+ *   - Links `less` tail to `greater` head: `1 -> 2 -> 2 -> 4 -> 3 -> 5`. Returns `lessDummy.next`.
+ *
+ * ----------------------------------------------------------------------------
  * CRITICAL THINKING CHECKPOINTS:
- *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
- *   2. What invariant must remain true after every loop iteration?
- *   3. Why is each pointer/state update safe, and what counterexample would break it?
- *   4. Which edge cases change the control flow (empty input, one item, duplicates, or boundaries)?
- *   5. Can you derive the time and extra-space complexity without looking at the answer?
+ * 1. Why is setting `greater.next = null` mandatory at the end of the algorithm?
+ *    (Because the original last node of the greater chain might still point to a node from the less chain
+ *    or a later node, which would introduce a cycle and cause an infinite loop during printing or traversal.)
+ * 2. Does this approach preserve the original relative order of elements?
+ *    (Yes! By appending nodes sequentially as they appear in the original list into the respective chains,
+ *    the stable relative order within both partitions is strictly maintained.)
  */
 public class P62_PartitionList {
 
@@ -60,7 +77,9 @@ public class P62_PartitionList {
             head = head.next;
         }
 
-        greater.next = null; // Important: prevent cycles
+        // Prevent infinite cycles by terminating the greater chain
+        greater.next = null;
+        // Splice the two chains together
         less.next = greaterDummy.next;
 
         return lessDummy.next;

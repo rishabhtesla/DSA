@@ -4,39 +4,50 @@ package DSA.twopointers;
  * ============================================================================
  * [30 / 34] - VALID PALINDROME (LeetCode 125)
  * ============================================================================
- * 
- * PROBLEM:
- *   A phrase is a palindrome if, after converting all uppercase letters into lowercase
- *   letters and removing all non-alphanumeric characters, it reads the same forward
- *   and backward. Alphanumeric characters include letters and numbers.
  *
- * INTERVIEW INTUITION & "AHA!" MOMENT:
- *   - Naive: Strip non-alphanumeric characters and reverse string -> O(n) memory allocation.
- *   - In-place Two Pointers (Left & Right):
- *     1. Set `left = 0`, `right = s.length() - 1`.
- *     2. Advance `left` until pointing to an alphanumeric char: `Character.isLetterOrDigit()`.
- *     3. Decrement `right` until pointing to an alphanumeric char.
- *     4. Compare `Character.toLowerCase(s.charAt(left))` and `Character.toLowerCase(s.charAt(right))`.
- *        If unequal, return false immediately.
- *     5. Continue until `left >= right`.
+ * PROBLEM STATEMENT:
+ * A phrase is a palindrome if, after converting all uppercase letters into lowercase
+ * letters and removing all non-alphanumeric characters, it reads the same forward
+ * and backward. Alphanumeric characters include letters and numbers.
  *
+ * ----------------------------------------------------------------------------
+ * INTERVIEW INTUITION & EVOLUTION:
+ * ----------------------------------------------------------------------------
+ * 1. Naive / String Filtering Approach:
+ *    - Strip all non-alphanumeric characters into a new string, convert to lowercase, and check if it equals its reverse.
+ *    - Valid, but allocates $O(n)$ extra memory for intermediate string copies and reversed arrays.
+ *
+ * 2. Optimal In-Place Two Pointers Approach (O(n) Time | O(1) Space):
+ *    - **The Core Insight:** We can evaluate palindromes directly on the original string without extra memory
+ *      by using inward-moving `left` and `right` pointers that bypass non-alphanumeric characters on the fly.
+ *    - **Step 1:** Initialize `left = 0` and `right = s.length() - 1`.
+ *    - **Step 2:** Advance `left` forward until it points to a valid letter or digit (`Character.isLetterOrDigit()`).
+ *    - **Step 3:** Decrement `right` backward until it points to a valid letter or digit.
+ *    - **Step 4:** Compare both characters case-insensitively. If they mismatch, return `false` immediately.
+ *    - **Step 5:** Continue until the pointers cross (`left >= right`).
+ *
+ * ----------------------------------------------------------------------------
  * COMPLEXITY:
- *   - Time:  O(n) - Single pass inwards.
- *   - Space: O(1) - Two pointer variables, no new strings created.
+ * - Time:  O(n) - Single pass moving inward from both ends of the string.
+ * - Space: O(1) - Constant auxiliary pointer space with zero string or array allocations.
  *
- *
+ * ----------------------------------------------------------------------------
  * EXAMPLE:
- *   The first main input is "A man, a plan, a canal: Panama"; expected result is true.
+ * - String: `"A man, a plan, a canal: Panama"`
+ * - Expected Result: `true`
  *
- * VISUAL DRY RUN:
- *   L/R skip punctuation and compare case-insensitively: A=a, m=m, a=a, n=n, ...;
- *   every pair matches until the pointers cross at the center. Return true.
+ * VISUAL DRY RUN (for `"race a car"`):
+ *   - `left = 0` ('r'), `right = 9` ('r') -> match.
+ *   - `left = 1` ('a'), `right = 8` ('a') -> match.
+ *   - `left = 2` ('c'), `right = 7` ('r') -> mismatch ('c' != 'r'). Returns `false`.
+ *
+ * ----------------------------------------------------------------------------
  * CRITICAL THINKING CHECKPOINTS:
- *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
- *   2. What invariant must remain true after every loop iteration?
- *   3. Why is each pointer/state update safe, and what counterexample would break it?
- *   4. Which edge cases change the control flow (empty input, one item, duplicates, or boundaries)?
- *   5. Can you derive the time and extra-space complexity without looking at the answer?
+ * 1. Why must the inner `while` loops include the `left < right` boundary check?
+ *    (To prevent the pointers from crossing or going out of bounds when encountering sequences
+ *    composed entirely of non-alphanumeric characters or punctuation marks.)
+ * 2. Why is this in-place two-pointer approach preferred in production systems?
+ *    (It eliminates garbage collection overhead and memory allocation spikes for very large input strings.)
  */
 public class P30_ValidPalindrome {
 
@@ -47,16 +58,16 @@ public class P30_ValidPalindrome {
         int right = s.length() - 1;
 
         while (left < right) {
-            // Skip non-alphanumeric from left
+            // Skip non-alphanumeric characters from the left boundary
             while (left < right && !Character.isLetterOrDigit(s.charAt(left))) {
                 left++;
             }
-            // Skip non-alphanumeric from right
+            // Skip non-alphanumeric characters from the right boundary
             while (left < right && !Character.isLetterOrDigit(s.charAt(right))) {
                 right--;
             }
 
-            // Case-insensitive character comparison
+            // Perform case-insensitive character comparison
             char cl = Character.toLowerCase(s.charAt(left));
             char cr = Character.toLowerCase(s.charAt(right));
 

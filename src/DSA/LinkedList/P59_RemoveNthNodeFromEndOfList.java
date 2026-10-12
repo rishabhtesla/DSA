@@ -4,35 +4,54 @@ package DSA.LinkedList;
  * ============================================================================
  * [59 / 65] - REMOVE NTH NODE FROM END OF LIST (LeetCode 19)
  * ============================================================================
- * 
- * PROBLEM:
- *   Given head, remove the nth node from the end of the list and return its head.
  *
- * INTERVIEW INTUITION & "AHA!" MOMENT:
- *   - Two-Pointer Gap Strategy (Single Pass):
- *     Use a `dummy` node pointing to head to handle edge cases like removing head.
- *     1. Advance pointer `fast` forward by `n + 1` steps from `dummy`.
- *     2. Advance both `slow` and `fast` until `fast == null`.
- *     3. `slow` will now point exactly to the node BEFORE the target node!
- *     4. Delete target: `slow.next = slow.next.next`.
+ * PROBLEM STATEMENT:
+ * Given the `head` of a linked list, remove the $nth$ node from the end of the list
+ * and return its modified head.
  *
+ * ----------------------------------------------------------------------------
+ * INTERVIEW INTUITION & EVOLUTION:
+ * ----------------------------------------------------------------------------
+ * 1. Two-Pass Length Calculation Approach:
+ *    - Traverse the list once to calculate its total length $L$, then perform a second pass
+ *      to reach the node at index $L - n$.
+ *    - Valid, but requires two full iterations over the list.
+ *
+ * 2. Optimal Two-Pointer Gap Strategy (Single-Pass O(n) Time | O(1) Space):
+ *    - **The Core Insight:** We can find the target node from the end in a **single pass** by maintaining
+ *      a fixed gap of $n$ nodes between two pointers (`slow` and `fast`).
+ *    - **Step 1:** Introduce a `dummy` node pointing to `head` to safely handle edge cases (e.g., removing the very first head node).
+ *    - **Step 2:** Advance the `fast` pointer forward by $n + 1$ steps starting from `dummy`. This creates a precise gap
+ *      of $n$ nodes between `slow` (still at `dummy`) and `fast`.
+ *    - **Step 3:** Advance both `slow` and `fast` concurrently at the same speed until `fast` reaches `null`.
+ *    - **Step 4:** When `fast` hits `null`, `slow` will be positioned **exactly at the node right before the target node**.
+ *    - **Step 5:** Delete the target node by updating the pointer: `slow.next = slow.next.next`.
+ *
+ * ----------------------------------------------------------------------------
  * COMPLEXITY:
- *   - Time:  O(n) - Single pass.
- *   - Space: O(1) - Pointers only.
+ * - Time:  O(n) - Single linear pass through the linked list.
+ * - Space: O(1) - Constant auxiliary memory using only reference pointers.
  *
- *
+ * ----------------------------------------------------------------------------
  * EXAMPLE:
- *   The first main list is 1->2->3->4->5 with n=2; expected output is 1->2->3->5.
+ * - List: `1 -> 2 -> 3 -> 4 -> 5`, `n = 2`
+ * - Result: `1 -> 2 -> 3 -> 5`
  *
- * VISUAL DRY RUN:
- *   Advance fast two nodes from dummy, then move fast/slow together until fast reaches the
- *   tail: slow is at node 3, so slow.next (node 4, the 2nd from end) is bypassed. Return 1->2->3->5.
+ * VISUAL DRY RUN (for `n = 2`):
+ *   - `dummy` points to `1`. `fast` advances $2 + 1 = 3$ steps ahead.
+ *   - `slow` and `fast` move together until `fast` reaches `null`.
+ *   - `slow` lands on node `3`.
+ *   - `slow.next` (node `4`, which is 2nd from the end) is bypassed via `slow.next = slow.next.next`.
+ *   - Returns `dummy.next` (`1 -> 2 -> 3 -> 5`).
+ *
+ * ----------------------------------------------------------------------------
  * CRITICAL THINKING CHECKPOINTS:
- *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
- *   2. What invariant must remain true after every loop iteration?
- *   3. Why is each pointer/state update safe, and what counterexample would break it?
- *   4. Which edge cases change the control flow (empty input, one item, duplicates, or boundaries)?
- *   5. Can you derive the time and extra-space complexity without looking at the answer?
+ * 1. Why do we advance `fast` by $n + 1$ steps instead of $n$ steps?
+ *    (Advancing by $n + 1$ ensures that `slow` stops at the node *preceding* the target node rather than
+ *    the target node itself, making the deletion operation straightforward via pointer reassignment.)
+ * 2. How does the `dummy` node prevent null pointer exceptions?
+ *    (It handles edge cases where we need to remove the head node of a list, allowing uniform logic
+ *    without special-case `if` statements.)
  */
 public class P59_RemoveNthNodeFromEndOfList {
 
@@ -48,15 +67,18 @@ public class P59_RemoveNthNodeFromEndOfList {
         ListNode fast = dummy;
         ListNode slow = dummy;
 
+        // Advance fast pointer by n + 1 steps to create the required gap
         for (int i = 0; i <= n; i++) {
             fast = fast.next;
         }
 
+        // Move both pointers until fast reaches the end of the list
         while (fast != null) {
             slow = slow.next;
             fast = fast.next;
         }
 
+        // Bypass and delete the target node
         slow.next = slow.next.next;
         return dummy.next;
     }

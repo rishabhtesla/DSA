@@ -7,41 +7,53 @@ import java.util.Set;
  * ============================================================================
  * [52 / 52] - LONGEST CONSECUTIVE SEQUENCE (LeetCode 128)
  * ============================================================================
- * 
- * PROBLEM:
- *   Given an unsorted array of integers nums, return the length of the longest
- *   consecutive elements sequence. You must write an algorithm that runs in O(n) time.
  *
- * INTERVIEW INTUITION & "AHA!" MOMENT:
- *   - Sorting takes O(n log n), which violates the strict O(n) requirement.
- *   - Hash Set Sequence Root Check:
- *     1. Insert all elements into a `HashSet<Integer>`.
- *     2. Iterate through each number `num` in the set:
- *        Ask: "Can `num` be the START of a consecutive sequence?"
- *        It can ONLY be the start if `set.contains(num - 1)` is FALSE!
- *        If `num - 1` exists, skip it—it will be counted as part of a longer sequence
- *        originating earlier.
- *     3. When a start is found, count consecutive numbers `num + 1, num + 2, ...`
- *        while they exist in the set.
- *     Every element is visited at most twice (once in outer iteration, once in inner while).
+ * PROBLEM STATEMENT:
+ * Given an unsorted array of integers `nums`, return the length of the longest
+ * consecutive elements sequence. You must write an algorithm that runs in `O(n)` time.
  *
+ * ----------------------------------------------------------------------------
+ * INTERVIEW INTUITION & EVOLUTION:
+ * ----------------------------------------------------------------------------
+ * 1. Sorting Approach (O(n log n) Time | O(1) or O(n) Space):
+ *    - Sort the array and scan for consecutive runs.
+ *    - Fails the strict interview requirement for an `O(n)` time complexity due to the sorting step.
+ *
+ * 2. Optimal Hash Set Sequence Root Check (O(n) Time | O(n) Space):
+ *    - **The Core Insight:** To achieve `O(n)`, we cannot afford to search for sequence continuations blindly.
+ *      Instead, we must only initiate a count when we are looking at the **start** of a sequence.
+ *    - **Step 1:** Insert all elements into a `HashSet<Integer>` for `O(1)` average-time lookups.
+ *    - **Step 2:** Iterate through each unique number `num` in the set. Ask: *"Can `num` be the start of a sequence?"*
+ *      It can **only** be the start if `!set.contains(num - 1)` is true. If `num - 1` exists, skip it—it will
+ *      be counted as part of a longer sequence originating earlier.
+ *    - **Step 3:** When a true start is found, count consecutive numbers (`num + 1, num + 2, ...`)
+ *      while they exist in the set, and track the maximum length (`longestStreak`).
+ *
+ * ----------------------------------------------------------------------------
  * COMPLEXITY:
- *   - Time:  O(n) - Linear lookups; each number enters the inner loop at most once.
- *   - Space: O(n) - Hash set storing unique values.
+ * - Time:  O(n) - Although there is a `while` loop inside a `for` loop, each number is visited and processed
+ *           in the inner loop at most once, leading to a linear overall time complexity.
+ * - Space: O(n) - Hash set storing unique integer values from the array.
  *
+ * ----------------------------------------------------------------------------
+ * EXAMPLES:
+ * - `nums = [100, 4, 200, 1, 3, 2]` -> 4 (`[1, 2, 3, 4]`)
+ * - `nums = [0, 3, 7, 2, 5, 8, 4, 6, 0, 1]` -> 9 (`[0, 1, 2, 3, 4, 5, 6, 7, 8]`)
  *
- * EXAMPLE:
- *   The first main nums=[100,4,200,1,3,2]; expected longest length is 4 ([1,2,3,4]).
+ * VISUAL DRY RUN (for `[100, 4, 200, 1, 3, 2]`):
+ *   - Set contains: `{100, 4, 200, 1, 3, 2}`
+ *   - Check 100: `99` is absent -> Start found! Extends to `100` (streak = 1). `longestStreak = 1`.
+ *   - Check 4: `3` exists in set -> Skip (not a sequence root).
+ *   - Check 1: `0` is absent -> Start found! Extends: 1 -> 2 -> 3 -> 4 (streak = 4). `longestStreak = 4`.
+ *   - Returns `4`.
  *
- * VISUAL DRY RUN:
- *   Set contains all values. Start only at 1 (0 absent), extend 1->2->3->4 for length 4;
- *   4 is not a start, and 100/200 each give length 1. maxLen=4.
+ * ----------------------------------------------------------------------------
  * CRITICAL THINKING CHECKPOINTS:
- *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
- *   2. What invariant must remain true after every loop iteration?
- *   3. Why is each pointer/state update safe, and what counterexample would break it?
- *   4. Which edge cases change the control flow (empty input, one item, duplicates, or boundaries)?
- *   5. Can you derive the time and extra-space complexity without looking at the answer?
+ * 1. Why does checking `!set.contains(num - 1)` guarantee an overall `O(n)` time complexity?
+ *    (It ensures that the inner `while` loop only runs when we are at the absolute beginning of a sequence.
+ *    Numbers in the middle of a sequence are skipped instantly, preventing redundant nested iterations.)
+ * 2. What edge cases are handled automatically?
+ *    (Null or empty arrays return `0` instantly, and arrays with duplicate values or single elements evaluate cleanly.)
  */
 public class P52_LongestConsecutiveSequence {
 

@@ -4,36 +4,53 @@ package DSA.LinkedList;
  * ============================================================================
  * [65 / 65] - INTERSECTION OF TWO LINKED LISTS (LeetCode 160)
  * ============================================================================
- * 
- * PROBLEM:
- *   Given the heads of two singly linked-lists headA and headB, return the node
- *   at which the two lists intersect. If they do not intersect, return null.
  *
- * INTERVIEW INTUITION & "AHA!" MOMENT:
- *   - The Two-Runner Path Equalizer:
- *     Let path A have length `a + c` and path B have length `b + c`, where `c` is common tail.
- *     If pointer `pA` traverses list A then jumps to headB, and pointer `pB` traverses
- *     list B then jumps to headA:
- *     Both traverse exactly `(a + c + b)` steps!
- *     They will either collide at the intersection node or both terminate at `null`.
+ * PROBLEM STATEMENT:
+ * Given the heads of two singly linked-lists `headA` and `headB`, return the node
+ * at which the two lists intersect. If the two linked lists have no intersection, return `null`.
  *
+ * ----------------------------------------------------------------------------
+ * INTERVIEW INTUITION & EVOLUTION:
+ * ----------------------------------------------------------------------------
+ * 1. Naive / Hash Set Approach:
+ *    - Traverse `headA` and store all node references in a `HashSet`. Then traverse `headB`
+ *      and check if any node is already in the set.
+ *    - Valid, but requires `O(m + n)` auxiliary space.
+ *
+ * 2. Optimal Two-Runner Path Equalizer Approach (O(m + n) Time | O(1) Space):
+ *    - **The Core Insight:** Let list A have a unique prefix length `a` and list B have `b`,
+ *      followed by a shared intersecting tail of length `c`.
+ *    - Total length of path A is `a + c`, and path B is `b + c`.
+ *    - If pointer `pA` traverses list A and then switches to `headB`, while pointer `pB` traverses
+ *      list B and then switches to `headA`, both pointers will travel exactly `a + c + b` steps!
+ *    - By equalizing the path lengths, both runners are guaranteed to land on the exact intersection node
+ *      (or both hit `null` simultaneously if no intersection exists) at the end of their second pass.
+ *
+ * ----------------------------------------------------------------------------
  * COMPLEXITY:
- *   - Time:  O(m + n) - At most two passes per pointer.
- *   - Space: O(1) - Two reference pointers.
+ * - Time:  O(m + n) - At most two passes per pointer before meeting or concluding non-intersection.
+ * - Space: O(1) - Constant auxiliary space using only two reference pointers.
  *
- *
+ * ----------------------------------------------------------------------------
  * EXAMPLE:
- *   The first main lists are A=4->1->8->4->5 and B=5->6->1->8->4->5; expected intersection value 8.
+ * - List A: `4 -> 1 -> 8 -> 4 -> 5`
+ * - List B: `5 -> 6 -> 1 -> 8 -> 4 -> 5`
+ * - Intersection Node Value: `8`
  *
  * VISUAL DRY RUN:
- *   pA traverses A then switches to B; pB traverses B then switches to A. After equalizing
- *   the different prefixes, both pointers reach the shared node 8 simultaneously; return it.
+ *   - `pA` traverses list A, hits `null`, and redirects to `headB`.
+ *   - `pB` traverses list B, hits `null`, and redirects to `headA`.
+ *   - Because they switch paths, the length discrepancy between the two independent heads
+ *     is perfectly cancelled out. They meet at node `8` simultaneously.
+ *
+ * ----------------------------------------------------------------------------
  * CRITICAL THINKING CHECKPOINTS:
- *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
- *   2. What invariant must remain true after every loop iteration?
- *   3. Why is each pointer/state update safe, and what counterexample would break it?
- *   4. Which edge cases change the control flow (empty input, one item, duplicates, or boundaries)?
- *   5. Can you derive the time and extra-space complexity without looking at the answer?
+ * 1. Why does switching heads guarantee that `pA` and `pB` will eventually meet?
+ *    (Mathematically, `(lengthA + lengthB)` equals `(lengthB + lengthA)`.
+ *    Thus, both pointers travel the exact same cumulative distance before aligning at the intersection node.)
+ * 2. What happens if the two lists do not intersect at all?
+ *    (Both pointers will reach the end of their second traversal (`null`) at the exact same iteration,
+ *    terminating the loop and returning `null` safely.)
  */
 public class P65_IntersectionOfTwoLinkedLists {
 
@@ -49,11 +66,13 @@ public class P65_IntersectionOfTwoLinkedLists {
         ListNode pA = headA;
         ListNode pB = headB;
 
+        // Traverse both lists; when a pointer reaches the end, switch to the other list's head
         while (pA != pB) {
             pA = (pA == null) ? headB : pA.next;
             pB = (pB == null) ? headA : pB.next;
         }
 
+        // Returns either the intersecting node or null if no intersection exists
         return pA;
     }
 

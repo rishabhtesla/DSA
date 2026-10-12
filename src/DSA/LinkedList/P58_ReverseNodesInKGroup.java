@@ -4,37 +4,52 @@ package DSA.LinkedList;
  * ============================================================================
  * [58 / 65] - REVERSE NODES IN K-GROUP (LeetCode 25)
  * ============================================================================
- * 
- * PROBLEM:
- *   Given the head of a linked list, reverse the nodes of the list k at a time,
- *   and return the modified list. If the number of nodes is not a multiple of k,
- *   leave the remaining nodes as-is.
  *
- * INTERVIEW INTUITION & "AHA!" MOMENT:
- *   - Lookahead Check:
- *     Before reversing any group, look ahead k steps. If fewer than k nodes remain,
- *     leave them unchanged and terminate.
- *   - Reversal Splicing:
- *     Reverse the k nodes. Splice the head and tail back to the preceding and
- *     succeeding list portions, then advance pointers to the next group.
+ * PROBLEM STATEMENT:
+ * Given the `head` of a linked list, reverse the nodes of the list `k` at a time,
+ * and return the modified list. If the number of nodes is not a multiple of `k`,
+ * leave the remaining nodes as-is.
  *
+ * ----------------------------------------------------------------------------
+ * INTERVIEW INTUITION & EVOLUTION:
+ * ----------------------------------------------------------------------------
+ * 1. Recursive Approach:
+ *    - Recursively reverse the first `k` nodes, then link the result to the recursive call of the remaining list.
+ *    - Valid, but uses O(n / k) call stack space.
+ *
+ * 2. Optimal Iterative Lookahead & Splicing Approach (O(n) Time | O(1) Space):
+ *    - **The Core Insight:** We can reverse groups iteratively without recursion by pre-checking if a full
+ *      group of `k` nodes exists before performing any mutations.
+ *    - **Step 1 (Lookahead):** Use a helper function `getKth()` to advance `k` steps. If fewer than `k` nodes
+ *      remain (`kth == null`), stop and leave the remaining tail unchanged.
+ *    - **Step 2 (In-Place Reversal):** Reverse the `k` nodes iteratively using standard pointer rotation
+ *      while anchoring to the start of the next group (`groupNext`).
+ *    - **Step 3 (Reconnection):** Splice the newly reversed sublist back between `groupPrev` and `groupNext`,
+ *      then shift `groupPrev` forward to the end of the current reversed group for the next iteration.
+ *
+ * ----------------------------------------------------------------------------
  * COMPLEXITY:
- *   - Time:  O(n) - Every node is checked once and reversed once.
- *   - Space: O(1) - Iterative reversal.
+ * - Time:  O(n) - Every node is checked once by the lookahead helper and reversed once.
+ * - Space: O(1) - Iterative pointer adjustments require constant extra memory space.
  *
- *
+ * ----------------------------------------------------------------------------
  * EXAMPLE:
- *   The first main list is 1->2->3->4->5 with k=2; expected 2->1->4->3->5.
+ * - List: `1 -> 2 -> 3 -> 4 -> 5`, `k = 2`
+ * - Result: `2 -> 1 -> 4 -> 3 -> 5`
  *
- * VISUAL DRY RUN:
- *   First complete group [1,2] reverses to [2,1]; groupPrev moves to 1. Next [3,4]
- *   reverses to [4,3]; only node 5 remains (<k), so leave it unchanged -> 2->1->4->3->5.
+ * VISUAL DRY RUN (for `k = 2`):
+ *   - Lookahead finds first group `[1, 2]`. Reverses to `[2, 1]`. `groupPrev` anchors at `1`.
+ *   - Lookahead finds second group `[3, 4]`. Reverses to `[4, 3]`. `groupPrev` anchors at `3`.
+ *   - Lookahead on remaining node `[5]` returns `null` (fewer than 2 nodes remain) -> stops and leaves node `5` as-is.
+ *   - Final list: `2 -> 1 -> 4 -> 3 -> 5`.
+ *
+ * ----------------------------------------------------------------------------
  * CRITICAL THINKING CHECKPOINTS:
- *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
- *   2. What invariant must remain true after every loop iteration?
- *   3. Why is each pointer/state update safe, and what counterexample would break it?
- *   4. Which edge cases change the control flow (empty input, one item, duplicates, or boundaries)?
- *   5. Can you derive the time and extra-space complexity without looking at the answer?
+ * 1. Why is the lookahead check (`getKth`) critical before reversing?
+ *    (It ensures that we don't accidentally reverse a partial tail group when the total node count
+ *    is not a multiple of `k`, satisfying the problem requirement to leave remaining nodes as-is.)
+ * 2. What edge cases are handled automatically?
+ *    (A `null` head or `k = 1` short-circuits instantly and returns the original list unmodified.)
  */
 public class P58_ReverseNodesInKGroup {
 
@@ -52,6 +67,7 @@ public class P58_ReverseNodesInKGroup {
         ListNode groupPrev = dummy;
 
         while (true) {
+            // Check if there are at least k nodes remaining to reverse
             ListNode kth = getKth(groupPrev, k);
             if (kth == null) break;
 
@@ -59,7 +75,7 @@ public class P58_ReverseNodesInKGroup {
             ListNode prev = groupNext;
             ListNode curr = groupPrev.next;
 
-            // Reverse k elements
+            // Reverse the current k-group elements
             while (curr != groupNext) {
                 ListNode tmp = curr.next;
                 curr.next = prev;

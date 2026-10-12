@@ -8,44 +8,56 @@ import java.util.List;
  * ============================================================================
  * [27 / 28] - INSERT INTERVAL (LeetCode 57)
  * ============================================================================
- * 
- * PROBLEM:
- *   You are given an array of non-overlapping intervals sorted in ascending order
- *   by start time, and a newInterval = [start, end].
- *   Insert newInterval into intervals such that intervals is still sorted and
- *   non-overlapping (merging if necessary).
  *
- * INTERVIEW INTUITION & "AHA!" MOMENT:
- *   - Because the input is ALREADY sorted and non-overlapping, we do NOT need 
- *     O(n log n) sorting! We can solve this in a single O(n) pass.
- *   - The array splits cleanly into 3 chronological phases:
- *     Phase 1 (Before): All intervals that finish before `newInterval` starts:
- *                       `intervals[i][1] < newInterval[0]` -> Add directly.
- *     Phase 2 (Overlap): Intervals that overlap with `newInterval`:
- *                        `intervals[i][0] <= newInterval[1]` -> Merge together:
- *                        `newInterval[0] = Math.min(newInterval[0], intervals[i][0])`
- *                        `newInterval[1] = Math.max(newInterval[1], intervals[i][1])`
- *                        Then add merged `newInterval`.
- *     Phase 3 (After):  All remaining intervals that start after `newInterval` ends -> Add directly.
+ * PROBLEM STATEMENT:
+ * You are given an array of non-overlapping intervals sorted in ascending order
+ * by start time, and a `newInterval = [start, end]`.
+ * Insert `newInterval` into `intervals` such that the resulting array is still sorted
+ * and non-overlapping (merging if necessary).
  *
+ * ----------------------------------------------------------------------------
+ * INTERVIEW INTUITION & EVOLUTION:
+ * ----------------------------------------------------------------------------
+ * 1. Naive / Append & Sort Approach (O(n log n) Time):
+ *    - Append the new interval to the array and re-sort all intervals.
+ *    - Inefficient because it completely ignores the fact that the input array is **already sorted**.
+ *
+ * 2. Optimal Three-Phase Linear Scan Approach (O(n) Time | O(n) Space):
+ *    - **The Core Insight:** Since the input is already sorted, we can partition the process
+ *      cleanly into **3 chronological phases** without any sorting overhead:
+ *    - **Phase 1 (Before):** Add all intervals that finish strictly before `newInterval` starts
+ *      (`intervals[i][1] < newInterval[0]`) directly to the result.
+ *    - **Phase 2 (Overlap):** Merge all overlapping intervals with `newInterval`
+ *      (`intervals[i][0] <= newInterval[1]`) by updating bounds:
+ *      - `newInterval[0] = Math.min(newInterval[0], intervals[i][0])`
+ *      - `newInterval[1] = Math.max(newInterval[1], intervals[i][1])`
+ *      Once all overlaps are absorbed, add the final merged `newInterval`.
+ *    - **Phase 3 (After):** Add all remaining intervals that start after `newInterval` ends.
+ *
+ * ----------------------------------------------------------------------------
  * COMPLEXITY:
- *   - Time:  O(n) - Single pass through intervals.
- *   - Space: O(1) - Auxiliary space (ignoring the output list).
+ * - Time:  O(n) - Single linear pass visiting each interval at most once.
+ * - Space: O(n) - Auxiliary space required to store the resulting list of intervals.
  *
- *
- * EXAMPLE:
- *   Insert newInterval=[4,8] into [[1,2],[3,5],[6,7],[8,10],[12,16]]; expected
- *   [[1,2],[3,10],[12,16]].
+ * ----------------------------------------------------------------------------
+ * EXAMPLE: `intervals = [[1, 2], [3, 5], [6, 7], [8, 10], [12, 16]]`, `newInterval = [4, 8]`
  *
  * VISUAL DRY RUN:
- *   [1,2] is before 4, emit it. [3,5] overlaps -> merge new=[3,8]; [6,7] -> [3,8];
- *   [8,10] touches/overlaps -> [3,10]. [12,16] is after, emit [3,10], then [12,16].
+ *   - Phase 1: `[1, 2]` finishes before 4 starts -> Added to result.
+ *   - Phase 2: `[3, 5]` overlaps (`3 <= 8`) -> `newInterval` expands to `[3, 8]`.
+ *              `[6, 7]` overlaps (`6 <= 8`) -> `newInterval` expands to `[3, 8]`.
+ *              `[8, 10]` overlaps (`8 <= 8` boundary touch) -> `newInterval` expands to `[3, 10]`.
+ *              Merged `[3, 10]` added to result.
+ *   - Phase 3: `[12, 16]` starts after 10 -> Added directly.
+ *   - Returns `[[1, 2], [3, 10], [12, 16]]`.
+ *
+ * ----------------------------------------------------------------------------
  * CRITICAL THINKING CHECKPOINTS:
- *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
- *   2. What invariant must remain true after every loop iteration?
- *   3. Why is each pointer/state update safe, and what counterexample would break it?
- *   4. Which edge cases change the control flow (empty input, one item, duplicates, or boundaries)?
- *   5. Can you derive the time and extra-space complexity without looking at the answer?
+ * 1. Why is this solution more optimal than standard interval merging?
+ *    (It leverages the pre-sorted invariant of the input array, dropping the time complexity from O(n log n) down to O(n).)
+ * 2. How does the condition `intervals[i][0] <= newInterval[1]` correctly capture all overlaps?
+ *    (It checks whether an existing interval's start time occurs on or before the new interval's end time,
+ *    which, combined with Phase 1 filtering, guarantees a complete overlap intersection.)
  */
 public class P27_InsertInterval {
 

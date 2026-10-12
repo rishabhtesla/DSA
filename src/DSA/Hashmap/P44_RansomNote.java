@@ -4,39 +4,52 @@ package DSA.Hashmap;
  * ============================================================================
  * [44 / 52] - RANSOM NOTE (LeetCode 383)
  * ============================================================================
- * 
- * PROBLEM:
- *   Given two strings ransomNote and magazine, return true if ransomNote can be
- *   constructed by using the letters from magazine, or false otherwise.
- *   Each letter in magazine can only be used once in ransomNote.
  *
- * INTERVIEW INTUITION & "AHA!" MOMENT:
- *   - Character Frequency Table:
- *     Since inputs contain only lowercase English letters ('a' through 'z'),
- *     an integer array of size 26 outperforms `HashMap<Character, Integer>`.
- *   - Algorithm:
- *     1. If `ransomNote.length() > magazine.length()`, return false immediately.
- *     2. Count frequencies of each character in `magazine`.
- *     3. Decrement frequencies while scanning `ransomNote`.
- *     4. If count drops below 0 for any character, magazine lacks sufficient letters.
+ * PROBLEM STATEMENT:
+ * Given two strings `ransomNote` and `magazine`, return `true` if `ransomNote` can be
+ * constructed by using the letters from `magazine`, and `false` otherwise.
+ * Each letter in `magazine` can only be used once in `ransomNote`.
  *
+ * ----------------------------------------------------------------------------
+ * INTERVIEW INTUITION & EVOLUTION:
+ * ----------------------------------------------------------------------------
+ * 1. Naive / HashMap Approach:
+ *    - Using `HashMap<Character, Integer>` to count frequencies.
+ *    - Valid, but incurs object allocation overhead and hash computation costs.
+ *
+ * 2. Optimal Array Frequency Table (O(m + n) Time | O(1) Space):
+ *    - Since the inputs consist solely of lowercase English letters (`'a'` through `'z'`),
+ *      a primitive integer array of size 26 vastly outperforms a `HashMap`.
+ *    - **Step 1:** Early exit if `ransomNote.length() > magazine.length()` (it's physically impossible to construct).
+ *    - **Step 2:** Count the character frequencies of `magazine` in the frequency array.
+ *    - **Step 3:** Iterate through `ransomNote`, decrementing the respective character counts.
+ *      If any count drops below zero, `magazine` lacks sufficient letters, so return `false` immediately.
+ *
+ * ----------------------------------------------------------------------------
  * COMPLEXITY:
- *   - Time:  O(m + n) where m = ransomNote.length(), n = magazine.length().
- *   - Space: O(1) - Fixed integer array of size 26.
+ * - Time:  O(m + n) where `m` is the length of `ransomNote` and `n` is the length of `magazine`.
+ * - Space: O(1) - Fixed integer array of size 26 requires constant auxiliary memory.
  *
+ * ----------------------------------------------------------------------------
+ * EXAMPLES:
+ * - `ransomNote = "a"`, `magazine = "b"`   -> `false`
+ * - `ransomNote = "aa"`, `magazine = "ab"`  -> `false`
+ * - `ransomNote = "aa"`, `magazine = "aab"` -> `true`
  *
- * EXAMPLE:
- *   The first main call checks ransomNote="a", magazine="b"; expected result is false.
+ * VISUAL DRY RUN (for `ransomNote = "a"`, `magazine = "b"`):
+ *   - Length check: `1 > 1` (false).
+ *   - Count frequency of magazine (`"b"`): `counts['b' - 'a']` becomes 1.
+ *   - Scan ransomNote (`"a"`):
+ *     - index for `'a'` (`counts[0]`) is decremented from 0 to -1.
+ *     - `counts[0] < 0` triggers an immediate return of `false`.
  *
- * VISUAL DRY RUN:
- *   Count magazine: b=1, all other counts 0. Read ransom character a: decrement a from
- *   0 to -1, detect a negative count, and return false immediately.
+ * ----------------------------------------------------------------------------
  * CRITICAL THINKING CHECKPOINTS:
- *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
- *   2. What invariant must remain true after every loop iteration?
- *   3. Why is each pointer/state update safe, and what counterexample would break it?
- *   4. Which edge cases change the control flow (empty input, one item, duplicates, or boundaries)?
- *   5. Can you derive the time and extra-space complexity without looking at the answer?
+ * 1. Why is an integer array of size 26 preferred over a `HashMap` in this context?
+ *    (It eliminates object wrapping overhead, hash collision handling, and memory allocations,
+ *    yielding maximum execution speed.)
+ * 2. What edge cases are handled upfront?
+ *    (When the ransom note is longer than the magazine, the length check short-circuits instantly.)
  */
 public class P44_RansomNote {
 

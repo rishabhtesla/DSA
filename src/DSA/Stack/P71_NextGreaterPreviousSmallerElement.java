@@ -8,7 +8,7 @@ import java.util.Deque;
  * ============================================================================
  * [71 / 73] - NEXT GREATER & PREVIOUS SMALLER ELEMENT (Monotonic Stack Foundation)
  * ============================================================================
- * 
+ *
  * PROBLEM:
  *   Given an array nums:
  *   1. Find the Next Greater Element (NGE) for each position (index or -1).

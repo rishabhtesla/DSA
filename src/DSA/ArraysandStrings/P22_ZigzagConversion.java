@@ -4,40 +4,61 @@ package DSA.ArraysandStrings;
  * ============================================================================
  * [22 / 24] - ZIGZAG CONVERSION (LeetCode 6)
  * ============================================================================
- * 
- * PROBLEM:
- *   The string "PAYPALISHIRING" is written in a zigzag pattern on a given number
- *   of rows like this:
- *   P   A   H   N
- *   A P L S I I G
- *   Y   I   R
- *   And then read line by line: "PAHNAPLSIIGYIR". Return this converted string.
  *
- * INTERVIEW INTUITION & "AHA!" MOMENT:
- *   - Simulate row traversal with a bounce:
- *     Maintain an array of `StringBuilder`—one for each row.
- *     Keep track of `currentRow` and a direction step `dir` (+1 going down, -1 going up).
- *     When `currentRow == 0`, switch direction to +1 (downwards).
- *     When `currentRow == numRows - 1`, switch direction to -1 (upwards).
- *   - Edge Case: If `numRows == 1` or `numRows >= s.length()`, zigzag does not change the order.
+ * PROBLEM STATEMENT:
+ * The string `"PAYPALISHIRING"` is written in a zigzag pattern on a given number
+ * of rows like this (example with numRows = 3):
  *
+ * P   A   H   N
+ * A P L S I I G
+ * Y   I   R
+ *
+ * And then read line by line: `"PAHNAPLSIIGYIR"`.
+ * Write a function that takes a string and returns this converted string.
+ *
+ * ----------------------------------------------------------------------------
+ * INTERVIEW INTUITION & EVOLUTION:
+ * ----------------------------------------------------------------------------
+ * 1. Mathematical Index Calculation Approach:
+ *    - Calculate character positions based on cycle lengths (`2 * numRows - 2`).
+ *    - Fast, but prone to boundary off-by-one errors and harder to write cleanly.
+ *
+ * 2. Optimal Simulation with Direction Bounce (O(n) Time | O(n) Space):
+ *    - Instead of complex math formulas, we can **simulate** the visual writing process.
+ *    - Maintain an array of `StringBuilder` objects—one for each row (`numRows`).
+ *    - Keep track of `currentRow` and a direction step `dir` (`+1` going down, `-1` going up).
+ *    - **The Rule:** As we iterate through each character of the string, append it to `rows[currentRow]`.
+ *      When we hit the top (`currentRow == 0`) or bottom (`currentRow == numRows - 1`) row,
+ *      we flip the direction `dir = -dir`.
+ *
+ * ----------------------------------------------------------------------------
  * COMPLEXITY:
- *   - Time:  O(n) - Visits each character in s exactly once.
- *   - Space: O(n) - StringBuilders storing characters for each row.
+ * - Time:  O(n) - Single pass visiting each character in string `s` exactly once.
+ * - Space: O(n) - Array of `StringBuilder` objects storing the characters for each row (totaling `n` characters).
  *
+ * ----------------------------------------------------------------------------
+ * EXAMPLES:
+ * - `"PAYPALISHIRING"`, numRows = 3 -> `"PAHNAPLSIIGYIR"`
+ * - `"PAYPALISHIRING"`, numRows = 4 -> `"PINALSIGYAHRPI"`
  *
- * EXAMPLE:
- *   The first main call converts "PAYPALISHIRING" with numRows=3 and expects "PAHNAPLSIIGYIR".
+ * VISUAL DRY RUN (for `numRows = 3`):
+ *   - Start: `currentRow = 0`, `dir = -1` (flips to +1 on first step)
+ *   - Character 'P': added to row 0. Direction flips to +1. `currentRow` becomes 1.
+ *   - Character 'A': added to row 1. `currentRow` becomes 2.
+ *   - Character 'Y': added to row 2. Hits bottom (`numRows - 1`). Direction flips to -1. `currentRow` becomes 1.
+ *   - Character 'P': added to row 1. `currentRow` becomes 0.
+ *   - Character 'A': added to row 0. Hits top (`0`). Direction flips to +1. `currentRow` becomes 1.
+ *   - ... continues until all characters are distributed across rows.
+ *   - Concatenating row 0, row 1, and row 2 yields `"PAHNAPLSIIGYIR"`.
  *
- * VISUAL DRY RUN:
- *   Row pointer/direction visits rows 0,1,2,1 repeatedly. Appending characters gives
- *   row0="PAHN", row1="APLSIIG", row2="YIR"; concatenate rows -> "PAHNAPLSIIGYIR".
+ * ----------------------------------------------------------------------------
  * CRITICAL THINKING CHECKPOINTS:
- *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
- *   2. What invariant must remain true after every loop iteration?
- *   3. Why is each pointer/state update safe, and what counterexample would break it?
- *   4. Which edge cases change the control flow (empty input, one item, duplicates, or boundaries)?
- *   5. Can you derive the time and extra-space complexity without looking at the answer?
+ * 1. Why do we include an early check for `numRows == 1` or `numRows >= s.length()`?
+ *    (Because with 1 row or more rows than characters, the zigzag pattern degenerates into a flat line,
+ *    so returning `s` immediately prevents unnecessary computation and array overhead.)
+ * 2. How does the direction flip work seamlessly at boundaries?
+ *    (Checking `currentRow == 0 || currentRow == numRows - 1` right after appending ensures
+ *    the bounce happens precisely at the outer boundary rows before the row pointer updates.)
  */
 public class P22_ZigzagConversion {
 

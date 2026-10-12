@@ -7,38 +7,54 @@ import java.util.Map;
  * ============================================================================
  * [46 / 52] - WORD PATTERN (LeetCode 290)
  * ============================================================================
- * 
- * PROBLEM:
- *   Given a pattern and a string s, find if s follows the same pattern.
- *   Follow means a full match, such that there is a bijection between a letter
- *   in pattern and a non-empty word in s.
  *
- * INTERVIEW INTUITION & "AHA!" MOMENT:
- *   - Split `s` into words array. If `words.length != pattern.length()`, return false.
- *   - To ensure a strict bijection:
- *     1. Map `char -> word`
- *     2. Map `word -> char` (or use a `Set<String>` for taken words)
- *   - Alternatively, Java's `map.put(key, val)` returns the PREVIOUS value associated
- *     with that key. Storing indices in two maps and checking return values gives
- *     an elegant symmetry check.
+ * PROBLEM STATEMENT:
+ * Given a `pattern` and a string `s`, find if `s` follows the same pattern.
+ * Here "follow" means a full match, such that there is a strict bijection (1-to-1 mapping)
+ * between a letter in `pattern` and a non-empty word in `s` (i.e., no two letters map
+ * to the same word, and no two words map to the same letter).
  *
+ * ----------------------------------------------------------------------------
+ * INTERVIEW INTUITION & EVOLUTION:
+ * ----------------------------------------------------------------------------
+ * 1. Naive / Single-Map Approach:
+ *    - Mapping `char -> word` without tracking reverse mappings. Fails because two different
+ *      characters could erroneously map to the same word (e.g., pattern="abba", s="dog dog dog dog").
+ *
+ * 2. Optimal Dual-Map Approach (O(n) Time | O(w) Space):
+ *    - **Step 1:** Split string `s` by spaces into a `words` array. If `pattern.length() != words.length`,
+ *      return `false` immediately.
+ *    - **Step 2:** Maintain two hash maps (`charToWord` and `wordToChar`) to enforce a **mutual bijection**.
+ *    - **Step 3:** For each index, check if character `c` maps to a different word, or if word `w`
+ *      maps to a different character. If either violation occurs, return `false`. Otherwise, record both mappings.
+ *
+ * ----------------------------------------------------------------------------
  * COMPLEXITY:
- *   - Time:  O(n) where n is total characters in s (splitting and hashing words).
- *   - Space: O(w) where w is the number of unique words/characters.
+ * - Time:  O(n) where `n` is the total length of characters processed during splitting and hashing words.
+ * - Space: O(w) where `w` is the number of unique words/characters stored in the lookup maps.
  *
+ * ----------------------------------------------------------------------------
+ * EXAMPLES:
+ * - `pattern = "abba"`, `s = "dog cat cat dog"`  -> `true`
+ * - `pattern = "abba"`, `s = "dog cat cat fish"` -> `false`
+ * - `pattern = "aaaa"`, `s = "dog cat cat dog"`  -> `false`
  *
- * EXAMPLE:
- *   The first main input is pattern="abba", s="dog cat cat dog"; expected result is true.
+ * VISUAL DRY RUN (for `pattern = "abba"`, `s = "dog cat cat dog"`):
+ *   - Length check: 4 == 4 (passes).
+ *   - i = 0: c = 'a', w = "dog". Both maps are empty -> puts 'a'-> "dog" and "dog"->'a'.
+ *   - i = 1: c = 'b', w = "cat". Both maps are empty -> puts 'b'-> "cat" and "cat"->'b'.
+ *   - i = 2: c = 'b', w = "cat". Matches existing mappings ('b'-> "cat" and "cat"->'b').
+ *   - i = 3: c = 'a', w = "dog". Matches existing mappings ('a'-> "dog" and "dog"->'a').
+ *   - Returns `true`.
  *
- * VISUAL DRY RUN:
- *   Pairs are a/dog (map both ways), b/cat (map both ways), b/cat (consistent),
- *   a/dog (consistent). Both maps end as a<->dog,b<->cat; return true.
+ * ----------------------------------------------------------------------------
  * CRITICAL THINKING CHECKPOINTS:
- *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
- *   2. What invariant must remain true after every loop iteration?
- *   3. Why is each pointer/state update safe, and what counterexample would break it?
- *   4. Which edge cases change the control flow (empty input, one item, duplicates, or boundaries)?
- *   5. Can you derive the time and extra-space complexity without looking at the answer?
+ * 1. Why are two hash maps required instead of just one?
+ *    (Two maps are strictly necessary to enforce a bidirectional bijection. A single map from character to word
+ *    prevents a character from pointing to multiple words, but doesn't prevent multiple distinct characters
+ *    from pointing to the exact same word.)
+ * 2. What edge cases are handled automatically?
+ *    (Length mismatches between the pattern string length and the split word array length are caught upfront.)
  */
 public class P46_WordPattern {
 

@@ -7,41 +7,56 @@ import java.util.List;
  * ============================================================================
  * [40 / 43] - SPIRAL MATRIX (LeetCode 54)
  * ============================================================================
- * 
- * PROBLEM:
- *   Given an m x n matrix, return all elements of the matrix in spiral order
- *   (clockwise starting from the top-left corner).
  *
- * INTERVIEW INTUITION & "AHA!" MOMENT:
- *   - 4-Boundary Inward Shrink Pattern:
- *     Define boundaries: `top = 0`, `bottom = m - 1`, `left = 0`, `right = n - 1`.
- *     Execute 4 directional sweeps per cycle:
- *     1. Move Right: (top, left -> right), then `top++`.
- *     2. Move Down:  (top -> bottom, right), then `right--`.
- *     3. Move Left:  (bottom, right -> left), then `bottom--`.
- *        *Check `top <= bottom` before sweeping to avoid duplicate row processing.*
- *     4. Move Up:    (bottom -> top, left), then `left++`.
- *        *Check `left <= right` before sweeping to avoid duplicate column processing.*
- *     Loop terminates when boundaries cross (`top > bottom || left > right`).
+ * PROBLEM STATEMENT:
+ * Given an `m x n` matrix, return all elements of the matrix in spiral order
+ * (clockwise starting from the top-left corner).
  *
+ * ----------------------------------------------------------------------------
+ * INTERVIEW INTUITION & EVOLUTION:
+ * ----------------------------------------------------------------------------
+ * 1. Naive / Visited-Set Approach:
+ *    - Track visited cells using a boolean matrix of the same size and change direction when hitting bounds or visited cells.
+ *    - Valid, but requires extra space and conditional branch checks.
+ *
+ * 2. Optimal 4-Boundary Inward Shrink Pattern (O(m * n) Time | O(1) Auxiliary Space):
+ *    - **The Core Insight:** Instead of tracking visited cells, define explicit dynamic boundaries
+ *      that shrink inward after every directional sweep: `top`, `bottom`, `left`, and `right`.
+ *    - **Step 1:** Sweep `top` row from left to right, then increment `top++`.
+ *    - **Step 2:** Sweep `right` column from top to bottom, then decrement `right--`.
+ *    - **Step 3:** Sweep `bottom` row from right to left (guarded by `top <= bottom`), then decrement `bottom--`.
+ *    - **Step 4:** Sweep `left` column from bottom to top (guarded by `left <= right`), then increment `left++`.
+ *    - **Step 5:** Terminate when the boundaries cross (`top > bottom || left > right`).
+ *
+ * ----------------------------------------------------------------------------
  * COMPLEXITY:
- *   - Time:  O(m * n) - Each cell is visited exactly once.
- *   - Space: O(1) - Auxiliary space (excluding the output list).
+ * - Time:  O(m * n) - Every single cell in the matrix is visited exactly once.
+ * - Space: O(1) - Auxiliary space (excluding the output list required to store the results).
  *
- *
+ * ----------------------------------------------------------------------------
  * EXAMPLE:
- *   The first main matrix is [[1,2,3],[4,5,6],[7,8,9]], expecting [1,2,3,6,9,8,7,4,5].
+ * - Matrix:
+ *   [1, 2, 3]
+ *   [4, 5, 6]
+ *   [7, 8, 9]
+ * - Result: `[1, 2, 3, 6, 9, 8, 7, 4, 5]`
  *
  * VISUAL DRY RUN:
- *   Boundaries top=0,bottom=2,left=0,right=2: traverse top [1,2,3], right [6,9],
- *   bottom [8,7], left upward [4]. Narrow to the center and append [5]; output order is
- *   [1,2,3,6,9,8,7,4,5].
+ *   - Initial boundaries: `top = 0, bottom = 2, left = 0, right = 2`.
+ *   - Traverse top row: adds `[1, 2, 3]`, `top` becomes 1.
+ *   - Traverse right column: adds `[6, 9]`, `right` becomes 1.
+ *   - Traverse bottom row: adds `[8, 7]`, `bottom` becomes 1.
+ *   - Traverse left column upward: adds `[4]`, `left` becomes 1.
+ *   - Shrinks to center cell `[5]`, appends it, and loop terminates.
+ *
+ * ----------------------------------------------------------------------------
  * CRITICAL THINKING CHECKPOINTS:
- *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
- *   2. What invariant must remain true after every loop iteration?
- *   3. Why is each pointer/state update safe, and what counterexample would break it?
- *   4. Which edge cases change the control flow (empty input, one item, duplicates, or boundaries)?
- *   5. Can you derive the time and extra-space complexity without looking at the answer?
+ * 1. Why are the inner checks (`top <= bottom` and `left <= right`) mandatory before Steps 3 and 4?
+ *    (They prevent duplicate row or column processing when the matrix has an odd number of rows or columns
+ *    and the boundaries collapse onto a single remaining line segment.)
+ * 2. How does the boundary shrinking pattern handle rectangular matrices (e.g., 1xN or Mx1)?
+ *    (The boundary guards and increments/decrements naturally terminate the loop as soon as any single dimension
+ *    is fully traversed, without requiring special-case branching.)
  */
 public class P40_SpiralMatrix {
 
@@ -55,19 +70,19 @@ public class P40_SpiralMatrix {
         int right = matrix[0].length - 1;
 
         while (top <= bottom && left <= right) {
-            // 1. Traverse Right
+            // 1. Traverse Right along the top boundary
             for (int c = left; c <= right; c++) {
                 result.add(matrix[top][c]);
             }
             top++;
 
-            // 2. Traverse Down
+            // 2. Traverse Down along the right boundary
             for (int r = top; r <= bottom; r++) {
                 result.add(matrix[r][right]);
             }
             right--;
 
-            // 3. Traverse Left (guard against single remaining row)
+            // 3. Traverse Left along the bottom boundary (guard against single remaining row)
             if (top <= bottom) {
                 for (int c = right; c >= left; c--) {
                     result.add(matrix[bottom][c]);
@@ -75,7 +90,7 @@ public class P40_SpiralMatrix {
                 bottom--;
             }
 
-            // 4. Traverse Up (guard against single remaining column)
+            // 4. Traverse Up along the left boundary (guard against single remaining column)
             if (left <= right) {
                 for (int r = bottom; r >= top; r--) {
                     result.add(matrix[r][left]);
@@ -89,9 +104,9 @@ public class P40_SpiralMatrix {
 
     public static void main(String[] args) {
         int[][] matrix = {
-            {1, 2, 3},
-            {4, 5, 6},
-            {7, 8, 9}
+                {1, 2, 3},
+                {4, 5, 6},
+                {7, 8, 9}
         };
         System.out.println("P40 Output: " + spiralOrder(matrix));
         // Expected: [1, 2, 3, 6, 9, 8, 7, 4, 5]

@@ -4,44 +4,56 @@ package DSA.twopointers;
  * ============================================================================
  * [33 / 34] - CONTAINER WITH MOST WATER (LeetCode 11)
  * ============================================================================
- * 
- * PROBLEM:
- *   Given an integer array height of length n, find two lines that together with
- *   the x-axis form a container, such that the container contains the most water.
- *   Return the maximum amount of water a container can store.
  *
- * INTERVIEW INTUITION & "AHA!" MOMENT:
- *   - `area = width * min(height[left], height[right])` where `width = right - left`.
- *   - Start with maximum width: `left = 0`, `right = n - 1`.
- *   - Which pointer do we move?
- *     Moving either pointer reduces the `width` by 1.
- *     If we move the taller line, the new area can NEVER exceed the current area
- *     because the bottleneck (`min` height) was already the shorter line, and width just shrank!
- *     The ONLY way to potentially find a larger area is to discard the shorter line
- *     in hopes of finding a significantly taller one.
- *   - Rule: Move whichever pointer is strictly shorter.
+ * PROBLEM STATEMENT:
+ * Given an integer array `height` of length `n`, find two lines that together with
+ * the x-axis form a container, such that the container contains the most water.
+ * Return the maximum amount of water a container can store.
  *
+ * ----------------------------------------------------------------------------
+ * INTERVIEW INTUITION & EVOLUTION:
+ * ----------------------------------------------------------------------------
+ * 1. Naive / Brute Force Approach:
+ *    - Check all possible pairs of lines to calculate every potential container area.
+ *    - Inefficient: takes $O(n^2)$ time, resulting in TLE for large arrays.
+ *
+ * 2. Optimal Opposite-Ends Greedy Two Pointers Approach (O(n) Time | O(1) Space):
+ *    - **The Core Insight:** The area of any container is defined by `width * min(height[left], height[right])`.
+ *      If we start with maximum width (`left = 0`, `right = n - 1`), moving either pointer inward reduces the width by 1.
+ *    - If we move the *taller* line, the new area can **never** exceed the current maximum because the bottleneck
+ *      (the `min` height) was already constrained by the shorter line, and the width has now shrunk.
+ *    - Therefore, the **only** way to potentially find a larger area is to discard the shorter line in hopes of finding
+ *      a taller one. Thus, we always move whichever pointer is strictly shorter inward.
+ *
+ * ----------------------------------------------------------------------------
  * COMPLEXITY:
- *   - Time:  O(n) - Left and right converge inward in a single scan.
- *   - Space: O(1) - Constant memory.
+ * - Time:  O(n) - Left and right pointers converge inward in a single linear scan.
+ * - Space: O(1) - Constant auxiliary pointer space.
  *
- *
+ * ----------------------------------------------------------------------------
  * EXAMPLE:
- *   The first main heights are [1,8,6,2,5,4,8,3,7]; expected maximum area is 49.
+ * - `height = [1, 8, 6, 2, 5, 4, 8, 3, 7]`
+ * - Expected Maximum Area: `49` (formed between height 8 at index 1 and height 7 at index 8)
  *
- * VISUAL DRY RUN:
- *   L=0,R=8 area=min(1,7)*8=8, move L; L=1,R=8 area=min(8,7)*7=49, best=49,
- *   move the shorter R. Continue shrinking the shorter side; no later pair exceeds 49.
+ * VISUAL DRY RUN (for `[1, 8, 6, 2, 5, 4, 8, 3, 7]`):
+ *   - Start with `left = 0` (1) and `right = 8` (7) -> area = `min(1, 7) * 8 = 8`. Move `left++` (shorter side).
+ *   - `left = 1` (8) and `right = 8` (7) -> area = `min(8, 7) * 7 = 49`. Max updates to 49. Move `right--` (shorter side).
+ *   - Continue shrinking the shorter side; no subsequent combination exceeds 49. Returns `49`.
+ *
+ * ----------------------------------------------------------------------------
  * CRITICAL THINKING CHECKPOINTS:
- *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
- *   2. What invariant must remain true after every loop iteration?
- *   3. Why is each pointer/state update safe, and what counterexample would break it?
- *   4. Which edge cases change the control flow (empty input, one item, duplicates, or boundaries)?
- *   5. Can you derive the time and extra-space complexity without looking at the answer?
+ * 1. Why does moving the taller pointer inward guarantee we won't miss a better solution?
+ *    (Because the container's height is strictly limited by the shorter of the two lines. Moving the taller line
+ *    keeps or worsens the bottleneck while strictly decreasing the width, meaning the area can only shrink.)
+ * 2. What happens if both lines have equal heights?
+ *    (Moving either pointer is safe because neither can improve the bottleneck alone, though moving either
+ *    maintains forward progress through the array.)
  */
 public class P33_ContainerWithMostWater {
 
     public static int maxArea(int[] height) {
+        if (height == null || height.length < 2) return 0;
+
         int left = 0;
         int right = height.length - 1;
         int maxWater = 0;
@@ -51,7 +63,7 @@ public class P33_ContainerWithMostWater {
             int currentArea = width * Math.min(height[left], height[right]);
             maxWater = Math.max(maxWater, currentArea);
 
-            // Shift the bottleneck pointer inward
+            // Greedily shift the shorter line inward to search for a taller bottleneck
             if (height[left] < height[right]) {
                 left++;
             } else {

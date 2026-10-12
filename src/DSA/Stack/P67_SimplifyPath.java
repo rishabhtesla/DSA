@@ -7,40 +7,55 @@ import java.util.Deque;
  * ============================================================================
  * [67 / 73] - SIMPLIFY PATH (LeetCode 71)
  * ============================================================================
- * 
- * PROBLEM:
- *   Given an absolute path for a Unix-style file system, convert it to the
- *   simplified canonical path.
- *   - Single period '.' represents current directory (ignore).
- *   - Double period '..' moves up one level (pop from stack).
- *   - Multiple consecutive slashes '//' are treated as single '/'.
- *   - Must start with '/', and have no trailing slash (unless root).
  *
- * INTERVIEW INTUITION & "AHA!" MOMENT:
- *   - Split by '/': Splitting leaves tokens that are either:
- *     - Empty string "" (from consecutive slashes) -> ignore.
- *     - "." -> ignore.
- *     - ".." -> pop previous valid directory if stack is non-empty.
- *     - Any other valid directory name -> push onto stack.
- *   - Join tokens using `pollLast()` / iteration from bottom to top of stack.
+ * PROBLEM STATEMENT:
+ * Given an absolute path for a Unix-style file system (starting with a slash `'/'`),
+ * convert it to the simplified canonical path.
+ * - A single period `'.'` represents the current directory (ignore).
+ * - A double period `'..'` means moving up one directory level (pop from the stack).
+ * - Multiple consecutive slashes `'//'` are treated as a single slash `'/'`.
+ * - The canonical path must start with a single slash, and have no trailing slashes (unless it's just root `'/'`).
  *
+ * ----------------------------------------------------------------------------
+ * INTERVIEW INTUITION & EVOLUTION:
+ * ----------------------------------------------------------------------------
+ * 1. Naive / String Mutation Approach:
+ *    - Search and replace relative tokens like `"/./"` or `"/../"` in-place using string operations.
+ *    - Inefficient: prone to edge cases, complicated index tracking, and high string reallocation overhead.
+ *
+ * 2. Optimal Stack Token Parsing Approach (O(n) Time | O(n) Space):
+ *    - **The Core Insight:** File system directory hierarchies follow a nested, LIFO (Last-In, First-Out) structure.
+ *      We can tokenize the path by splitting it across `'/'`.
+ *    - **Step 1:** Split the path string using `path.split("/")`.
+ *    - **Step 2:** Iterate through each token:
+ *      - If token is empty `""` (from consecutive slashes) or `"."`, ignore it.
+ *      - If token is `".."`, pop the previous valid directory from the stack if the stack is non-empty.
+ *      - Any other valid directory name is pushed onto the stack.
+ *    - **Step 3:** Reconstruct the canonical path by draining the stack from bottom to top using `pollLast()`.
+ *
+ * ----------------------------------------------------------------------------
  * COMPLEXITY:
- *   - Time:  O(n) - Splitting and processing path tokens.
- *   - Space: O(n) - Stack and string tokens.
+ * - Time:  O(n) - Linear pass to split the string tokens and process them through the stack.
+ * - Space: O(n) - Stack storage and string builder allocations proportional to the number of path tokens.
  *
- *
+ * ----------------------------------------------------------------------------
  * EXAMPLE:
- *   The first main path is "/home/"; expected canonical path is "/home".
+ * - Path: `"/home/user/Documents/../Pictures"`
+ * - Expected Canonical Path: `"/home/user/Pictures"`
  *
- * VISUAL DRY RUN:
- *   Split tokens ["", "home", ""]. Ignore empty tokens, push home -> stack=[home];
- *   join with a leading slash -> "/home".
+ * VISUAL DRY RUN (for `"/home/"`):
+ *   - Tokens extracted: `["", "home", ""]`.
+ *   - Empty tokens are skipped; `"home"` is pushed onto the stack -> Stack: `["home"]`.
+ *   - Reconstructed with a leading slash -> `"/home"`.
+ *
+ * ----------------------------------------------------------------------------
  * CRITICAL THINKING CHECKPOINTS:
- *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
- *   2. What invariant must remain true after every loop iteration?
- *   3. Why is each pointer/state update safe, and what counterexample would break it?
- *   4. Which edge cases change the control flow (empty input, one item, duplicates, or boundaries)?
- *   5. Can you derive the time and extra-space complexity without looking at the answer?
+ * 1. How does the stack handle an excessive number of parent directory jumps (e.g., `"/../"` from root)?
+ *    (The guard condition `!stack.isEmpty()` prevents popping when the stack is already empty,
+ *    correctly keeping the path anchored at the root directory `"/"`.)
+ * 2. Why do we traverse the stack using `pollLast()` instead of standard pops?
+ *    (Because a stack pushes newer directories onto the top, draining it from bottom to top ensures
+ *    we reconstruct the path in correct chronological order from root downwards.)
  */
 public class P67_SimplifyPath {
 
@@ -49,24 +64,28 @@ public class P67_SimplifyPath {
         String[] tokens = path.split("/");
 
         for (String token : tokens) {
+            // Ignore current directory markers and empty segments from multiple consecutive slashes
             if (token.isEmpty() || token.equals(".")) {
                 continue;
             }
+            // Double period moves up a directory level (pop from stack if not already at root)
             if (token.equals("..")) {
                 if (!stack.isEmpty()) {
                     stack.pop();
                 }
             } else {
+                // Valid directory name; push onto stack
                 stack.push(token);
             }
         }
 
+        // If stack is empty, we are at the root directory
         if (stack.isEmpty()) {
             return "/";
         }
 
         StringBuilder sb = new StringBuilder();
-        // Traverse from bottom of stack to top to preserve chronological order
+        // Traverse from the bottom of the stack to the top to preserve chronological path order
         while (!stack.isEmpty()) {
             sb.append("/").append(stack.pollLast());
         }

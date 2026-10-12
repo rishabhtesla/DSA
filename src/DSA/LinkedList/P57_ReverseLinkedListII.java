@@ -4,39 +4,52 @@ package DSA.LinkedList;
  * ============================================================================
  * [57 / 65] - REVERSE LINKED LIST II (LeetCode 92)
  * ============================================================================
- * 
- * PROBLEM:
- *   Given head and two integers left and right (1-indexed) where left <= right,
- *   reverse the nodes of the list from position left to right, and return head.
  *
- * INTERVIEW INTUITION & "AHA!" MOMENT:
- *   - Head Insertion within Sublist (One Pass):
- *     1. Position `prev` at node `left - 1` using a `dummy` node.
- *     2. Let `curr = prev.next` (this node will end up at the tail of the reversed section).
- *     3. Repeatedly take `curr.next` and move it to `prev.next` (head of the reversed section):
- *        `ListNode next = curr.next;`
- *        `curr.next = next.next;`
- *        `next.next = prev.next;`
- *        `prev.next = next;`
- *     Repeat this `(right - left)` times.
+ * PROBLEM STATEMENT:
+ * Given the `head` of a singly linked list and two integers `left` and `right` (1-indexed)
+ * where `left <= right`, reverse the nodes of the list from position `left` to `right`,
+ * and return the modified head.
  *
+ * ----------------------------------------------------------------------------
+ * INTERVIEW INTUITION & EVOLUTION:
+ * ----------------------------------------------------------------------------
+ * 1. Naive / Extra Storage Approach:
+ *    - Extract elements between `left` and `right` into an array or list, reverse them in memory,
+ *      and write them back. (Inefficient: uses O(k) extra space where `k = right - left + 1`).
+ *
+ * 2. Optimal Head Insertion within Sublist (One-Pass O(n) Time | O(1) Space):
+ *    - **The Core Insight:** Instead of multi-pass pointer reversals or slicing, we can perform an
+ *      in-place pointer rotation by repeatedly shifting nodes to the front of the sublist.
+ *    - **Step 1:** Use a `dummy` node to safely handle edge cases where `left = 1`. Advance a `prev`
+ *      pointer to the node right before position `left` (i.e., at index `left - 1`).
+ *    - **Step 2:** Let `curr = prev.next`. This node will remain fixed at the tail of the reversed sublist.
+ *    - **Step 3:** Perform head-insertion `right - left` times by taking `curr.next` and moving it
+ *      directly to the front of the reversed section (right after `prev`).
+ *
+ * ----------------------------------------------------------------------------
  * COMPLEXITY:
- *   - Time:  O(n) - Single pass over the list.
- *   - Space: O(1) - Constant pointer manipulation.
+ * - Time:  O(n) - Single linear pass to locate the sublist start and reverse elements in-place.
+ * - Space: O(1) - Constant auxiliary pointer memory.
  *
- *
+ * ----------------------------------------------------------------------------
  * EXAMPLE:
- *   The first main list is 1->2->3->4->5 with left=2,right=4; expected 1->4->3->2->5.
+ * - List: `1 -> 2 -> 3 -> 4 -> 5`, `left = 2`, `right = 4`
+ * - Result: `1 -> 4 -> 3 -> 2 -> 5`
  *
- * VISUAL DRY RUN:
- *   prev stops at 1, curr=2. Two head-insertions move 3, then 4 after prev: the
- *   sublist changes 2->3->4 to 3->2->4, then 4->3->2; reconnect to 1 and 5 -> output.
+ * VISUAL DRY RUN (for `left = 2, right = 4`):
+ *   - `prev` stops at node `1`. `curr` points to node `2`.
+ *   - Iteration 1: Node `3` is plucked and inserted right after `prev` (`1`). Sublist becomes `1 -> 3 -> 2 -> 4 -> 5`.
+ *   - Iteration 2: Node `4` is plucked and inserted right after `prev` (`1`). Sublist becomes `1 -> 4 -> 3 -> 2 -> 5`.
+ *   - Reversal complete. Returns `dummy.next`.
+ *
+ * ----------------------------------------------------------------------------
  * CRITICAL THINKING CHECKPOINTS:
- *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
- *   2. What invariant must remain true after every loop iteration?
- *   3. Why is each pointer/state update safe, and what counterexample would break it?
- *   4. Which edge cases change the control flow (empty input, one item, duplicates, or boundaries)?
- *   5. Can you derive the time and extra-space complexity without looking at the answer?
+ * 1. Why does head-insertion inside the sublist achieve reversal in a single pass?
+ *    (By keeping `curr` stationary while successively pulling the next immediate node to the front of the sublist,
+ *    we invert the sequence order on the fly without needing a second pointer pass.)
+ * 2. What edge cases are handled cleanly?
+ *    (When `left == right`, the loops are bypassed instantly and the original list is returned unmodified.
+ *    When `left = 1`, the dummy node allows `prev` to anchor correctly at the true beginning of the list.)
  */
 public class P57_ReverseLinkedListII {
 
@@ -53,14 +66,14 @@ public class P57_ReverseLinkedListII {
         dummy.next = head;
         ListNode prev = dummy;
 
-        // Reach node right before 'left'
+        // Reach the node right before 'left'
         for (int i = 1; i < left; i++) {
             prev = prev.next;
         }
 
         ListNode curr = prev.next;
 
-        // Move curr.next to the front of reversed sublist
+        // Repeatedly move curr.next to the front of the reversed sublist
         for (int i = 0; i < right - left; i++) {
             ListNode next = curr.next;
             curr.next = next.next;
