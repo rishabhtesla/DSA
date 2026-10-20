@@ -6,7 +6,7 @@ import java.io.IOException;
 
 /**
  * ============================================================================
- * HACKERRANK QUESTION: Design Financial API Hit Counter
+ * HACKERRANK / LEETCODE 362: Design Financial API Hit Counter
  * ============================================================================
  *
  * Problem Statement:
@@ -49,10 +49,83 @@ import java.io.IOException;
  *    - getHits(timestamp):
  *        Sum hits[i] for all 0 <= i < 300 where (timestamp - times[i] < 300).
  *
- * Complexity:
- * - hit(): O(1)
+ * ============================================================================
+ * STEP-BY-STEP DRY RUN:
+ * ============================================================================
+ * Initial State:
+ *   times = [0, 0, 0, ..., 0]  (length 300)
+ *   hits  = [0, 0, 0, ..., 0]  (length 300)
+ *
+ * ----------------------------------------------------------------------------
+ * Step 1: counter.hit(1)
+ *   - idx = 1 % 300 = 1
+ *   - times[1] is 0 != 1:
+ *       times[1] = 1
+ *       hits[1]  = 1
+ *
+ * ----------------------------------------------------------------------------
+ * Step 2: counter.hit(2)
+ *   - idx = 2 % 300 = 2
+ *   - times[2] is 0 != 2:
+ *       times[2] = 2
+ *       hits[2]  = 1
+ *
+ * ----------------------------------------------------------------------------
+ * Step 3: counter.hit(3)
+ *   - idx = 3 % 300 = 3
+ *   - times[3] is 0 != 3:
+ *       times[3] = 3
+ *       hits[3]  = 1
+ *
+ * ----------------------------------------------------------------------------
+ * Step 4: counter.getHits(4)
+ *   - Window evaluated: [4 - 299, 4] = [-295, 4]
+ *   - Condition: (4 - times[i] < 300)
+ *       i = 1: 4 - times[1] = 4 - 1 = 3 < 300  --> totalHits += hits[1] (1)
+ *       i = 2: 4 - times[2] = 4 - 2 = 2 < 300  --> totalHits += hits[2] (1)
+ *       i = 3: 4 - times[3] = 4 - 3 = 1 < 300  --> totalHits += hits[3] (1)
+ *       All other i: times[i] = 0 -> 4 - 0 = 4 < 300, but hits[i] = 0 -> adds 0
+ *   - Output: 3
+ *
+ * ----------------------------------------------------------------------------
+ * Step 5: counter.hit(300)
+ *   - idx = 300 % 300 = 0
+ *   - times[0] is 0 != 300:
+ *       times[0] = 300
+ *       hits[0]  = 1
+ *
+ * ----------------------------------------------------------------------------
+ * Step 6: counter.getHits(300)
+ *   - Window evaluated: [300 - 299, 300] = [1, 300]
+ *   - Check valid entries:
+ *       i = 0: times[0] = 300 -> 300 - 300 = 0 < 300  --> +1
+ *       i = 1: times[1] = 1   -> 300 - 1 = 299 < 300  --> +1
+ *       i = 2: times[2] = 2   -> 300 - 2 = 298 < 300  --> +1
+ *       i = 3: times[3] = 3   -> 300 - 3 = 297 < 300  --> +1
+ *   - Output: 4
+ *
+ * ----------------------------------------------------------------------------
+ * Step 7: counter.getHits(301)  (Notice timestamp 1 falls out of the 300s window)
+ *   - Window evaluated: [301 - 299, 301] = [2, 301]
+ *   - Check entries:
+ *       i = 0: times[0] = 300 -> 301 - 300 = 1 < 300   --> +1
+ *       i = 1: times[1] = 1   -> 301 - 1 = 300 (NOT < 300) -> EXPIRED, ignored!
+ *       i = 2: times[2] = 2   -> 301 - 2 = 299 < 300   --> +1
+ *       i = 3: times[3] = 3   -> 301 - 3 = 298 < 300   --> +1
+ *   - Output: 3
+ *
+ * ----------------------------------------------------------------------------
+ * Step 8: counter.hit(301)  (Overwriting slot index 1)
+ *   - idx = 301 % 300 = 1
+ *   - times[1] is 1 != 301 (old timestamp overwritten):
+ *       times[1] = 301
+ *       hits[1]  = 1  (reset from old value)
+ *
+ * ============================================================================
+ * COMPLEXITY:
+ * - hit():     O(1)
  * - getHits(): O(300) = O(1) constant time
- * - Space: O(1) fixed space (two 300-element primitive arrays)
+ * - Space:     O(300) = O(1) fixed auxiliary space
  * ============================================================================
  */
 public class SolutionHitCounter {
