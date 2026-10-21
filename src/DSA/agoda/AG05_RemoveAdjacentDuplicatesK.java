@@ -35,6 +35,15 @@ import java.util.Deque;
  *   4. Which edge cases change the control flow (empty input, one item, duplicates, or boundaries)?
  *   5. Can you derive the time and extra-space complexity without looking at the answer?
  */
+/**
+ * Learning supplement: repeatedly rescanning after deletion can be O(n^2);
+ * a stack of character/count pairs reduces the work to O(n) time and O(n)
+ * space. Examples: {@code "deeedbbcccbdaa", k=3 -> "aa"} and
+ * {@code "pbbcggttciiippooaais", k=2 -> "ps"}. Invariant: the stack is the
+ * reduced form of the processed prefix, with no removable run left at its
+ * top. Dry run: a run reaching k is popped immediately, allowing newly
+ * adjacent runs to combine. Ask why counts must survive after a pop nearby.
+ */
 public class AG05_RemoveAdjacentDuplicatesK {
 
     static class Block {

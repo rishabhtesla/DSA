@@ -32,6 +32,15 @@ import java.util.Arrays;
  *   - Time:  O(n log n) - Dominated by sorting (or O(n) via Quickselect).
  *   - Space: O(1)       - In-place pointers.
  */
+/**
+ * Learning supplement: trying every target value is O(range*n); sorting and
+ * pairing extremes uses O(n log n) time and O(1) extra space after sorting.
+ * Examples: {@code [1,2,3] -> 2} (target 2), and
+ * {@code [1,10,2,9] -> 16}. Invariant: each paired gap contributes exactly
+ * the cost of moving both values to any point between them. The main sorted
+ * array [1,2,9,10] contributes 9-1 plus 9-2 = 16. Ask why the median
+ * minimizes absolute deviation.
+ */
 public class AG_HR02_MinimumOperationsEqualArray {
 
     public static long minOperations(int[] nums) {

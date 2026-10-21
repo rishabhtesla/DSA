@@ -46,6 +46,13 @@ import java.util.Arrays;
  *   4. Which edge cases change the control flow (empty input, one item, duplicates, or boundaries)?
  *   5. Can you derive the time and extra-space complexity without looking at the answer?
  */
+/**
+ * VISUAL DRY RUN: for time=[1,2,3,4,5], scan backward with best=0 and
+ * suffixSum=0. At 5, best=max(5,0)=5; at 4, suffix=9 and best=max(4,5)=5;
+ * continuing gives best=9 and total=15, so the result is [9,6]. The
+ * invariant is that best is the optimal latch-holder score for the processed
+ * suffix.
+ */
 public class AG06_DualCoreLatchScheduling {
 
     public static long[] maximizeProcessedTimes(int[] time) {

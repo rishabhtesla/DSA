@@ -15,6 +15,13 @@ package DSA.JPMC.path;
  * 
  * COMPLEXITY: Time: O(N), Space: O(1)
  */
+/**
+ * Learning supplement: sorting costs O(n log n) and a boolean table costs
+ * O(n) space; XOR or arithmetic finds the missing value in O(n) time/O(1)
+ * space. Examples: {@code [3,0,1] -> 2} and {@code [0,1] -> 2}. Invariant:
+ * XOR cancels every present value with its expected counterpart. For the main
+ * input, 0^1^2^3 combined with 3^0^1 leaves 2. Ask why XOR avoids overflow.
+ */
 public class MissingNumber {
     public static int missingNumber(int[] nums) {
         int n = nums.length;

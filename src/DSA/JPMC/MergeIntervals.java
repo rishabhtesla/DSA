@@ -28,6 +28,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Learning supplement: repeated pairwise merging can be O(n^2); sorting by
+ * start then scanning is O(n log n) plus output space. Examples:
+ * {@code [[1,3],[2,6],[8,10]] -> [[1,6],[8,10]]} and
+ * {@code [[1,4],[4,5]] -> [[1,5]]}. Invariant: the result prefix is sorted
+ * and fully merged. In the main scan [2,6] extends [1,3], then [8,10] starts
+ * a new range. Ask whether touching endpoints overlap.
+ */
 public class MergeIntervals {
     public static int[][] merge(int[][] intervals) {
         if (intervals.length <= 1) return intervals;

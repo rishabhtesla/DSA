@@ -25,6 +25,13 @@ package DSA.JPMC; /**
  */
 import java.util.*;
 
+/**
+ * Learning supplement: frequency sorting costs O(n log n); a frequency map
+ * and size-k min-heap cost O(n log k) and O(n) space. Examples:
+ * {@code [1,1,1,2,2,3], k=2 -> [1,2]} and {@code [1], k=1 -> [1]}.
+ * Invariant: the heap stores the k most frequent processed values, with the
+ * smallest frequency at its root. Ask how ties should be ordered.
+ */
 public class TopKFrequent {
     public static int[] topKFrequent(int[] nums, int k) {
         // Step 1: Build the frequency map

@@ -16,6 +16,15 @@ package DSA.JPMC.path; /**
  */
 import java.util.*;
 
+/**
+ * Learning supplement: trying every path can be exponential; with
+ * non-negative edge weights, a min-heap relaxation algorithm costs
+ * O((V+E) log V) time and O(V+E) space. Examples: edges 0->1 (4),
+ * 0->2 (1), 2->1 (2) give dist(1)=3; an unreachable node remains infinity.
+ * Invariant: when the smallest queued distance is removed (and stale entries
+ * are ignored), it is final. Dry run: start 0, discover 1=4 and 2=1, then
+ * relax 2->1 to 3. Ask why negative edges invalidate the greedy choice.
+ */
 public class DijkstraAlgorithm {
     
     // Class representing an edge connecting a node to a neighbor with a specific weight

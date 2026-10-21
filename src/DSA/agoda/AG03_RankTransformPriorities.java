@@ -36,6 +36,15 @@ import java.util.Map;
  *   4. Which edge cases change the control flow (empty input, one item, duplicates, or boundaries)?
  *   5. Can you derive the time and extra-space complexity without looking at the answer?
  */
+/**
+ * Learning supplement: sorting each value independently can be O(n log n);
+ * sorting distinct values once and mapping them to ranks is O(n log n) time
+ * and O(n) space. Examples: {@code [40,10,20,30] -> [4,1,2,3]} and
+ * {@code [100,100,100] -> [1,1,1]}. Invariant: equal values share one rank
+ * and a smaller value always has a smaller rank. In the main trace, sorted
+ * distinct values 10,20,30,40 map to 1,2,3,4 before remapping original
+ * positions. Ask whether ranks should start at zero or one.
+ */
 public class AG03_RankTransformPriorities {
 
     public static int[] arrayRankTransform(int[] arr) {

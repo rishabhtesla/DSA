@@ -27,6 +27,13 @@ import java.util.List;
  *    dp[s] = dp[s] || dp[s - num], iterating backwards to prevent reuse.
  * ============================================================================
  */
+/**
+ * Learning supplement: enumerating subsets is exponential; one-dimensional
+ * subset-sum DP uses O(n*target) time and O(target) space. Examples:
+ * {@code [1,5,11,5] -> true} and {@code [1,2,3,5] -> false}. Invariant:
+ * dp[s] says whether a processed subset can make sum s; reverse iteration
+ * prevents reusing one item. Ask why an odd total immediately fails.
+ */
 public class SolutionPartitionEqualSubset {
 
     public static boolean canPartition(List<Integer> nums) {

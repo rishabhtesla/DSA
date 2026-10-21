@@ -31,6 +31,15 @@ package DSA.JPMC;
  * 
  * COMPLEXITY: Time: O(M * N) where M is rows, N is cols. Space: O(M * N) worst case call stack.
  */
+/**
+ * Learning supplement: flood-fill visits each cell at most once, O(R*C) time
+ * and O(R*C) worst-case stack/queue space. Examples:
+ * {@code [["1","1","0"],["0","1","0"]] -> 1} and
+ * {@code [["1","0"],["0","1"]] -> 2}. Invariant: marked land belongs to one
+ * discovered island and is never revisited. The main DFS consumes each
+ * connected neighbor before counting another island. Ask whether diagonals
+ * connect and whether input mutation is acceptable.
+ */
 public class NumberOfIslands {
     
     public static int numIslands(char[][] grid) {

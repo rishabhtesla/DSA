@@ -27,6 +27,14 @@ package DSA.JPMC; /**
  */
 import java.util.PriorityQueue;
 
+/**
+ * Learning supplement: sorting costs O(n log n); a size-k min-heap costs
+ * O(n log k) and O(k) auxiliary space. Examples:
+ * {@code [3,2,1,5,6,4], k=2 -> 5} and {@code [3,2,3,1,2,4,5], k=4 -> 4}.
+ * Invariant: the heap contains the k largest values seen, so its root is the
+ * kth largest. During the scan a larger candidate replaces that root. Ask
+ * how duplicate values affect rank.
+ */
 public class KthLargestElement {
     public static int findKthLargest(int[] nums, int k) {
         // By default, PriorityQueue is a Min-Heap in Java

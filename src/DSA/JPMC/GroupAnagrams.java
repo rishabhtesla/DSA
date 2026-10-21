@@ -24,6 +24,14 @@ package DSA.JPMC; /**
  */
 import java.util.*;
 
+/**
+ * Learning supplement: pairwise comparison costs O(n^2 * L); canonical sorted
+ * keys group words in O(n * L log L) time and O(nL) space. Examples:
+ * {@code ["eat","tea","ate"] -> one group} and {@code ["a","b"] -> two}.
+ * Invariant: equal keys are exactly the words in one anagram bucket. Dry run
+ * for eat/tea/tan creates keys aet, aet, ant. Ask when a frequency key beats
+ * sorting each word.
+ */
 public class GroupAnagrams {
     public static List<List<String>> groupAnagrams(String[] strs) {
         if (strs == null || strs.length == 0) return new ArrayList<>();

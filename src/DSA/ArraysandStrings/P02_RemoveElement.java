@@ -3,60 +3,45 @@ package DSA.ArraysandStrings;
 import java.util.Arrays;
 
 /**
- - ============================================================================
- - [02 / 24] - REMOVE ELEMENT (LeetCode 27)
- - ============================================================================
- -
- - PROBLEM:
- -   Given an integer array nums and an integer val, remove all occurrences of val
- -   in-place. Return the number of elements (k) remaining. The first k elements
- -   must hold the non-val values.
+ * [02 / 24] - REMOVE ELEMENT (LeetCode 27)
  *
- - INTERVIEW INTUITION & "AHA!" MOMENT:
- - Two-Pointer Reader/Writer pattern.
- - 'write' marks the index where the next valid element belongs.
- - 'read' iterates through every element.
- - Whenever nums[read] != val, write it into nums[write] and advance write.
- - Any element matching val is simply skipped by 'read'.
+ * PROBLEM:
+ * Given an integer array `nums` and integer `val`, remove every occurrence of
+ * val in-place. Return `k`, the number of remaining values. The first k
+ * positions of nums must contain values different from val; their order may
+ * be preserved, but the remaining positions do not matter.
  *
- - COMPLEXITY:
- - Time:  O(n) - Single pass through nums.
- - Space: O(1) - Constant auxiliary space.
+ * CONSTRAINTS:
+ * - 0 <= nums.length <= 100
+ * - 0 <= nums[i], val <= 50
  *
- - EXAMPLE:
- -   Input:  nums = [3, 2, 2, 3], val = 3
- -   Output: k = 2, and the first k values are [2, 2]
+ * EXAMPLES:
+ * - nums=[3,2,2,3], val=3 -> k=2, prefix=[2,2]
+ * - nums=[0,1,2,2,3,0,4,2], val=2 -> k=5, prefix=[0,1,3,0,4]
+ * - nums=[], val=1 -> k=0, prefix=[]
  *
- - VISUAL DRY RUN:
- -   `write` starts at 0 because the first position is available for valid values.
- -   `read` checks each value against `val`.
+ * BRUTE FORCE:
+ * For each matching value, shift every later value one position left. Repeated
+ * shifting can take O(n^2) time and uses O(1) extra space.
  *
- -   Initial: read = 0, write = 0
- -            nums = [3, 2, 2, 3]
+ * MAIN LOGIC:
+ * Scan with `read`. When nums[read] is valid, copy it to the next free
+ * position `write`; when it equals val, skip it. Invariant: nums[0..write-1]
+ * contains exactly the valid values seen so far, in their original order.
+ * Time: O(n); extra space: O(1).
  *
- - read = 0: nums[0] = 3, val = 3
- -     Match val -> skip it. write remains 0.
+ * VISUAL DRY RUN:
+ * nums=[3,2,2,3], val=3; read=0, write=0
+ * - read=0: 3 equals val -> skip; write=0; nums=[3,2,2,3]
+ * - read=1: 2 is valid -> nums[0]=2; write=1; nums=[2,2,2,3]
+ * - read=2: 2 is valid -> nums[1]=2; write=2; nums=[2,2,2,3]
+ * - read=3: 3 equals val -> skip; write=2
+ * Return k=2; only prefix [2,2] is relevant.
  *
- - read = 1: nums[1] = 2, val = 3
- -     Different from val -> nums[write] = nums[1], so nums[0] = 2.
- -     nums = [2, 2, 2, 3], write = 1
- *
- - read = 2: nums[2] = 2, val = 3
- -     Different from val -> nums[write] = nums[2], so nums[1] = 2.
- -     nums = [2, 2, 2, 3], write = 2
- *
- - read = 3: nums[3] = 3, val = 3
- -     Match val -> skip it. write remains 2.
- *
- -   The loop ends. Return write = 2.
- -   Only the first two positions matter: [2, 2].
- *
- - CRITICAL THINKING CHECKPOINTS:
- - Before coding, what would the brute-force solution do, and where does it repeat work?
- -   2. What invariant must remain true after every loop iteration?
- -   3. Why is each pointer/state update safe, and what counterexample would break it?
- -   4. Which edge cases change the control flow (empty input, one item, duplicates, or boundaries)?
- -   5. Can you derive the time and extra-space complexity without looking at the answer?
+ * CRITICAL THINKING CHECKPOINTS:
+ * 1. Why is it safe to overwrite an earlier position while read moves forward?
+ * 2. What does write represent before and after copying a valid value?
+ * 3. Why are values after index k-1 allowed to remain unchanged?
  */
 public class P02_RemoveElement {
 

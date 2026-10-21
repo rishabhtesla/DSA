@@ -11,6 +11,14 @@ package DSA.JPMC.path;
  * 
  * COMPLEXITY: Time: O(N), Space: O(1)
  */
+/**
+ * Learning supplement: normalize-and-reverse uses O(n) extra space; two
+ * pointers compare from both ends in O(n) time and O(1) extra space.
+ * Examples: {@code "A man, a plan, a canal: Panama" -> true} and
+ * {@code "race a car" -> false}. Invariant: all compared normalized pairs
+ * match. The main "Racecar" pointers meet after matching r/R, a/c, and e.
+ * Ask whether punctuation and case should be ignored.
+ */
 public class ValidPalindrome {
     public static boolean isPalindrome(String s) {
         if (s == null || s.length() == 0) return true;

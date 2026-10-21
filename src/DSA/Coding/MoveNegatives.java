@@ -1,5 +1,20 @@
 package DSA.Coding;
 
+/**
+ * Partitions an integer array so negative values precede non-negative values.
+ *
+ * <p>Examples: {@code [-1,2,-3,4] -> [-1,-3,2,4]} (order within partitions
+ * is not guaranteed) and {@code [1,3] -> [1,3]}. A stable copy/filter needs
+ * O(n) extra space; scanning from both ends partitions in O(n) time and O(1)
+ * extra space.</p>
+ *
+ * <p>The left/right invariant is that values already outside the active range
+ * are in their required partition. When the left value is non-negative and
+ * the right value is negative, swap them; otherwise advance the pointer whose
+ * side is already correct. In the main input, the first positive is swapped
+ * with a later negative, then the active range shrinks. Ask whether stability
+ * is required.</p>
+ */
 public class MoveNegatives {
     public static void separateNegativeAndPositive(int[] arr) {
         int left = 0;

@@ -32,6 +32,15 @@ import java.util.Queue;
  * - grid[i][j] is 0, 1, or 2.
  * ============================================================================
  */
+/**
+ * Learning supplement: minute-by-minute rescanning can be O((RC)^2);
+ * multi-source BFS is O(RC) time and O(RC) queue space. Examples:
+ * {@code [[2,1,1],[1,1,0],[0,1,1]] -> 4} and
+ * {@code [[2,1,1],[0,1,1],[1,0,1]] -> -1}. Invariant: each BFS layer is one
+ * elapsed minute. The main grid enqueues all initial rotten cells, then
+ * spreads layer by layer until healthyCount reaches zero. Ask why all sources
+ * must enter the queue before processing.
+ */
 public class SolutionRottingNodes {
 
     public static int orangesRotting(int[][] grid) {

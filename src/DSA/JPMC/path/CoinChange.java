@@ -16,6 +16,14 @@ package DSA.JPMC.path; /**
  */
 import java.util.Arrays;
 
+/**
+ * Learning supplement: brute-force coin-choice recursion is exponential;
+ * bottom-up DP is O(amount * numberOfCoins) time and O(amount) space.
+ * Examples: {@code [1,2,5],11 -> 3} and {@code [2],3 -> -1}. Invariant:
+ * dp[a] is the fewest coins currently known for amount a. For amount 3 with
+ * coins 1 and 2, dp becomes [0,1,1,2]. Ask why the loop allows repeated use
+ * of a denomination and what sentinel means unreachable.
+ */
 public class CoinChange {
     public static int coinChange(int[] coins, int amount) {
         int[] dp = new int[amount + 1];

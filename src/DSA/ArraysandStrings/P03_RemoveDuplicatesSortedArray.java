@@ -3,77 +3,51 @@ package DSA.ArraysandStrings;
 import java.util.Arrays;
 
 /**
- * ============================================================================
  * [03 / 24] - REMOVE DUPLICATES FROM SORTED ARRAY (LeetCode 26)
- * ============================================================================
- * 
+ *
  * PROBLEM:
- *   Given an integer array nums sorted in non-decreasing order, remove duplicates
- *   in-place such that each unique element appears only once. Return k.
+ * Given a sorted integer array nums, remove duplicates in-place so every
+ * distinct value appears exactly once. Return k; the first k positions must
+ * contain the unique values in sorted order.
  *
- * INTERVIEW INTUITION & "AHA!" MOMENT:
- *   - Since the array is sorted, duplicates are strictly consecutive.
- *   - The 0th element is always unique by definition. Start write pointer at index 1.
- *   - Iterate read from index 1 to n - 1.
- *   - If nums[read] != nums[read - 1], we transitioned to a brand new unique number.
- *     Copy it to nums[write] and advance write.
+ * CONSTRAINTS:
+ * - 0 <= nums.length <= 3 * 10^4
+ * - -100 <= nums[i] <= 100
+ * - nums is sorted in non-decreasing order.
  *
- * COMPLEXITY:
- *   - Time:  O(n) - Single linear scan.
- *   - Space: O(1) - In-place array update.
+ * EXAMPLES:
+ * - [1,1,2] -> k=2, prefix=[1,2]
+ * - [0,0,1,1,1,2,2,3,3,4] -> k=5, prefix=[0,1,2,3,4]
+ * - [] -> k=0, prefix=[]
  *
- * EXAMPLE:
- *   Input:  nums = [0, 0, 1, 1, 1, 2, 2, 3, 3, 4]
- *   Output: k = 5, and the first k values are [0, 1, 2, 3, 4]
+ * BRUTE FORCE:
+ * Build a separate set/list of values not already seen. This is easy to
+ * reason about but requires O(n) extra space; repeatedly removing from an
+ * array can also take O(n^2) time because of shifting.
+ *
+ * MAIN LOGIC:
+ * Sorted order makes duplicates adjacent. Keep `write` at the next position
+ * for a new value. If nums[read] differs from nums[read-1], copy it to
+ * nums[write]. Invariant: nums[0..write-1] contains exactly the unique values
+ * encountered so far. Time: O(n); extra space: O(1).
  *
  * VISUAL DRY RUN:
- *   `write` starts at 1 because nums[0] = 0 is already the first unique value.
- *   `read` checks each next value against the value immediately before it.
- *
- *   Initial: read = 1, write = 1
- *            nums = [0, 0, 1, 1, 1, 2, 2, 3, 3, 4]
- *
- *   - read = 1: nums[1] = 0, previous = 0
- *     Duplicate -> skip it. write remains 1.
- *
- *   - read = 2: nums[2] = 1, previous = 0
- *     New value -> nums[write] = nums[2], so nums[1] = 1.
- *     nums = [0, 1, 1, 1, 1, 2, 2, 3, 3, 4], write = 2
- *
- *   - read = 3: nums[3] = 1, previous = 1
- *     Duplicate -> skip it. write remains 2.
- *
- *   - read = 4: nums[4] = 1, previous = 1
- *     Duplicate -> skip it. write remains 2.
- *
- *   - read = 5: nums[5] = 2, previous = 1
- *     New value -> nums[2] = 2.
- *     nums = [0, 1, 2, 1, 1, 2, 2, 3, 3, 4], write = 3
- *
- *   - read = 6: nums[6] = 2, previous = 2
- *     Duplicate -> skip it. write remains 3.
- *
- *   - read = 7: nums[7] = 3, previous = 2
- *     New value -> nums[3] = 3.
- *     nums = [0, 1, 2, 3, 1, 2, 2, 3, 3, 4], write = 4
- *
- *   - read = 8: nums[8] = 3, previous = 3
- *     Duplicate -> skip it. write remains 4.
- *
- *   - read = 9: nums[9] = 4, previous = 3
- *     New value -> nums[4] = 4.
- *     nums = [0, 1, 2, 3, 4, 2, 2, 3, 3, 4], write = 5
- *
- *   The loop ends. Return write = 5.
- *   Only the first five positions matter: [0, 1, 2, 3, 4].
- *
+ * nums=[0,0,1,1,1,2,2,3,3,4]; write=1; prefix starts [0]
+ * - read=1: 0 equals previous 0 -> duplicate; write=1
+ * - read=2: 1 differs -> nums[1]=1; write=2; prefix=[0,1]
+ * - read=3: 1 equals previous -> skip; write=2
+ * - read=4: 1 equals previous -> skip; write=2
+ * - read=5: 2 differs -> nums[2]=2; write=3; prefix=[0,1,2]
+ * - read=6: 2 equals previous -> skip
+ * - read=7: 3 differs -> nums[3]=3; write=4; prefix=[0,1,2,3]
+ * - read=8: 3 equals previous -> skip
+ * - read=9: 4 differs -> nums[4]=4; write=5
+ * Return k=5; valid prefix=[0,1,2,3,4].
  *
  * CRITICAL THINKING CHECKPOINTS:
- *   1. Before coding, what would the brute-force solution do, and where does it repeat work?
- *   2. What invariant must remain true after every loop iteration?
- *   3. Why is each pointer/state update safe, and what counterexample would break it?
- *   4. Which edge cases change the control flow (empty input, one item, duplicates, or boundaries)?
- *   5. Can you derive the time and extra-space complexity without looking at the answer?
+ * 1. Why does comparing with the previous sorted value detect every duplicate?
+ * 2. Why can write never pass read?
+ * 3. What changes if the input is not sorted?
  */
 public class P03_RemoveDuplicatesSortedArray {
 

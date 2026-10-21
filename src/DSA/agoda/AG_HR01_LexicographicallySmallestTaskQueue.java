@@ -39,6 +39,16 @@ package DSA.agoda;
  *   - Time:  O(n) - Single linear scan and construction.
  *   - Space: O(n) - StringBuilder output.
  */
+/**
+ * Learning supplement: enumerate all allowed transformations is exponential;
+ * separating flexible '2' tasks from immutable '1'/'3' order is O(n) time and
+ * O(n) output space. Main examples: {@code "312" -> "123"},
+ * {@code "2312" -> "2231"}, and {@code "1323321" -> "1223331"}.
+ * Invariant: non-'2' tasks retain their relative order while all '2's are
+ * placed at the earliest legal position. Dry run for "312": remove 2 to get
+ * "31", insert it before the first 3, and obtain "123". Ask why 1 and 3
+ * cannot cross through a sequence of legal swaps.
+ */
 public class AG_HR01_LexicographicallySmallestTaskQueue {
 
     public static String getSmallestQueue(String taskQueue) {

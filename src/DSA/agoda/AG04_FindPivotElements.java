@@ -37,6 +37,13 @@ import java.util.List;
  *   4. Which edge cases change the control flow (empty input, one item, duplicates, or boundaries)?
  *   5. Can you derive the time and extra-space complexity without looking at the answer?
  */
+/**
+ * VISUAL DRY RUN: for [2,3,1,8,9,11,10,15], suffix minima show 8 has left
+ * maximum 3 and right minimum 9, so it is kept; 15 has left maximum 11 and
+ * no right values, so it is kept. Values failing either comparison are
+ * skipped. The invariant is that prefixMax and suffixMin describe exactly
+ * the elements on each side.
+ */
 public class AG04_FindPivotElements {
 
     public static List<Integer> findPivots(int[] arr) {

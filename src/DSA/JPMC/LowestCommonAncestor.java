@@ -22,6 +22,13 @@ package DSA.JPMC;
  * 
  * COMPLEXITY: Time: O(N) to visit all nodes. Space: O(H) where H is the height of the tree (Call stack).
  */
+/**
+ * Learning supplement: a parent-map solution uses O(N) space; DFS uses O(H)
+ * stack space and O(N) time. Examples: root [3,5,1], p=5,q=1 -> 3 and
+ * p=5,q=6 -> 5. Invariant: each recursive result is null or the target/LCA
+ * found in that subtree. The main left/right calls return 5 and 1, so 3 is
+ * selected. Ask what the method assumes when one target is absent.
+ */
 public class LowestCommonAncestor {
     
     // Definition for a binary tree node.

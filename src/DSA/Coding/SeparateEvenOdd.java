@@ -1,5 +1,19 @@
 package DSA.Coding;
 
+/**
+ * Partitions an integer array with even values first and odd values second.
+ *
+ * <p>Examples: {@code [1,2,3,4] -> [4,2,3,1]} (partition order is not
+ * guaranteed) and {@code [2,4] -> [2,4]}. A straightforward filter/copy is
+ * O(n) time and O(n) space; the two-pointer version runs in O(n) time and
+ * O(1) extra space.</p>
+ *
+ * <p>At every iteration, the prefix before {@code left} is even and the
+ * suffix after {@code right} is odd. Already-correct endpoints advance;
+ * otherwise an odd left value and even right value are swapped. In the main
+ * example, 45 and 8 are exchanged before the pointers continue. Ask whether
+ * the relative order of even or odd values must be stable.</p>
+ */
 public class SeparateEvenOdd {
     public static void segregateEvenOdd(int[] arr) {
         int left = 0;

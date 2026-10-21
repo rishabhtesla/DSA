@@ -27,6 +27,13 @@ package DSA.JPMC;
  * 
  * COMPLEXITY: Time: O(N), Space: O(1)
  */
+/**
+ * Learning supplement: all subarrays cost O(n^2); Kadane's state is O(n) time
+ * and O(1) space. Examples: {@code [-2,1,-3,4,-1,2,1,-5,4] -> 6} and
+ * {@code [-3,-2,-1] -> -1}. Invariant: currentSum is the best subarray ending
+ * here and bestSum is the global best. The main streak [4,-1,2,1] reaches 6.
+ * Ask why all-negative input cannot return zero.
+ */
 public class MaximumSubarray {
     public static int maxSubArray(int[] nums) {
         if (nums == null || nums.length == 0) return 0;

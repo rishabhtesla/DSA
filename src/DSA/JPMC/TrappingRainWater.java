@@ -27,6 +27,14 @@ package DSA.JPMC;
  * 
  * COMPLEXITY: Time: O(N) (One pass). Space: O(1)
  */
+/**
+ * Learning supplement: per-index boundary scans are O(n^2); two pointers use
+ * the lower known wall to compute water in O(n) time and O(1) space.
+ * Examples: {@code [0,1,0,2,1,0,1,3,2,1,2,1] -> 6} and
+ * {@code [4,2,0,3,2,5] -> 9}. Invariant: processed sides have their maximum
+ * wall known, so the lower side's water is final. Ask why the lower wall is
+ * sufficient.
+ */
 public class TrappingRainWater {
     public static int trap(int[] height) {
         if (height == null || height.length == 0) return 0;

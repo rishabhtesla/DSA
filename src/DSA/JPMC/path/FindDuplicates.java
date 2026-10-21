@@ -17,6 +17,14 @@ package DSA.JPMC.path; /**
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Learning supplement: pairwise duplicate checks are O(n^2); a set/frequency
+ * scan is expected O(n) time and O(n) space. Examples:
+ * {@code [apple,pear,apple] -> [apple]} and {@code [a,b,c] -> []}.
+ * Invariant: the tracking set/map represents the processed prefix. The main
+ * list recognizes 2 and 3 when their later copies are visited. Ask whether
+ * duplicate results should be unique and ordered.
+ */
 public class FindDuplicates {
     public static void main(String[] args) {
         List<String> fruits = Arrays.asList(

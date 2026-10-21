@@ -27,6 +27,13 @@ package DSA.JPMC; /**
  */
 import java.util.Stack;
 
+/**
+ * Learning supplement: repeatedly deleting pairs may be O(n^2); a stack scan
+ * is O(n) time and O(n) space. Examples: {@code "()[]{}" -> true} and
+ * {@code "(]" -> false}. Invariant: the stack contains unmatched opening
+ * brackets for the processed prefix. A closer must match the top; leftovers
+ * make the final result false. Ask what an empty stack means on a closer.
+ */
 public class ValidParentheses {
     public static boolean isValid(String s) {
         Stack<Character> stack = new Stack<>();

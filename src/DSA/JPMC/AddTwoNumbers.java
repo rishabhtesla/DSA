@@ -25,6 +25,16 @@ package DSA.JPMC;
  * Result list: 7 -> 0 -> 8
  * 
  * COMPLEXITY: Time: O(max(N, M)) where N and M are the lengths of the lists. Space: O(max(N, M)) for output.
+ *
+ * ADDITIONAL LEARNING NOTES:
+ * A brute-force alternative converts both lists to numbers, which risks
+ * overflow and still requires O(N+M) work; digit-by-digit addition is safer.
+ * Examples: [0]+[0] -> [0], and [9,9]+[1] -> [0,0,1].
+ * Invariant: every output node is the correct digit for the processed
+ * position, and carry is the value passed to the next position. For the
+ * main input, 2+5=7, then 4+6=10 writes 0/carry 1, and 3+4+1=8.
+ * Questions: why must the final carry be processed, and what happens when
+ * one list ends first?
  */
 public class AddTwoNumbers {
     

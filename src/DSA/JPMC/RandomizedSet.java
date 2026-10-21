@@ -27,6 +27,14 @@ package DSA.JPMC; /**
  */
 import java.util.*;
 
+/**
+ * Learning supplement: list plus value-to-index map gives expected O(1)
+ * insert/remove/random and O(n) space. Examples: insert(1)->true,
+ * remove(2)->false, insert(2)->true; after remove(1), random can only return
+ * 2. Invariant: each list index agrees with its map entry. Middle deletion
+ * swaps the last value into the removed slot and updates its index. Ask why
+ * one random call cannot statistically prove uniformity.
+ */
 public class RandomizedSet {
     private List<Integer> list;
     private Map<Integer, Integer> map;

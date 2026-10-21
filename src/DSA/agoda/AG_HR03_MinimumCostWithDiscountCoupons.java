@@ -32,6 +32,15 @@ import java.util.PriorityQueue;
  *   - Time:  O(n log n + m log n) - Heapify and m extraction/insertion cycles.
  *   - Space: O(n)                 - Max-Heap storage.
  */
+/**
+ * Learning supplement: trying every coupon allocation is exponential; a
+ * max-heap applies each coupon where it currently saves most, in
+ * O((n+m) log n) time and O(n) space. Examples: prices [2,4], m=2 -> 3,
+ * and [9,7,4,1], m=3 -> 12. Invariant: the heap contains current prices and
+ * each chosen coupon gives the maximum available immediate saving. The main
+ * trace halves 9, then 7, then 4, producing total 12. Ask why the greedy
+ * choice remains optimal after a price is halved.
+ */
 public class AG_HR03_MinimumCostWithDiscountCoupons {
 
     public static long findMinimumPrice(int[] price, int m) {

@@ -41,6 +41,12 @@ import java.util.Arrays;
  *   4. Which edge cases change the control flow (empty input, one item, duplicates, or boundaries)?
  *   5. Can you derive the time and extra-space complexity without looking at the answer?
  */
+/**
+ * VISUAL DRY RUN: for dist=[1,3,4], speed=[1,1,1], arrival times are
+ * [1,3,4]. At t=0, 1>0 so shoot plane 1; at t=1, 3>1 so shoot plane 3;
+ * at t=2, 4>2 so shoot plane 4 and return 3. The invariant is that all
+ * earlier sorted deadlines have already been handled.
+ */
 public class AG01_AirplaneShootdown {
 
     public static int maxPlanesShot(int[] dist, int[] speed) {

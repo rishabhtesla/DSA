@@ -27,6 +27,14 @@ package DSA.JPMC.path;
  * 
  * COMPLEXITY: Time: O(S) where S is the sum of all characters in all strings. Space: O(1).
  */
+/**
+ * Learning supplement: comparing every character of every pair is wasteful;
+ * shrinking a candidate prefix across the strings is O(total input length)
+ * time and O(1) extra space. Examples: {@code ["flower","flow","flight"] ->
+ * "fl"} and {@code ["dog","racecar"] -> ""}. Invariant: prefix is common to
+ * every processed string. Dry run shrinks "flower" to "flow", then "fl".
+ * Ask what the empty array and an empty string should return.
+ */
 public class LongestCommonPrefix {
     public static String longestCommonPrefix(String[] strs) {
         if (strs == null || strs.length == 0) return "";

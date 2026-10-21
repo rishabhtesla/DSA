@@ -34,6 +34,14 @@ package DSA.JPMC; /**
  */
 import java.util.Arrays;
 
+/**
+ * Learning supplement: division is unsafe with zeroes; prefix/suffix products
+ * run in O(n) time and O(1) extra space beyond output. Examples:
+ * {@code [1,2,3,4] -> [24,12,8,6]} and
+ * {@code [-1,1,0,-3,3] -> [0,0,9,0,0]}. Invariant: after the first pass each
+ * slot contains its left product; the reverse pass multiplies its right
+ * product. Ask why two zeroes make every result zero.
+ */
 public class ProductExceptSelf {
     public static int[] productExceptSelf(int[] nums) {
         int n = nums.length;

@@ -36,6 +36,14 @@ import java.util.Arrays;
  * 
  * COMPLEXITY: Time: O(N), Space: O(N) (To store the returned subarray slice)
  */
+/**
+ * Learning supplement: enumerate boundaries for O(n^2), or track Kadane
+ * boundaries in O(n) time and O(1) auxiliary space. Examples:
+ * {@code [4,-1,2,1] -> sum 6, values [4,-1,2,1]} and
+ * {@code [-2,-1] -> sum -1, values [-1]}. Invariant: current start/sum is
+ * the best suffix and best start/end is the best global range. Ask how ties
+ * should be resolved.
+ */
 public class MaximumSubarrayWithElements {
     
     // Custom wrapper class to return multiple values cleanly

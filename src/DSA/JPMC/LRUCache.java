@@ -22,6 +22,15 @@ package DSA.JPMC; /**
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Learning supplement: a map alone cannot track recency and a list alone
+ * cannot locate keys in O(1); combining a map with a doubly linked list gives
+ * O(1) get/put and O(capacity) space. Examples: capacity 2, put(1,10),
+ * put(2,20), get(1)->10, put(3,30), get(2)->-1; capacity 1, put(1,1),
+ * put(2,2) evicts 1. Invariant: list order is MRU to LRU and every map entry
+ * points to its list node. Ask why both get and update move a node to the
+ * front.
+ */
 public class LRUCache {
     
     // Internal class for Doubly Linked List nodes

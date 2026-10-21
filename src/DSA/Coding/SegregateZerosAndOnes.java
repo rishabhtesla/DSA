@@ -1,5 +1,19 @@
 package DSA.Coding;
 
+/**
+ * Rearranges a binary array so all zeroes occur before all ones.
+ *
+ * <p>Examples: {@code [0,1,0,1] -> [0,0,1,1]} and
+ * {@code [1,1,0] -> [0,1,1]}. Counting and rewriting is O(n) time and O(1)
+ * extra space; the two-pointer partition used here is also O(n) time and
+ * O(1) space.</p>
+ *
+ * <p>Invariant: indices before {@code left} contain zeroes and indices after
+ * {@code right} contain ones. For the main input, left skips existing zeroes,
+ * right skips existing ones, and each remaining 1/0 pair is exchanged.
+ * Critical question: does the algorithm need to preserve the order of equal
+ * values (it does not)?</p>
+ */
 public class SegregateZerosAndOnes {
     public static void segregate(int[] arr) {
         int left = 0;

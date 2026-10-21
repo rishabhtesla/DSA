@@ -24,6 +24,14 @@ package DSA.JPMC;
  * 
  * COMPLEXITY: Time: O(log N), Space: O(1)
  */
+/**
+ * Learning supplement: linear search is O(n); binary search discards a half
+ * because at least one half remains sorted, giving O(log n) time and O(1)
+ * space. Examples: {@code [4,5,6,7,0,1,2],0 -> 4} and target 3 -> -1.
+ * Invariant: a present target stays inside [left,right]. The main middle 6
+ * identifies a sorted right half, so left advances until 0 is found. Ask how
+ * duplicate values would weaken the sorted-half test.
+ */
 public class SearchRotatedArray {
     
     public static int search(int[] nums, int target) {

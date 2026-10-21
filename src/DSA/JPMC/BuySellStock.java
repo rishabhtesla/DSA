@@ -27,6 +27,15 @@ package DSA.JPMC;
  * Result = 5.
  * 
  * COMPLEXITY: Time: O(N), Space: O(1)
+ *
+ * ADDITIONAL LEARNING NOTES:
+ * Buying and selling every pair is O(n^2); tracking the lowest price so far
+ * gives O(n) time and O(1) space. Examples: [7,1,5,3,6,4] -> 5 and
+ * [7,6,4,3,1] -> 0. Invariant: after day i, minPrice is the smallest
+ * earlier price and bestProfit is the best completed trade. On the main
+ * sequence, minPrice becomes 1, then selling at 5/6 updates best to 5.
+ * Questions: why can the sell day never precede the buy day, and why is a
+ * negative profit replaced by zero?
  */
 public class BuySellStock {
     public static int maxProfit(int[] prices) {

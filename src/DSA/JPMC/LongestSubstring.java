@@ -28,6 +28,13 @@ package DSA.JPMC; /**
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Learning supplement: enumerating all substrings is O(n^2); the last-seen
+ * index window is O(n) time and O(n) space. Examples:
+ * {@code "abcabcbb" -> 3} and {@code "bbbbb" -> 1}. Invariant: the active
+ * window has no duplicate character. For the main scan, a repeated character
+ * moves left just beyond its previous index. Ask why left never moves back.
+ */
 public class LongestSubstring {
     public static int lengthOfLongestSubstring(String s) {
         int left = 0;

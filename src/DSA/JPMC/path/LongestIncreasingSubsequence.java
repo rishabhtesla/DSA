@@ -17,6 +17,14 @@ package DSA.JPMC.path; /**
  */
 import java.util.Arrays;
 
+/**
+ * Learning supplement: enumerating subsequences is exponential; O(n^2) DP
+ * stores the best sequence ending at each index (the implementation's
+ * approach). Examples: {@code [10,9,2,5,3,7,101,18] -> 4} and
+ * {@code [7,7,7] -> 1}. Invariant: dp[i] is the longest increasing
+ * subsequence ending at i. For the main input, [2,3,7,101] reaches length 4.
+ * Ask how the O(n log n) tails method changes the invariant.
+ */
 public class LongestIncreasingSubsequence {
     public static int lengthOfLIS(int[] nums) {
         if (nums == null || nums.length == 0) return 0;

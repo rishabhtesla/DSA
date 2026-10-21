@@ -16,6 +16,14 @@ package DSA.JPMC.path;
  * 
  * COMPLEXITY: Time: O(K * D) where K is iterations and D is number of digits. Space: O(D).
  */
+/**
+ * Learning supplement: each reverse/add step costs O(D) for D digits, so K
+ * iterations cost O(KD) time and O(D) temporary space. Examples: 195 reaches
+ * 9339 after four additions; an already palindromic 121 needs zero additions.
+ * Invariant: current is the result after exactly iterations reverse-add
+ * operations. The main run advances 195->786->1473->5214->9339. Ask why a
+ * maximum iteration guard is needed for numbers with no observed palindrome.
+ */
 public class ReverseAddPalindrome {
     
     // Helper to reverse the number

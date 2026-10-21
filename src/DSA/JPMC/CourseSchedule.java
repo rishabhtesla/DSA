@@ -30,6 +30,14 @@ package DSA.JPMC; /**
  */
 import java.util.*;
 
+/**
+ * Learning supplement: brute-force permutations are exponential, whereas
+ * Kahn's topological sort is O(V+E) time and O(V+E) space. Examples:
+ * {@code [[1,0]] -> true} and {@code [[1,0],[0,1]] -> false}. Invariant:
+ * every removed queue node has no remaining prerequisite. In the main trace,
+ * 0 leaves the queue first, lowers course 1's indegree to zero, and both
+ * courses are processed. Ask why processedCount must equal numCourses.
+ */
 public class CourseSchedule {
     public static boolean canFinish(int numCourses, int[][] prerequisites) {
         List<List<Integer>> adjList = new ArrayList<>();

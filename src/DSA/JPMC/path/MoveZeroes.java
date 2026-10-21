@@ -26,6 +26,14 @@ package DSA.JPMC.path; /**
  */
 import java.util.Arrays;
 
+/**
+ * Learning supplement: filtering into a second array uses O(n) space; the
+ * write-pointer pass is O(n) time and O(1) extra space while preserving the
+ * non-zero order. Examples: {@code [0,1,0,3,12] -> [1,3,12,0,0]} and
+ * {@code [1,2] -> [1,2]}. Invariant: the prefix before insertPosition is the
+ * stable non-zero prefix. The main trace writes 1, then 3, then 12 and fills
+ * the suffix with zeroes. Ask why zeroes need no relative-order tracking.
+ */
 public class MoveZeroes {
     public static void moveZeroes(int[] nums) {
         if (nums == null || nums.length == 0) return;

@@ -2,6 +2,21 @@ package DSA.Coding.Hackerrank;
 
 import java.util.Scanner;
 
+/**
+ * Computes the length of a longest common subsequence of two strings.
+ *
+ * <p>Problem: choose characters from each string in left-to-right order,
+ * allowing skips, and maximize the common child length. Examples:
+ * {@code "HARRY","SALLY" -> 2} and {@code "AA","BB" -> 0}. Brute-force
+ * subsequence enumeration is exponential; the table recurrence is O(mn)
+ * time, while the rolling-row version uses O(n) space.</p>
+ *
+ * <p>Invariant: dp[i][j] (or the current row) is the best answer for the
+ * prefixes ending before i and j. For a matching character, take the diagonal
+ * plus one; otherwise take the larger value from above or left. A dry run on
+ * {@code "CAT","ACT"} reaches length 2. Ask why a common subsequence need not
+ * be contiguous.</p>
+ */
 public class CommonChildSolver {
 
     /**

@@ -27,6 +27,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Learning supplement: triple enumeration is O(n^3); sorting plus a fixed
+ * index and two pointers is O(n^2) time. Examples:
+ * {@code [-1,0,1,2,-1,-4] -> [[-1,-1,2],[-1,0,1]]} and
+ * {@code [0,1,1] -> []}. Invariant: for fixed i, the pointers search every
+ * pair for the required complement; duplicate skips make each triplet unique.
+ * Ask why sorting makes pointer movement safe.
+ */
 public class ThreeSum {
     public static List<List<Integer>> threeSum(int[] nums) {
         List<List<Integer>> result = new ArrayList<>();

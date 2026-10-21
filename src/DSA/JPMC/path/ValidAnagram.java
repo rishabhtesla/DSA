@@ -24,6 +24,14 @@ package DSA.JPMC.path;
  * 
  * COMPLEXITY: Time: O(N) where N is length of string. Space: O(1) (array size is fixed at 26).
  */
+/**
+ * Learning supplement: sorting both strings costs O(n log n); frequency
+ * counting is O(n) time and O(alphabet) space. Examples:
+ * {@code "anagram","nagaram" -> true} and {@code "rat","car" -> false}.
+ * Invariant: counts are balanced for the processed characters. Dry run adds
+ * counts for anagram and subtracts counts for nagaram, leaving all zero.
+ * Ask how differing lengths can be rejected immediately.
+ */
 public class ValidAnagram {
     public static boolean isAnagram(String s, String t) {
         // If lengths don't match, they can't be anagrams

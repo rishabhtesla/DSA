@@ -41,6 +41,13 @@ import java.util.Map;
  *   4. Which edge cases change the control flow (empty input, one item, duplicates, or boundaries)?
  *   5. Can you derive the time and extra-space complexity without looking at the answer?
  */
+/**
+ * VISUAL DRY RUN for {@code H(CH4)2}: push H=1, then push the parenthesis
+ * sentinel -1, C=12, and H4=4; ')' pops 4+12=16 and multiplier 2 pushes
+ * 32; the final stack sum is 1+32=33. The stack invariant is that each
+ * entry is one complete parsed atom/group. Ask how nested groups or
+ * multi-digit counts would change this parser.
+ */
 public class AG02_MoleculeWeightCalculator {
 
     public static int calculateWeight(String formula) {

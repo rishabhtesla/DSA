@@ -7,6 +7,20 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+/**
+ * Reports the first character that repeats while scanning a string.
+ *
+ * <p>Problem: find the earliest repeated character. Examples:
+ * {@code "swiss" -> 's'} and {@code "abcd" -> no repeated character}.
+ * Comparing every pair costs O(n^2); a set scan uses expected O(n) time and
+ * O(n) extra space.</p>
+ *
+ * <p>The set contains exactly the characters in the prefix already scanned.
+ * The first failed insertion is therefore the earliest repeat. Dry run for
+ * {@code "swiss"}: s, w, and i are new; the second s is already present, so
+ * it is reported. Critical questions: are case and whitespace significant,
+ * and what sentinel represents “not found”?</p>
+ */
 public class FirstRepeatedCharacter {
 
     public static void main(String[] args) {

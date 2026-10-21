@@ -57,6 +57,14 @@ import java.util.PriorityQueue;
  * - Space: O(1) auxiliary space (alphabet size <= 26)
  * ============================================================================
  */
+/**
+ * Learning supplement: brute-force permutations are factorial; a max-heap
+ * greedily placing two most frequent characters is O(n log alphabet) time.
+ * Examples: {@code "aab" -> "aba"} and {@code "aaab" -> ""}. Invariant:
+ * no adjacent output characters match and heap counts describe unplaced
+ * characters. The main aab trace places a, then b, then a. Ask why
+ * maxFrequency > ceil(n/2) proves impossibility.
+ */
 public class SolutionReorganizeString {
 
     static class CharFreq {
