@@ -7,10 +7,10 @@ import java.util.*;
 /**
  * PROBLEM STATEMENT:
  * You are given the heads of two sorted linked lists 'list1' and 'list2' [00:00:21].
- * Merge the two lists into one sorted list. The list should be made by splicing together 
+ * Merge the two lists into one sorted list. The list should be made by splicing together
  * the nodes of the first two lists [00:00:25, 00:00:35].
  * Return the head of the merged linked list.
- * 
+ * <p>
  * EXAMPLES & EXPLANATION:
  * Example 1: list1 = [1, 2, 4], list2 = [1, 3, 4]
  * - Compare heads: list1 val 1 <= list2 val 1 -> attach list1 (1), advance list1.
@@ -20,45 +20,45 @@ import java.util.*;
  * - Compare list1 (4) and list2 (4) -> attach list1 (4), advance list1.
  * - list1 becomes null -> append remaining list2 (4).
  * - Result: [1, 1, 2, 3, 4, 4]
- * 
+ * <p>
  * Example 2: list1 = [1, 5, 7], list2 = [2, 4, 6, 8, 9] (Simulated inside video explanation [00:10:44, 00:15:02])
  * - Create dummy node (val -1) and pointer `ans = dummy` [00:05:40, 00:09:35].
  * - Traversal comparisons:
- *   - p1(1) < p2(2) -> dummy.next = p1(1), advance p1 & dummy [00:07:04, 00:12:15].
- *   - p2(2) < p1(5) -> dummy.next = p2(2), advance p2 & dummy [00:07:42, 00:12:58].
- *   - p2(4) < p1(5) -> dummy.next = p2(4), advance p2 & dummy [00:13:28].
- *   - p1(5) < p2(6) -> dummy.next = p1(5), advance p1 & dummy [00:13:58].
- *   - p2(6) < p1(7) -> dummy.next = p2(6), advance p2 & dummy [00:14:12].
- *   - p1(7) < p2(8) -> dummy.next = p1(7), advance p1 & dummy [00:14:22].
+ * - p1(1) < p2(2) -> dummy.next = p1(1), advance p1 & dummy [00:07:04, 00:12:15].
+ * - p2(2) < p1(5) -> dummy.next = p2(2), advance p2 & dummy [00:07:42, 00:12:58].
+ * - p2(4) < p1(5) -> dummy.next = p2(4), advance p2 & dummy [00:13:28].
+ * - p1(5) < p2(6) -> dummy.next = p1(5), advance p1 & dummy [00:13:58].
+ * - p2(6) < p1(7) -> dummy.next = p2(6), advance p2 & dummy [00:14:12].
+ * - p1(7) < p2(8) -> dummy.next = p1(7), advance p1 & dummy [00:14:22].
  * - p1 reaches null: attach remaining tail `dummy.next = p2` (attaches 8 -> 9 directly) [00:08:29, 00:14:39].
  * - Return `ans.next` (skips dummy anchor node) [00:09:56, 00:14:58].
  * - Result: [1, 2, 4, 5, 6, 7, 8, 9]
- * 
+ * <p>
  * ---
  * ANCHOR STRATEGY BREAKDOWN (Approach 1 - Dummy Anchor Pointer with Two-Way Comparison Loop):
  * • Pointer Initialization:
- *   - `dummy = new ListNode(-1)` serves as fixed anchor [00:05:40].
- *   - `ans = dummy` stores original head reference for final return [00:09:35].
- *   - `p1 = list1`, `p2 = list2` iterate source linked lists [00:06:00, 00:06:08].
+ * - `dummy = new ListNode(-1)` serves as fixed anchor [00:05:40].
+ * - `ans = dummy` stores original head reference for final return [00:09:35].
+ * - `p1 = list1`, `p2 = list2` iterate source linked lists [00:06:00, 00:06:08].
  * • Condition Boundaries:
- *   - Interleaving loop: `while (p1 != null && p2 != null)` [00:06:19].
- *   - Node choice: `if (p1.val < p2.val)` attach p1 [00:06:43]; `else` attach p2 [00:07:42].
- *   - Post-loop cleanup: attach non-null remaining list using `dummy.next = (p1 == null) ? p2 : p1` [00:08:26, 00:08:44].
+ * - Interleaving loop: `while (p1 != null && p2 != null)` [00:06:19].
+ * - Node choice: `if (p1.val < p2.val)` attach p1 [00:06:43]; `else` attach p2 [00:07:42].
+ * - Post-loop cleanup: attach non-null remaining list using `dummy.next = (p1 == null) ? p2 : p1` [00:08:26, 00:08:44].
  * • Operational Steps:
- *   1. Instantiate `dummy` node with arbitrary placeholder value `-1` [00:05:40, 00:05:50].
- *   2. Save head anchor `ans = dummy` [00:09:35].
- *   3. Run while loop as long as both pointers `p1` and `p2` are non-null [00:06:19].
- *   4. Append smaller node to `dummy.next`, advance corresponding list pointer (`p1 = p1.next` or `p2 = p2.next`) [00:07:04, 00:07:51].
- *   5. Advance construction pointer `dummy = dummy.next` [00:08:10].
- *   6. After loop, splice any remaining nodes directly to `dummy.next` [00:08:29, 00:08:44].
- *   7. Return `ans.next` [00:09:56].
+ * 1. Instantiate `dummy` node with arbitrary placeholder value `-1` [00:05:40, 00:05:50].
+ * 2. Save head anchor `ans = dummy` [00:09:35].
+ * 3. Run while loop as long as both pointers `p1` and `p2` are non-null [00:06:19].
+ * 4. Append smaller node to `dummy.next`, advance corresponding list pointer (`p1 = p1.next` or `p2 = p2.next`) [00:07:04, 00:07:51].
+ * 5. Advance construction pointer `dummy = dummy.next` [00:08:10].
+ * 6. After loop, splice any remaining nodes directly to `dummy.next` [00:08:29, 00:08:44].
+ * 7. Return `ans.next` [00:09:56].
  * • Time Complexity: O(n + m) - Where n and m are lengths of list1 and list2.
  * • Space Complexity: O(1) auxiliary space - Splices existing node pointers in-place without generating new nodes [00:00:35].
  * • LOGIC BEHIND THIS APPROACH:
- *   Using a `dummy` node simplifies list construction by eliminating special conditional branches for setting the head node [00:02:14]. 
- *   Splicing pointer references directly rewires existing nodes in-place, satisfying $O(1)$ auxiliary space restrictions [00:00:35, 00:13:14]. 
- *   When one list exhausts, the non-empty list remains sorted, so linking its head directly attaches all remaining elements in $O(1)$ step [00:04:59, 00:08:29].
- * 
+ * Using a `dummy` node simplifies list construction by eliminating special conditional branches for setting the head node [00:02:14].
+ * Splicing pointer references directly rewires existing nodes in-place, satisfying $O(1)$ auxiliary space restrictions [00:00:35, 00:13:14].
+ * When one list exhausts, the non-empty list remains sorted, so linking its head directly attaches all remaining elements in $O(1)$ step [00:04:59, 00:08:29].
+ * <p>
  * ---
  * VISUAL DRY RUN (APPROACH 1: Dummy Anchor - list1 = [1, 5], list2 = [2, 4]):
  * Initial: dummy(-1), ans = dummy, p1 = 1, p2 = 2 [00:11:16]
@@ -68,7 +68,7 @@ import java.util.*;
  * Loop ends (p2 is null).
  * Cleanup: p1 == null (false) -> dummy.next = p1(5) [00:14:35].
  * Return ans.next -> [1, 2, 4, 5] [00:14:58].
- * 
+ * <p>
  * ---
  * VISUAL DRY RUN (APPROACH 2: Recursive Divide & Conquer - list1 = [1, 3], list2 = [2]):
  * Frame 1: merge(1, 2) -> 1 < 2 -> 1.next = merge(3, 2)
@@ -76,7 +76,7 @@ import java.util.*;
  * Frame 3: merge(3, null) -> returns 3 (base case)
  * Unwind: 2.next = 3 -> returns 2 -> 1.next = 2 -> returns 1
  * Output = 1 -> 2 -> 3.
- * 
+ * <p>
  * ---
  * VISUAL DRY RUN (APPROACH 3: PriorityQueue Min-Heap Strategy - list1 = [1, 4], list2 = [2, 3]):
  * MinHeap insert heads: Heap = [1 (list1), 2 (list2)]

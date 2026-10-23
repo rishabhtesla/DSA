@@ -4,40 +4,40 @@ import java.util.Arrays;
 
 /**
  * PROBLEM STATEMENT:
- * Given an integer array 'nums', return true if there exists a triple of indices (i, j, k) 
+ * Given an integer array 'nums', return true if there exists a triple of indices (i, j, k)
  * such that i < j < k and nums[i] < nums[j] < nums[k]. If no such indices exist, return false.
- * 
+ * <p>
  * EXAMPLES & EXPLANATION:
  * Example 1: nums = [1, 2, 3, 4, 5]
  * - Process: The numbers are strictly ascending. Indices (0, 1, 2) correspond to values 1 < 2 < 3.
  * - Result: true
- * 
+ * <p>
  * Example 2: nums = [8, 4, 3, 5, 7] (Simulated inside the video explanation [00:09:47])
- * - Process: 
- *   - 'first' initializes to +Infinity, tracks the lowest values: 8 -> 4 -> 3 [00:11:48].
- *   - 5 arrives: 5 > 'first' (3), so it shifts down and updates 'second' = 5 [00:12:35].
- *   - 7 arrives: 7 > 'first' (3) and 7 > 'second' (5). It falls to the 'else' branch [00:13:14].
- *   - All three variables ('first', 'second', 'third') become resolved as 3 < 5 < 7.
+ * - Process:
+ * - 'first' initializes to +Infinity, tracks the lowest values: 8 -> 4 -> 3 [00:11:48].
+ * - 5 arrives: 5 > 'first' (3), so it shifts down and updates 'second' = 5 [00:12:35].
+ * - 7 arrives: 7 > 'first' (3) and 7 > 'second' (5). It falls to the 'else' branch [00:13:14].
+ * - All three variables ('first', 'second', 'third') become resolved as 3 < 5 < 7.
  * - Result: true
- * 
+ * <p>
  * ---
  * ANCHOR STRATEGY BREAKDOWN (Approach 1 - Two Variable State Preservation):
- * • Index Initialization: Single loop index 'i' goes from 0 to nums.length - 1 [00:08:04]. 
- *   Two state boundaries, 'first' and 'second', are assigned Integer.MAX_VALUE [00:07:20].
- * • Condition Boundaries: If an element is smaller or equal to 'first', it replaces 'first'. 
- *   Else if it is smaller or equal to 'second', it replaces 'second'. Otherwise, it is strictly greater than both, completing the triplet.
+ * • Index Initialization: Single loop index 'i' goes from 0 to nums.length - 1 [00:08:04].
+ * Two state boundaries, 'first' and 'second', are assigned Integer.MAX_VALUE [00:07:20].
+ * • Condition Boundaries: If an element is smaller or equal to 'first', it replaces 'first'.
+ * Else if it is smaller or equal to 'second', it replaces 'second'. Otherwise, it is strictly greater than both, completing the triplet.
  * • Operational Steps:
- *   1. Iterate over array elements [00:08:04].
- *   2. Update 'first' if element <= first [00:08:23].
- *   3. Update 'second' if element <= second [00:08:52].
- *   4. Return true if an element is greater than both [00:09:16].
+ * 1. Iterate over array elements [00:08:04].
+ * 2. Update 'first' if element <= first [00:08:23].
+ * 3. Update 'second' if element <= second [00:08:52].
+ * 4. Return true if an element is greater than both [00:09:16].
  * • Time Complexity: O(n) - Single linear scanning loop.
  * • Space Complexity: O(1) - Uses constant extra space primitives.
  * • LOGIC BEHIND THIS APPROACH:
- *   By dynamically minimizing 'first' and 'second', we maximize the potential window for a valid 'third' value to fall 
- *   beyond them [00:11:26]. Even if a smaller 'first' is encountered later without updating 'second', 'second' still stores 
- *   a valid threshold historical state linked implicitly to an older, larger 'first', ensuring sequence correctness.
- * 
+ * By dynamically minimizing 'first' and 'second', we maximize the potential window for a valid 'third' value to fall
+ * beyond them [00:11:26]. Even if a smaller 'first' is encountered later without updating 'second', 'second' still stores
+ * a valid threshold historical state linked implicitly to an older, larger 'first', ensuring sequence correctness.
+ * <p>
  * ---
  * VISUAL DRY RUN (nums = [8, 4, 3, 5, 7]):
  * Initial: first = INF, second = INF, third = INF [00:09:47]
@@ -52,14 +52,14 @@ public class IncreasingTripletSubsequence {
     // APPROACH 1: Two Variable State Preservation (Anchor Strategy)
     public static boolean increasingTripletOptimal(int[] nums) {
         if (nums == null || nums.length < 3) return false;
-        
+
         int first = Integer.MAX_VALUE;
         int second = Integer.MAX_VALUE;
         for (int num : nums) {
             if (num <= first) {
-                first = num; 
+                first = num;
             } else if (num <= second) {
-                second = num; 
+                second = num;
             } else {
                 // If an element is greater than both 'first' and 'second', a valid triplet exists
                 return true;
@@ -72,21 +72,21 @@ public class IncreasingTripletSubsequence {
     // Alternative structural design mapping historical left-min and right-max states to resolve tracking conditions.
     public static boolean increasingTripletAuxiliaryArrays(int[] nums) {
         if (nums == null || nums.length < 3) return false;
-        
+
         int n = nums.length;
         int[] minLeft = new int[n];
         int[] maxRight = new int[n];
-        
+
         minLeft[0] = nums[0];
         for (int i = 1; i < n; i++) {
             minLeft[i] = Math.min(minLeft[i - 1], nums[i]);
         }
-        
+
         maxRight[n - 1] = nums[n - 1];
         for (int i = n - 2; i >= 0; i--) {
             maxRight[i] = Math.max(maxRight[i + 1], nums[i]);
         }
-        
+
         for (int j = 1; j < n - 1; j++) {
             if (nums[j] > minLeft[j] && nums[j] < maxRight[j]) {
                 return true;
@@ -105,19 +105,19 @@ public class IncreasingTripletSubsequence {
         int[] resultState = Arrays.stream(nums)
                 .boxed()
                 .reduce(
-                    new int[]{Integer.MAX_VALUE, Integer.MAX_VALUE, 0},
-                    (state, current) -> {
-                        if (state[2] == 1) return state; // Shortcut if found
-                        if (current <= state[0]) {
-                            state[0] = current;
-                        } else if (current <= state[1]) {
-                            state[1] = current;
-                        } else {
-                            state[2] = 1; 
-                        }
-                        return state;
-                    },
-                    (s1, s2) -> s1 // Standard dummy combiner for sequential flows
+                        new int[]{Integer.MAX_VALUE, Integer.MAX_VALUE, 0},
+                        (state, current) -> {
+                            if (state[2] == 1) return state; // Shortcut if found
+                            if (current <= state[0]) {
+                                state[0] = current;
+                            } else if (current <= state[1]) {
+                                state[1] = current;
+                            } else {
+                                state[2] = 1;
+                            }
+                            return state;
+                        },
+                        (s1, s2) -> s1 // Standard dummy combiner for sequential flows
                 );
 
         return resultState[2] == 1;

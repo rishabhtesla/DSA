@@ -4,48 +4,48 @@ import java.util.PriorityQueue;
 
 /**
  * =========================================================================
- *                      CLASS: PriorityQueueStableSummation
+ * CLASS: PriorityQueueStableSummation
  * =========================================================================
- * PURPOSE: 
- * This class processes a dataset of values and priorities. It securely extracts 
- * the top 'K' highest-priority elements to compute their total sum. 
- * If two elements share identical priorities, it relies on a "stable sort" 
+ * PURPOSE:
+ * This class processes a dataset of values and priorities. It securely extracts
+ * the top 'K' highest-priority elements to compute their total sum.
+ * If two elements share identical priorities, it relies on a "stable sort"
  * mechanism ensuring the element that entered the dataset first is picked first.
- *
+ * <p>
  * =========================================================================
- *                           APPROACH LOGIC
+ * APPROACH LOGIC
  * =========================================================================
  * 1. OBJECT WRAPPING:
- *    We wrap each item's data (value, priority, and original index) into a 
- *    custom 'Element' class. Storing the index ('insertOrder') is crucial 
- *    because standard Java PriorityQueues do not guarantee stable sorting 
- *    for elements with identical keys.
- *
+ * We wrap each item's data (value, priority, and original index) into a
+ * custom 'Element' class. Storing the index ('insertOrder') is crucial
+ * because standard Java PriorityQueues do not guarantee stable sorting
+ * for elements with identical keys.
+ * <p>
  * 2. CUSTOM COMPARATOR HIERARCHY (The Core Strategy):
- *    We pass a custom lambda comparator to the PriorityQueue that operates 
- *    on a two-tier sorting system:
- *    - Tier 1 (Primary): Max-Heap on 'priority'. We compare `b.priority` 
- *      against `a.priority`. Higher priorities gravitate to the top.
- *    - Tier 2 (Tie-breaker): Min-Heap on 'insertOrder'. If priorities match,
- *      we compare `a.insertOrder` against `b.insertOrder`. The element that 
- *      arrived earlier (smaller index) gravitates to the top.
- *
+ * We pass a custom lambda comparator to the PriorityQueue that operates
+ * on a two-tier sorting system:
+ * - Tier 1 (Primary): Max-Heap on 'priority'. We compare `b.priority`
+ * against `a.priority`. Higher priorities gravitate to the top.
+ * - Tier 2 (Tie-breaker): Min-Heap on 'insertOrder'. If priorities match,
+ * we compare `a.insertOrder` against `b.insertOrder`. The element that
+ * arrived earlier (smaller index) gravitates to the top.
+ * <p>
  * 3. PROCESSING & SUMMATION:
- *    - Step 1: Push all elements into the queue. The heap auto-arranges them.
- *    - Step 2: Extract (poll) elements up to 'numk' times. 
- *    - Safety Guard: The extraction loop condition checks `!pq.isEmpty()` 
- *      to prevent `NullPointerException` errors if 'numk' exceeds array size.
- *
+ * - Step 1: Push all elements into the queue. The heap auto-arranges them.
+ * - Step 2: Extract (poll) elements up to 'numk' times.
+ * - Safety Guard: The extraction loop condition checks `!pq.isEmpty()`
+ * to prevent `NullPointerException` errors if 'numk' exceeds array size.
+ * <p>
  * =========================================================================
- *                         COMPLEXITY ANALYSIS
+ * COMPLEXITY ANALYSIS
  * =========================================================================
- * - Time Complexity: O(N log N) to insert all items into the priority queue, 
- *   and O(K log N) to poll K elements. Total Time: O((N + K) log N).
+ * - Time Complexity: O(N log N) to insert all items into the priority queue,
+ * and O(K log N) to poll K elements. Total Time: O((N + K) log N).
  * - Space Complexity: O(N) to store the elements inside the Priority Queue.
  * =========================================================================
  */
 public class PriorityQueueStableSummation {
-    
+
     static class Element {
         int value;
         int priority;
@@ -68,10 +68,10 @@ public class PriorityQueueStableSummation {
         PriorityQueue<Element> pq = new PriorityQueue<>((a, b) -> {
             // Tier 1: Max-Heap on Priority
             if (b.priority != a.priority) {
-                return Integer.compare(b.priority, a.priority); 
+                return Integer.compare(b.priority, a.priority);
             }
             // Tier 2: Min-Heap on Insertion Order (Stable tie-breaking)
-            return Integer.compare(a.insertOrder, b.insertOrder); 
+            return Integer.compare(a.insertOrder, b.insertOrder);
         });
 
         System.out.println("--- DRY RUN START ---");
@@ -84,7 +84,7 @@ public class PriorityQueueStableSummation {
 
         System.out.println("\nStep 2: Polling up to " + numk + " elements from Queue");
         long sum = 0;
-        
+
         for (int i = 0; i < numk && !pq.isEmpty(); i++) {
             Element pulled = pq.poll();
             sum += pulled.value;

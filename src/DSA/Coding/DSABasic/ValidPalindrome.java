@@ -4,52 +4,52 @@ import java.util.stream.Collectors;
 
 /**
  * PROBLEM STATEMENT:
- * A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and 
- * removing all non-alphanumeric characters, it reads the same forward and backward [00:00:52, 00:01:14]. 
+ * A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and
+ * removing all non-alphanumeric characters, it reads the same forward and backward [00:00:52, 00:01:14].
  * Alphanumeric characters include letters and numbers [00:00:57].
  * Given a string 's', return true if it is a palindrome, or false otherwise [00:01:19].
- * 
+ * <p>
  * EXAMPLES & EXPLANATION:
  * Example 1: s = "A man, a plan, a canal: Panama" [00:01:49]
  * - Process:
- *   - Remove non-alphanumeric characters (commas, spaces, colons) and lowercase all characters [00:02:14].
- *   - Filtered string: "amanaplanacanalpanama" [00:02:23].
- *   - Check forward and backward: reads identical in both directions [00:02:30].
+ * - Remove non-alphanumeric characters (commas, spaces, colons) and lowercase all characters [00:02:14].
+ * - Filtered string: "amanaplanacanalpanama" [00:02:23].
+ * - Check forward and backward: reads identical in both directions [00:02:30].
  * - Result: true
- * 
+ * <p>
  * Example 2: s = "race a car" [00:01:25]
  * - Process:
- *   - Filtered string: "raceacar" [00:01:30].
- *   - Compare ends: 'r'=='r', 'a'=='a', 'c'=='c', 'e'!='a' -> mismatch at center [00:01:42].
+ * - Filtered string: "raceacar" [00:01:30].
+ * - Compare ends: 'r'=='r', 'a'=='a', 'c'=='c', 'e'!='a' -> mismatch at center [00:01:42].
  * - Result: false
- * 
+ * <p>
  * Example 3: s = " "
  * - Process: Empty or whitespace-only string becomes "" after filtering. An empty string reads same forward/backward [00:02:41].
  * - Result: true
- * 
+ * <p>
  * ---
  * ANCHOR STRATEGY BREAKDOWN (Approach 1 - Filtered StringBuilder & Two-Pointer Verification):
  * • Index Initialization:
- *   - Pre-pass loop 'i' iterates from 0 to s.length() - 1 [00:04:46].
- *   - Two-pointer verification setup: `start = 0`, `end = sb.length() - 1` [00:11:02].
+ * - Pre-pass loop 'i' iterates from 0 to s.length() - 1 [00:04:46].
+ * - Two-pointer verification setup: `start = 0`, `end = sb.length() - 1` [00:11:02].
  * • Condition Boundaries:
- *   - Lowercase letter ('a'-'z'): append directly [00:05:06, 00:05:24].
- *   - Uppercase letter ('A'-'Z'): convert using `(char)(ch - 'A' + 'a')` and append [00:06:35, 00:07:43].
- *   - Numeric digit ('0'-'9'): append directly [00:09:22, 00:09:34].
- *   - Pointer check loop: `while (start < end)` [00:11:29].
+ * - Lowercase letter ('a'-'z'): append directly [00:05:06, 00:05:24].
+ * - Uppercase letter ('A'-'Z'): convert using `(char)(ch - 'A' + 'a')` and append [00:06:35, 00:07:43].
+ * - Numeric digit ('0'-'9'): append directly [00:09:22, 00:09:34].
+ * - Pointer check loop: `while (start < end)` [00:11:29].
  * • Operational Steps:
- *   1. Handle base edge case: if `s.length() <= 1`, return true immediately [00:03:00, 00:03:12].
- *   2. Iterate string and build lowercased alphanumeric `StringBuilder` [00:04:16, 00:04:46].
- *   3. Perform two-pointer comparison from both ends toward center [00:10:10, 00:11:29].
- *   4. If characters mismatch at `start` and `end`, return false [00:12:12].
- *   5. Advance `start++` and `end--` until pointers cross [00:12:59].
- *   6. Return true if all paired checks pass [00:12:23].
+ * 1. Handle base edge case: if `s.length() <= 1`, return true immediately [00:03:00, 00:03:12].
+ * 2. Iterate string and build lowercased alphanumeric `StringBuilder` [00:04:16, 00:04:46].
+ * 3. Perform two-pointer comparison from both ends toward center [00:10:10, 00:11:29].
+ * 4. If characters mismatch at `start` and `end`, return false [00:12:12].
+ * 5. Advance `start++` and `end--` until pointers cross [00:12:59].
+ * 6. Return true if all paired checks pass [00:12:23].
  * • Time Complexity: O(n) - Linear scan to filter string + linear two-pointer check pass [00:04:46].
  * • Space Complexity: O(n) auxiliary space - Space used to construct filtered StringBuilder buffer [00:04:16].
  * • LOGIC BEHIND THIS APPROACH:
- *   Filtering first isolates pure alphanumeric components, removing formatting noise [00:01:08, 00:03:42]. 
- *   Two-pointer validation directly tests palindromic symmetry by checking matching characters from opposing ends [00:10:10].
- * 
+ * Filtering first isolates pure alphanumeric components, removing formatting noise [00:01:08, 00:03:42].
+ * Two-pointer validation directly tests palindromic symmetry by checking matching characters from opposing ends [00:10:10].
+ * <p>
  * ---
  * VISUAL DRY RUN (APPROACH 1: StringBuilder & Two-Pointer - s = "R1a,2D:r"):
  * Filtering Pass:
@@ -61,11 +61,11 @@ import java.util.stream.Collectors;
  * i=5 ('D'): Uppercase -> 'd'. sb = "r1a2d" [00:16:03]
  * i=6 (':'): Symbol -> skip [00:16:08]
  * i=7 ('r'): Lowercase -> sb = "r1a2dr" [00:16:17]
- * 
+ * <p>
  * Two-Pointer Pass (sb = "r1a2dr", start=0, end=5):
  * Step 1: sb[0] ('r') == sb[5] ('r') -> start++ (1), end-- (4) [00:16:36]
  * Step 2: sb[1] ('1') != sb[4] ('d') -> Mismatch! Return false [00:16:50].
- * 
+ * <p>
  * ---
  * VISUAL DRY RUN (APPROACH 2: Strict In-Place Two-Pointer - s = "A man, a plan..."):
  * Pointers: left = 0 ('A'), right = 29 ('a')
@@ -74,7 +74,7 @@ import java.util.stream.Collectors;
  * Step 3: s[right]='m' -> compare 'm'=='m' -> match.
  * Continues without extra memory allocations until left >= right.
  * Output = true.
- * 
+ * <p>
  * ---
  * VISUAL DRY RUN (APPROACH 3: Stream Pipeline - s = "race a car"):
  * Step 1: Filter alphanumeric chars -> Stream['r','a','c','e','a','c','a','r']
@@ -87,7 +87,7 @@ public class ValidPalindrome {
     // APPROACH 1: Filtered StringBuilder & Two-Pointer Verification (Anchor Strategy)
     public static boolean isPalindromeOptimal(String s) {
         if (s == null) return false;
-        
+
         // Single-character or empty strings are valid palindromes [00:03:00]
         if (s.length() <= 1) {
             return true;
@@ -102,12 +102,12 @@ public class ValidPalindrome {
             // Lowercase character check [00:05:06]
             if (ch >= 'a' && ch <= 'z') {
                 sb.append(ch);
-            } 
+            }
             // Uppercase character conversion check [00:06:35]
             else if (ch >= 'A' && ch <= 'Z') {
                 char lowerCh = (char) (ch - 'A' + 'a'); // Manual ASCII shift to lowercase [00:07:43]
                 sb.append(lowerCh);
-            } 
+            }
             // Numeric digit check [00:09:22]
             else if (ch >= '0' && ch <= '9') {
                 sb.append(ch);

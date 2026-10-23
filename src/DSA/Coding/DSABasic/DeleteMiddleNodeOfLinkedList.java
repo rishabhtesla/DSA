@@ -10,15 +10,15 @@ import java.util.List;
 
 /**
  * PROBLEM STATEMENT:
- * You are given the head of a linked list. Delete the middle node, and return the head 
+ * You are given the head of a linked list. Delete the middle node, and return the head
  * of the modified linked list [00:00:36, 00:00:40].
  * The middle node is the floor(N / 2)-th node from start using 0-based indexing [00:00:50].
- * 
+ * <p>
  * EXAMPLES & EXPLANATION:
  * Example 1: head = [1, 3, 4, 7, 1, 2, 6] (N = 7)
  * - Index floor(7 / 2) = 3 -> Node(7) is deleted.
  * - Result: [1, 3, 4, 1, 2, 6]
- * 
+ * <p>
  * Example 2: head = [1, 2, 3, 4, 5, 6] (N = 6, Even length from video explanation [00:05:29])
  * - Index floor(6 / 2) = 3 -> Node(4) is deleted [00:01:25, 00:06:44].
  * - Initial: fast = 1, slow = 1, prev = 1 [00:05:50]
@@ -27,58 +27,58 @@ import java.util.List;
  * - Pass 3: prev = 3, slow = 4, fast = null [00:06:29, 00:06:44]
  * - Deletion: prev(3).next = slow(4).next (5) -> Node 4 bypassed! [00:06:50]
  * - Result: [1, 2, 3, 5, 6]
- * 
+ * <p>
  * Example 3: head = [1] (Single node edge case [00:07:20])
  * - Single node is middle -> deleting middle leaves empty list [00:07:25].
  * - Condition head.next == null triggers -> return null [00:07:29, 00:07:36].
  * - Result: []
- * 
+ * <p>
  * ---
  * ANCHOR STRATEGY BREAKDOWN (Approach 1 - Fast/Slow Pointers with Lagging Predecessor):
  * • Edge Cases:
- *   - Single node list: `if (head.next == null) return null` [00:07:20, 00:07:36].
+ * - Single node list: `if (head.next == null) return null` [00:07:20, 00:07:36].
  * • Pointer Initialization:
- *   - `fast = head` (2 steps per turn) [00:07:59].
- *   - `slow = head` (1 step per turn) [00:08:08].
- *   - `prev = slow` (tracks node prior to slow) [00:08:13].
+ * - `fast = head` (2 steps per turn) [00:07:59].
+ * - `slow = head` (1 step per turn) [00:08:08].
+ * - `prev = slow` (tracks node prior to slow) [00:08:13].
  * • Condition Boundaries:
- *   - Main traversal loop condition: `while (fast != null && fast.next != null)` [00:08:19, 00:08:30].
- *   - Advance `prev`: `prev = slow` before moving `slow` [00:08:36].
- *   - Advance `slow`: `slow = slow.next` [00:08:42].
- *   - Advance `fast`: `fast = fast.next.next` [00:08:51].
+ * - Main traversal loop condition: `while (fast != null && fast.next != null)` [00:08:19, 00:08:30].
+ * - Advance `prev`: `prev = slow` before moving `slow` [00:08:36].
+ * - Advance `slow`: `slow = slow.next` [00:08:42].
+ * - Advance `fast`: `fast = fast.next.next` [00:08:51].
  * • Operational Steps:
- *   1. Handle single-node edge case (`head.next == null`) by returning `null` [00:07:29].
- *   2. Instantiate `fast`, `slow`, and `prev` pointers at `head` [00:07:59, 00:08:13].
- *   3. While `fast != null && fast.next != null` [00:08:19]:
- *      - Assign `prev = slow` [00:08:36].
- *      - Advance `slow = slow.next` [00:08:42].
- *      - Advance `fast = fast.next.next` [00:08:51].
- *   4. Bypass middle node: `prev.next = prev.next.next` (or `prev.next = slow.next`) [00:09:08].
- *   5. Return `head` [00:09:13].
+ * 1. Handle single-node edge case (`head.next == null`) by returning `null` [00:07:29].
+ * 2. Instantiate `fast`, `slow`, and `prev` pointers at `head` [00:07:59, 00:08:13].
+ * 3. While `fast != null && fast.next != null` [00:08:19]:
+ * - Assign `prev = slow` [00:08:36].
+ * - Advance `slow = slow.next` [00:08:42].
+ * - Advance `fast = fast.next.next` [00:08:51].
+ * 4. Bypass middle node: `prev.next = prev.next.next` (or `prev.next = slow.next`) [00:09:08].
+ * 5. Return `head` [00:09:13].
  * • Time Complexity: O(N) - Single pass traversal over N/2 steps.
  * • Space Complexity: O(1) auxiliary space - Performs modification directly in-place.
  * • LOGIC BEHIND THIS APPROACH:
- *   `fast` moving twice as fast as `slow` guarantees `slow` lands on the middle node when `fast` reaches tail [00:03:13, 00:03:56]. 
- *   Tracking `prev` right behind `slow` allows instantaneous $O(1)$ node bypassing [00:05:08, 00:09:08].
- * 
+ * `fast` moving twice as fast as `slow` guarantees `slow` lands on the middle node when `fast` reaches tail [00:03:13, 00:03:56].
+ * Tracking `prev` right behind `slow` allows instantaneous $O(1)$ node bypassing [00:05:08, 00:09:08].
+ * <p>
  * ---
  * VISUAL DRY RUN (APPROACH 1: Fast/Slow with Prev - head = [1, 2, 3, 4, 5]):
  * Initial: fast = 1, slow = 1, prev = 1 [00:10:00]
- * 
+ * <p>
  * Iteration 1:
  * - prev = slow (1)
  * - slow = 2, fast = 3 [00:10:18]
- * 
+ * <p>
  * Iteration 2:
  * - prev = slow (2)
  * - slow = 3, fast = 5 [00:10:35, 00:10:43]
- * 
+ * <p>
  * Iteration 3:
  * - fast.next is null -> Loop terminates [00:10:49].
  * - slow is on Node(3) [middle], prev is on Node(2) [predecessor] [00:10:54].
  * - prev.next = prev.next.next (Node(4)) -> 2 points to 4 [00:10:59].
  * Return head -> [1, 2, 4, 5] [00:11:05].
- * 
+ * <p>
  * ---
  * VISUAL DRY RUN (APPROACH 2: Dummy Node Fast/Slow Strategy - head = [1, 2, 3, 4, 5]):
  * Create dummy node (0) -> 0 -> 1 -> 2 -> 3 -> 4 -> 5
@@ -176,7 +176,7 @@ public class DeleteMiddleNodeOfLinkedList {
         System.out.println("Approach 1 (Fast/Slow Prev) Result: " + toList(res1_1));
         System.out.println("Approach 2 (Dummy Offset)   Result: " + toList(res1_2));
         boolean check1 = toList(res1_1).equals(Arrays.asList(1, 2, 4, 5)) &&
-                         toList(res1_2).equals(Arrays.asList(1, 2, 4, 5));
+                toList(res1_2).equals(Arrays.asList(1, 2, 4, 5));
         System.out.println("Verification: " + (check1 ? "PASSED" : "FAILED") + "\n");
 
         // --- TEST CASE 2 (Even Length [1,2,3,4,5,6] -> Middle 4 Deleted) ---
@@ -190,7 +190,7 @@ public class DeleteMiddleNodeOfLinkedList {
         System.out.println("Approach 1 (Fast/Slow Prev) Result: " + toList(res2_1));
         System.out.println("Approach 2 (Dummy Offset)   Result: " + toList(res2_2));
         boolean check2 = toList(res2_1).equals(Arrays.asList(1, 2, 3, 5, 6)) &&
-                         toList(res2_2).equals(Arrays.asList(1, 2, 3, 5, 6));
+                toList(res2_2).equals(Arrays.asList(1, 2, 3, 5, 6));
         System.out.println("Verification: " + (check2 ? "PASSED" : "FAILED") + "\n");
 
         // --- TEST CASE 3 (Single Node Edge Case [1]) ---

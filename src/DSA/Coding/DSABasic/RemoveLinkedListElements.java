@@ -11,16 +11,16 @@ import java.util.List;
 
 /**
  * PROBLEM STATEMENT:
- * Given the head of a linked list and an integer val, remove all the nodes 
+ * Given the head of a linked list and an integer val, remove all the nodes
  * of the linked list that have Node.val == val, and return the new head [00:00:22, 00:00:30].
- * 
+ * <p>
  * EXAMPLES & EXPLANATION:
  * Example 1: head = [1, 2, 6, 3, 4, 5, 6], val = 6 [00:00:36]
  * - Prepend dummy node: dummy(-1) -> 1 -> 2 -> 6 -> 3 -> 4 -> 5 -> 6
  * - Process node 6 at index 2: bypass -> 2 points to 3 [00:01:14].
  * - Process trailing node 6: bypass -> 5 points to null [00:01:19].
  * - Result: [1, 2, 3, 4, 5] [00:01:00].
- * 
+ * <p>
  * Example 2: head = [6, 3, 6, 6, 5], val = 6 (Simulated inside video explanation [00:04:29, 00:06:40])
  * - Prepend dummy: dummy(-1) -> 6 -> 3 -> 6 -> 6 -> 5
  * - current at dummy(-1): current.next.val == 6 -> bypass head -> dummy points to 3 [00:05:11].
@@ -28,55 +28,55 @@ import java.util.List;
  * - current at 3: current.next.val (6) == 6 -> bypass -> 3 points to second 6 [00:05:48].
  * - current STAYS at 3: current.next.val (second 6) == 6 -> bypass again -> 3 points to 5 [00:06:10].
  * - Result: [3, 5].
- * 
+ * <p>
  * Example 3: head = [7, 7, 7, 7], val = 7
  * - All nodes bypassed from dummy -> return dummy.next (null).
  * - Result: []
- * 
+ * <p>
  * ---
  * ANCHOR STRATEGY BREAKDOWN (Approach 1 - Dummy Sentinel Node Strategy):
  * • Edge Cases:
- *   - Base condition: `if (head == null) return null` [00:06:59].
+ * - Base condition: `if (head == null) return null` [00:06:59].
  * • Pointer Initialization:
- *   - `dummy = new ListNode(-1)` [00:07:11].
- *   - Link dummy to head: `dummy.next = head` [00:07:34].
- *   - Traversal pointer: `current = dummy` [00:07:48].
+ * - `dummy = new ListNode(-1)` [00:07:11].
+ * - Link dummy to head: `dummy.next = head` [00:07:34].
+ * - Traversal pointer: `current = dummy` [00:07:48].
  * • Condition Boundaries:
- *   - Main traversal loop: `while (current.next != null)` [00:06:47, 00:07:59].
- *   - Match check: `if (current.next.val == val)` -> bypass `current.next = current.next.next` [00:08:10, 00:08:28].
- *   - Non-match case: `else` -> advance `current = current.next` [00:08:36].
+ * - Main traversal loop: `while (current.next != null)` [00:06:47, 00:07:59].
+ * - Match check: `if (current.next.val == val)` -> bypass `current.next = current.next.next` [00:08:10, 00:08:28].
+ * - Non-match case: `else` -> advance `current = current.next` [00:08:36].
  * • Operational Steps:
- *   1. Check if `head == null` [00:06:59].
- *   2. Instantiate dummy sentinel node (-1) and link `dummy.next = head` [00:07:11, 00:07:34].
- *   3. Set `current = dummy` [00:07:48].
- *   4. While `current.next != null` [00:07:59]:
- *      - If `current.next.val == val`, skip node by linking `current.next = current.next.next` [00:08:28].
- *      - Otherwise, advance `current = current.next` [00:08:36].
- *   5. Return `dummy.next` as new head [00:08:51].
+ * 1. Check if `head == null` [00:06:59].
+ * 2. Instantiate dummy sentinel node (-1) and link `dummy.next = head` [00:07:11, 00:07:34].
+ * 3. Set `current = dummy` [00:07:48].
+ * 4. While `current.next != null` [00:07:59]:
+ * - If `current.next.val == val`, skip node by linking `current.next = current.next.next` [00:08:28].
+ * - Otherwise, advance `current = current.next` [00:08:36].
+ * 5. Return `dummy.next` as new head [00:08:51].
  * • Time Complexity: O(N) - Single pass through all N list nodes.
  * • Space Complexity: O(1) auxiliary space - Modifies node references in-place using a single dummy node.
  * • LOGIC BEHIND THIS APPROACH:
- *   Inspecting `current.next` allows deleting head nodes without conditional logic [00:04:51]. 
- *   Refraining from advancing `current` on node removal handles consecutive target values safely [00:02:59, 00:06:10].
- * 
+ * Inspecting `current.next` allows deleting head nodes without conditional logic [00:04:51].
+ * Refraining from advancing `current` on node removal handles consecutive target values safely [00:02:59, 00:06:10].
+ * <p>
  * ---
  * VISUAL DRY RUN (APPROACH 1: Dummy Sentinel - head = [3, 4, 3], val = 3):
  * Initial: dummy(-1) -> 3 -> 4 -> 3, current = dummy(-1) [00:09:44]
- * 
+ * <p>
  * Pass 1 (current = dummy(-1)):
  * - current.next.val (3) == val (3) -> bypass! dummy.next = Node(4) [00:10:04].
  * - current STAYS at dummy(-1).
- * 
+ * <p>
  * Pass 2 (current = dummy(-1)):
  * - current.next.val (4) != val (3) -> current moves to Node(4) [00:10:20].
- * 
+ * <p>
  * Pass 3 (current = Node(4)):
  * - current.next.val (3) == val (3) -> bypass! Node(4).next = null [00:10:34].
  * - current STAYS at Node(4).
- * 
+ * <p>
  * Pass 4: current.next is null -> Loop terminates [00:10:51].
  * Return dummy.next -> Node(4) [00:10:56].
- * 
+ * <p>
  * ---
  * VISUAL DRY RUN (APPROACH 2: Recursive Sub-problem Elimination Strategy):
  * head = [3, 4, 3], val = 3
@@ -166,7 +166,7 @@ public class RemoveLinkedListElements {
         System.out.println("Approach 1 (Dummy Sentinel) Result: " + toList(res1_1));
         System.out.println("Approach 2 (Recursive)      Result: " + toList(res1_2));
         boolean check1 = toList(res1_1).equals(Arrays.asList(1, 2, 3, 4, 5)) &&
-                         toList(res1_2).equals(Arrays.asList(1, 2, 3, 4, 5));
+                toList(res1_2).equals(Arrays.asList(1, 2, 3, 4, 5));
         System.out.println("Verification: " + (check1 ? "PASSED" : "FAILED") + "\n");
 
         // --- TEST CASE 2 (Consecutive & Head Removal [6, 3, 6, 6, 5], val=6) ---
@@ -180,7 +180,7 @@ public class RemoveLinkedListElements {
         System.out.println("Approach 1 (Dummy Sentinel) Result: " + toList(res2_1));
         System.out.println("Approach 2 (Recursive)      Result: " + toList(res2_2));
         boolean check2 = toList(res2_1).equals(Arrays.asList(3, 5)) &&
-                         toList(res2_2).equals(Arrays.asList(3, 5));
+                toList(res2_2).equals(Arrays.asList(3, 5));
         System.out.println("Verification: " + (check2 ? "PASSED" : "FAILED") + "\n");
 
         // --- TEST CASE 3 (All Elements Match [7, 7, 7, 7], val=7) ---

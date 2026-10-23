@@ -12,53 +12,53 @@ import java.util.Queue;
  * PROBLEM STATEMENT:
  * A binary tree is univalued if every node in the tree has the same value [00:00:43].
  * Given the root of a binary tree, return true if the given tree is univalued, or false otherwise [00:01:08].
- *
+ * <p>
  * EXAMPLES & EXPLANATION:
  * Example 1: root = [1, 1, 1, 1, 1, null, 1] [00:01:31]
  * - Root val = 1.
  * - Every node in left and right subtrees has value 1.
  * - Result: true
- *
+ * <p>
  * Example 2: root = [2, 2, 2, 5, 2] (From video explanation [00:03:36, 00:09:50])
  * - Root val = 2.
  * - Subtree check encounters Node(5).
  * - Node(5).val (5) != 2 -> helper returns false [00:08:49].
  * - Result: false [00:10:21].
- *
+ * <p>
  * ---
  * ANCHOR STRATEGY BREAKDOWN (Approach 1 - Recursive DFS Helper Verification):
  * • Edge Cases:
- *   - `if (root == null) return true` [00:04:55].
+ * - `if (root == null) return true` [00:04:55].
  * • Helper Method Parameters:
- *   - `helper(TreeNode root, int val)` accepts current node and expected root value [00:04:37].
+ * - `helper(TreeNode root, int val)` accepts current node and expected root value [00:04:37].
  * • Condition Boundaries:
- *   - Base condition 1 (null node): `if (root == null) return true` [00:04:55].
- *   - Base condition 2 (mismatch value): `if (root.val != val) return false` [00:06:00, 00:06:06].
- *   - Subtree recursion: `leftAns = helper(root.left, val)`, `rightAns = helper(root.right, val)` [00:05:26, 00:05:45].
- *   - Combination: `return leftAns && rightAns` [00:06:33].
+ * - Base condition 1 (null node): `if (root == null) return true` [00:04:55].
+ * - Base condition 2 (mismatch value): `if (root.val != val) return false` [00:06:00, 00:06:06].
+ * - Subtree recursion: `leftAns = helper(root.left, val)`, `rightAns = helper(root.right, val)` [00:05:26, 00:05:45].
+ * - Combination: `return leftAns && rightAns` [00:06:33].
  * • Operational Steps:
- *   1. Initiate call `helper(root, root.val)` from main function [00:04:17].
- *   2. If current `root == null`, return `true` [00:04:55].
- *   3. If `root.val != val`, return `false` [00:06:06].
- *   4. Traverse left child: `leftAns = helper(root.left, val)` [00:05:26].
- *   5. Traverse right child: `rightAns = helper(root.right, val)` [00:05:45].
- *   6. Return logical AND of left and right results (`leftAns && rightAns`) [00:06:33].
+ * 1. Initiate call `helper(root, root.val)` from main function [00:04:17].
+ * 2. If current `root == null`, return `true` [00:04:55].
+ * 3. If `root.val != val`, return `false` [00:06:06].
+ * 4. Traverse left child: `leftAns = helper(root.left, val)` [00:05:26].
+ * 5. Traverse right child: `rightAns = helper(root.right, val)` [00:05:45].
+ * 6. Return logical AND of left and right results (`leftAns && rightAns`) [00:06:33].
  * • Time Complexity: O(N) - Visits each node at most once during depth-first traversal.
  * • Space Complexity: O(H) - Call stack memory proportional to tree height H (O(N) worst-case skewed, O(log N) balanced).
  * • LOGIC BEHIND THIS APPROACH:
- *   Passing `root.val` down as a constant scalar parameter guarantees every node is checked against the same anchor reference [00:02:35, 00:04:44]. 
- *   The short-circuiting logical AND (`&&`) ensures that if any single node fails the match test, `false` propagates back up to the caller [00:06:33, 00:09:50].
- *
+ * Passing `root.val` down as a constant scalar parameter guarantees every node is checked against the same anchor reference [00:02:35, 00:04:44].
+ * The short-circuiting logical AND (`&&`) ensures that if any single node fails the match test, `false` propagates back up to the caller [00:06:33, 00:09:50].
+ * <p>
  * ---
  * VISUAL DRY RUN (APPROACH 1: Recursive Helper - root = [2, 2, 2, 2, 2]):
  * Frame 1: helper(Node(2_root), val=2)
  * - 2 == 2 (no mismatch).
  * - Call left: helper(Node(2_left), val=2)
- *   - 2 == 2. Left/right children are null -> return true && true = true [00:11:59].
+ * - 2 == 2. Left/right children are null -> return true && true = true [00:11:59].
  * - Call right: helper(Node(2_right), val=2)
- *   - 2 == 2. Left/right children are null -> return true && true = true [00:13:39].
+ * - 2 == 2. Left/right children are null -> return true && true = true [00:13:39].
  * - Frame 1 returns leftAns(true) && rightAns(true) -> true [00:13:54].
- *
+ * <p>
  * ---
  * VISUAL DRY RUN (APPROACH 2: Parent-Child Comparative Direct Recursion):
  * isUnivalTree(root):

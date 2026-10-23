@@ -14,75 +14,75 @@ import java.util.Stack;
  * PROBLEM STATEMENT:
  * You are given the head of a non-empty linked list representing a non-negative integer [00:00:22].
  * Return the head of the linked list after doubling its value [00:00:52].
- * 
+ * <p>
  * EXAMPLES & EXPLANATION:
  * Example 1: head = [1, 8, 9] [00:00:30]
  * - Number represented = 189 [00:00:38].
  * - Doubled value = 189 * 2 = 378 [00:01:13].
  * - Output linked list = [3, 7, 8] [00:01:24].
- * 
+ * <p>
  * Example 2: head = [9, 9, 9]
  * - Number represented = 999.
  * - Doubled value = 999 * 2 = 1998.
  * - Output linked list = [1, 9, 9, 8].
- * 
+ * <p>
  * Example 3: head = [4, 3, 9, 2] (Simulated inside video explanation [00:18:10, 00:23:07])
  * - Step 1: Reverse input list -> 2 -> 9 -> 3 -> 4 [00:18:28]
  * - Step 2: Double with carry tracking [00:19:02, 00:22:10]:
- *   - Node 2: 2 + 2 + 0 = 4 -> digit 4, carry 0 [00:19:11]
- *   - Node 9: 9 + 9 + 0 = 18 -> digit 8, carry 1 [00:20:05]
- *   - Node 3: 3 + 3 + 1 = 7 -> digit 7, carry 0 [00:21:08]
- *   - Node 4: 4 + 4 + 0 = 8 -> digit 8, carry 0 [00:21:50]
+ * - Node 2: 2 + 2 + 0 = 4 -> digit 4, carry 0 [00:19:11]
+ * - Node 9: 9 + 9 + 0 = 18 -> digit 8, carry 1 [00:20:05]
+ * - Node 3: 3 + 3 + 1 = 7 -> digit 7, carry 0 [00:21:08]
+ * - Node 4: 4 + 4 + 0 = 8 -> digit 8, carry 0 [00:21:50]
  * - Intermediate result list: 4 -> 8 -> 7 -> 8 [00:22:18]
  * - Step 3: Reverse result list -> 8 -> 7 -> 8 -> 4 [00:22:36]
  * - Result: [8, 7, 8, 4] (4392 * 2 = 8784) [00:23:00]
- * 
+ * <p>
  * ---
  * ANCHOR STRATEGY BREAKDOWN (Approach 1 - Double Reversal with Carry Accumulation):
  * • Pointer & Helper Initialization:
- *   - `reverseList(ListNode head)` helper reverses list using 3 pointers (`curr`, `prev`, `temp`) [00:09:24, 00:10:19].
- *   - `newHead = reverseList(head)` turns input least-significant-digit first [00:11:25].
- *   - `dummy = new ListNode(-1)` serves as construction anchor [00:11:35].
- *   - `ans = dummy` captures initial dummy node anchor [00:11:53].
- *   - Carry variable `carry = 0` [00:12:29].
+ * - `reverseList(ListNode head)` helper reverses list using 3 pointers (`curr`, `prev`, `temp`) [00:09:24, 00:10:19].
+ * - `newHead = reverseList(head)` turns input least-significant-digit first [00:11:25].
+ * - `dummy = new ListNode(-1)` serves as construction anchor [00:11:35].
+ * - `ans = dummy` captures initial dummy node anchor [00:11:53].
+ * - Carry variable `carry = 0` [00:12:29].
  * • Condition Boundaries:
- *   - Reversal loop condition: `while (curr != null)` [00:10:00].
- *   - Doubling loop condition: `while (newHead != null)` [00:12:00].
- *   - Single digit extraction: `d = sum % 10` [00:12:42].
- *   - Carry update: `carry = sum / 10` [00:12:51].
- *   - Post-loop leftover carry check: `if (carry > 0)` append extra node storing `carry` [00:14:19, 00:14:33].
+ * - Reversal loop condition: `while (curr != null)` [00:10:00].
+ * - Doubling loop condition: `while (newHead != null)` [00:12:00].
+ * - Single digit extraction: `d = sum % 10` [00:12:42].
+ * - Carry update: `carry = sum / 10` [00:12:51].
+ * - Post-loop leftover carry check: `if (carry > 0)` append extra node storing `carry` [00:14:19, 00:14:33].
  * • Operational Steps:
- *   1. Reverse original linked list using iterative 3-pointer reversal helper [00:11:25].
- *   2. Instantiate `dummy` node and `carry = 0` tracker [00:11:35, 00:12:29].
- *   3. Iterate reversed list: `sum = newHead.val + newHead.val + carry` [00:12:12, 00:16:44].
- *   4. Compute single digit `d = sum % 10` and carry `carry = sum / 10` [00:12:42, 00:12:51].
- *   5. Create node with `d`, link to `dummy.next`, advance `dummy` and `newHead` pointers [00:13:41, 00:14:07].
- *   6. Check for leftover trailing carry after loop terminates [00:14:19].
- *   7. Reverse generated result list starting at `ans.next` (`reverseList(ans.next)`) [00:15:38, 00:15:50].
- *   8. Return final reversed head node [00:15:56].
+ * 1. Reverse original linked list using iterative 3-pointer reversal helper [00:11:25].
+ * 2. Instantiate `dummy` node and `carry = 0` tracker [00:11:35, 00:12:29].
+ * 3. Iterate reversed list: `sum = newHead.val + newHead.val + carry` [00:12:12, 00:16:44].
+ * 4. Compute single digit `d = sum % 10` and carry `carry = sum / 10` [00:12:42, 00:12:51].
+ * 5. Create node with `d`, link to `dummy.next`, advance `dummy` and `newHead` pointers [00:13:41, 00:14:07].
+ * 6. Check for leftover trailing carry after loop terminates [00:14:19].
+ * 7. Reverse generated result list starting at `ans.next` (`reverseList(ans.next)`) [00:15:38, 00:15:50].
+ * 8. Return final reversed head node [00:15:56].
  * • Time Complexity: O(n) - Three linear passes over the linked list (reverse input, process doubling, reverse output).
  * • Space Complexity: O(n) auxiliary space - New linked list created for output result.
  * • LOGIC BEHIND THIS APPROACH:
- *   Reversing the list positions units digit at head, enabling linear carry propagation [00:02:11]. 
- *   Doubling `val + val + carry` mimics grade-school multiplication [00:03:41, 00:12:12]. 
- *   Reversing the final result restores most-significant-digit ordering [00:04:06, 00:15:38].
- * 
+ * Reversing the list positions units digit at head, enabling linear carry propagation [00:02:11].
+ * Doubling `val + val + carry` mimics grade-school multiplication [00:03:41, 00:12:12].
+ * Reversing the final result restores most-significant-digit ordering [00:04:06, 00:15:38].
+ * <p>
  * ---
  * VISUAL DRY RUN (APPROACH 1: Double Reversal - head = [1, 8, 9]):
  * Step 1: Reverse Input List:
  * Original: 1 -> 8 -> 9
  * Reversed: 9 -> 8 -> 1 (newHead) [00:02:22]
- * 
+ * <p>
  * Step 2: Doubling Iteration:
  * - Node 9: sum = 9 + 9 + 0 = 18 -> digit = 8, carry = 1. dummy -> Node(8) [00:13:03]
  * - Node 8: sum = 8 + 8 + 1 = 17 -> digit = 7, carry = 1. dummy -> Node(8) -> Node(7)
  * - Node 1: sum = 1 + 1 + 1 = 3  -> digit = 3, carry = 0. dummy -> Node(8) -> Node(7) -> Node(3)
  * Un-reversed intermediate result = 8 -> 7 -> 3 [00:04:00].
- * 
+ * <p>
  * Step 3: Reverse Result List:
  * Reverse 8 -> 7 -> 3 -> 3 -> 7 -> 8 [00:04:13].
  * Return [3, 7, 8] [00:01:24].
- * 
+ * <p>
  * ---
  * VISUAL DRY RUN (APPROACH 2: Single Pass Stack LIFO Strategy - head = [1, 8, 9]):
  * Push all nodes to Stack: [1, 8, 9] (top is 9)
@@ -171,11 +171,11 @@ public class DoubleNumberAsLinkedList {
         while (!stack.isEmpty()) {
             ListNode node = stack.pop();
             int sum = node.val * 2 + carry;
-            
+
             ListNode newNode = new ListNode(sum % 10);
             newNode.next = newTail;
             newTail = newNode;
-            
+
             carry = sum / 10;
         }
 
@@ -226,7 +226,7 @@ public class DoubleNumberAsLinkedList {
         System.out.println("Approach 1 (Double Reversal) Result: " + toList(res1_1));
         System.out.println("Approach 2 (Stack LIFO)      Result: " + toList(res1_2));
         boolean check1 = toList(res1_1).equals(Arrays.asList(3, 7, 8)) &&
-                         toList(res1_2).equals(Arrays.asList(3, 7, 8));
+                toList(res1_2).equals(Arrays.asList(3, 7, 8));
         System.out.println("Verification: " + (check1 ? "PASSED" : "FAILED") + "\n");
 
         // --- TEST CASE 2 (Carry Expansion 999 * 2 = 1998) ---
@@ -240,7 +240,7 @@ public class DoubleNumberAsLinkedList {
         System.out.println("Approach 1 (Double Reversal) Result: " + toList(res2_1));
         System.out.println("Approach 2 (Stack LIFO)      Result: " + toList(res2_2));
         boolean check2 = toList(res2_1).equals(Arrays.asList(1, 9, 9, 8)) &&
-                         toList(res2_2).equals(Arrays.asList(1, 9, 9, 8));
+                toList(res2_2).equals(Arrays.asList(1, 9, 9, 8));
         System.out.println("Verification: " + (check2 ? "PASSED" : "FAILED") + "\n");
 
         // --- TEST CASE 3 (From Video Board Explanation 4392 * 2 = 8784) ---
@@ -254,7 +254,7 @@ public class DoubleNumberAsLinkedList {
         System.out.println("Approach 1 (Double Reversal) Result: " + toList(res3_1));
         System.out.println("Approach 2 (Stack LIFO)      Result: " + toList(res3_2));
         boolean check3 = toList(res3_1).equals(Arrays.asList(8, 7, 8, 4)) &&
-                         toList(res3_2).equals(Arrays.asList(8, 7, 8, 4));
+                toList(res3_2).equals(Arrays.asList(8, 7, 8, 4));
         System.out.println("Verification: " + (check3 ? "PASSED" : "FAILED") + "\n");
 
         System.out.println("========================================================");
