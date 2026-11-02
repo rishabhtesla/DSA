@@ -3,18 +3,32 @@ package DSA.Coding.DSABasic;
 import java.util.*;
 
 
-/**
- * QUESTION: Reverse the links of a singly linked list.
- * EXAMPLE: 1->2->null -> 2->1->null.
- * CONSTRAINTS: 0 <= nodes <= 5000; node values fit 32-bit integers.
- * LOGIC / ALGORITHM:
+/*
+ * DSA BASIC P61: REVERSE LINKED LIST
+ *
+ * Question
+ * Reverse the links of a singly linked list.
+ *
+ * Example
+ * 1->2->null -> 2->1->null.
+ *
+ * Constraints
+ * 0 <= nodes <= 5000; node values fit 32-bit integers.
+ *
+ * Approach used by edSlash
  * 1. Keep previous and current pointers; save next, point current backward, then advance.
- * 2. Advance or relink pointers while preserving the already-correct portion and required relative order.
- * 3. Return the resulting head or value.
- * INVARIANT: The processed list portion is correctly linked; pointer gaps or stack entries represent exactly the nodes still to process.
- * <p>
- * COMPLEXITY: O(n) time and O(1) auxiliary space.
- * DRY RUN: Main input 1->2->null -> 2->1->null.; follow the numbered steps while maintaining the invariant, producing the value printed by main.
+ * 2. Use pointers to represent the already-processed part and the nodes that still need to be visited.
+ * 3. Save the next node before changing links, then advance the pointers while preserving the list structure.
+ *
+ * Dry run
+ * Example from main: 1->2->null -> 2->1->null.
+ * 1. Initialize the pointers described in the approach.
+ * 2. Save the next node before changing a link or moving a pointer.
+ * 3. Update the links and advance until the required node or the end is reached.
+ * 4. Return the resulting head or answer.
+ *
+ * Complexity
+ * O(n) time and O(1) auxiliary space.
  */
 public class P61_ReverseLinkedList {
     public static ListNode reverseList(ListNode h) {

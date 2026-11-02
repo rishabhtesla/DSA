@@ -3,18 +3,32 @@ package DSA.Coding.DSABasic;
 import java.util.*;
 
 
-/**
- * QUESTION: Merge two sorted linked lists into one sorted list.
- * EXAMPLE: 1->2 and 1->3 -> 1->1->2->3.
- * CONSTRAINTS: 0 <= total nodes <= 50; lists are sorted.
- * LOGIC / ALGORITHM:
+/*
+ * DSA BASIC P62: MERGE TWO SORTED LISTS
+ *
+ * Question
+ * Merge two sorted linked lists into one sorted list.
+ *
+ * Example
+ * 1->2 and 1->3 -> 1->1->2->3.
+ *
+ * Constraints
+ * 0 <= total nodes <= 50; lists are sorted.
+ *
+ * Approach used by edSlash
  * 1. Use a dummy tail and repeatedly link the smaller head.
- * 2. Advance or relink pointers while preserving the already-correct portion and required relative order.
- * 3. Return the resulting head or value.
- * INVARIANT: The processed list portion is correctly linked; pointer gaps or stack entries represent exactly the nodes still to process.
- * <p>
- * COMPLEXITY: O(n) time and O(1) auxiliary space.
- * DRY RUN: Main input 1->2 and 1->3 -> 1->1->2->3.; follow the numbered steps while maintaining the invariant, producing the value printed by main.
+ * 2. Use pointers to represent the already-processed part and the nodes that still need to be visited.
+ * 3. Save the next node before changing links, then advance the pointers while preserving the list structure.
+ *
+ * Dry run
+ * Example from main: 1->2 and 1->3 -> 1->1->2->3.
+ * 1. Initialize the pointers described in the approach.
+ * 2. Save the next node before changing a link or moving a pointer.
+ * 3. Update the links and advance until the required node or the end is reached.
+ * 4. Return the resulting head or answer.
+ *
+ * Complexity
+ * O(n) time and O(1) auxiliary space.
  */
 public class P62_MergeTwoSortedLists {
     public static ListNode mergeTwoLists(ListNode a, ListNode b) {

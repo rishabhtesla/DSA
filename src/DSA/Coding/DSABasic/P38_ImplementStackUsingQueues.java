@@ -3,18 +3,32 @@ package DSA.Coding.DSABasic;
 import java.util.*;
 
 
-/**
- * QUESTION: Implement LIFO stack operations using queues.
- * EXAMPLE: push(1), push(2), pop() -> 2.
- * CONSTRAINTS: At most 100 operations; standard queue operations only.
- * LOGIC / ALGORITHM:
+/*
+ * DSA BASIC P38: IMPLEMENT STACK USING QUEUES
+ *
+ * Question
+ * Implement LIFO stack operations using queues.
+ *
+ * Example
+ * push(1), push(2), pop() -> 2.
+ *
+ * Constraints
+ * At most 100 operations; standard queue operations only.
+ *
+ * Approach used by edSlash
  * 1. After enqueue, rotate existing elements behind the new element so the front is the stack top.
- * 2. When the current item resolves smaller pending candidates, pop them; push the current item as unresolved.
- * 3. Assign the default answer to candidates that never find a partner, then return the result.
- * INVARIANT: The stack contains exactly unresolved candidates in monotonic order; every popped item has just found its required neighbor.
- * <p>
- * COMPLEXITY: O(n) time and O(1) auxiliary space.
- * DRY RUN: Main input push(1), push(2), pop() -> 2.; follow the numbered steps while maintaining the invariant, producing the value printed by main.
+ * 2. Process the input from left to right and keep unresolved values in the stack until a later value resolves them.
+ * 3. Remove or preserve stack entries according to the ordering or balance rule required by the problem.
+ *
+ * Dry run
+ * Example from main: push(1), push(2), pop() -> 2.
+ * 1. Read each character or value from left to right.
+ * 2. Push unresolved values or state onto the stack.
+ * 3. When the current value resolves the top entry, pop and update the answer.
+ * 4. Process any remaining stack entries before returning.
+ *
+ * Complexity
+ * O(n) time and O(1) auxiliary space.
  */
 public class P38_ImplementStackUsingQueues {
     private final Queue<Integer> q = new ArrayDeque<>();

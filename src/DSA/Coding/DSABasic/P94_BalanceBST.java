@@ -3,18 +3,32 @@ package DSA.Coding.DSABasic;
 import java.util.*;
 
 
-/**
- * QUESTION: Rebuild an unbalanced BST into a height-balanced BST with the same keys.
- * EXAMPLE: BST 1->2->3 -> balanced root 2.
- * CONSTRAINTS: 1 <= nodes <= 10^4; input is a valid BST.
- * LOGIC / ALGORITHM:
+/*
+ * DSA BASIC P94: BALANCE BST
+ *
+ * Question
+ * Rebuild an unbalanced BST into a height-balanced BST with the same keys.
+ *
+ * Example
+ * BST 1->2->3 -> balanced root 2.
+ *
+ * Constraints
+ * 1 <= nodes <= 10^4; input is a valid BST.
+ *
+ * Approach used by edSlash
  * 1. Inorder produces sorted keys; midpoint recursion rebuilds a balanced tree.
- * 2. Combine the child results while visiting each node once, carrying the needed value toward the root.
- * 3. Return the root/result assembled from the completed subtrees.
- * INVARIANT: Every completed subtree already satisfies its property, and combining child results preserves correctness.
- * <p>
- * COMPLEXITY: O(n) time and O(h) auxiliary space, where h is tree height.
- * DRY RUN: Main input BST 1->2->3 -> balanced root 2.; follow the numbered steps while maintaining the invariant, producing the value printed by main.
+ * 2. Solve the same problem for the left and right subtrees, then combine their results at the current node.
+ * 3. The base case for a null node stops the recursion and supplies the identity value for the combination.
+ *
+ * Dry run
+ * Example from main: BST 1->2->3 -> balanced root 2.
+ * 1. Start at the root and apply the base case if the node is null.
+ * 2. Recursively solve the left and right child subtrees.
+ * 3. Combine the child results at the current node.
+ * 4. Return the result assembled at the root.
+ *
+ * Complexity
+ * O(n) time and O(h) auxiliary space, where h is tree height.
  */
 public class P94_BalanceBST {
     public static TreeNode balanceBST(TreeNode r) {

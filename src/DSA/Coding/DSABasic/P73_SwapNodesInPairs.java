@@ -3,18 +3,32 @@ package DSA.Coding.DSABasic;
 import java.util.*;
 
 
-/**
- * QUESTION: Swap every adjacent pair in a linked list without changing values.
- * EXAMPLE: 1->2->3 -> 2->1->3.
- * CONSTRAINTS: 0 <= nodes <= 100; links may be rewired only.
- * LOGIC / ALGORITHM:
+/*
+ * DSA BASIC P73: SWAP NODES IN PAIRS
+ *
+ * Question
+ * Swap every adjacent pair in a linked list without changing values.
+ *
+ * Example
+ * 1->2->3 -> 2->1->3.
+ *
+ * Constraints
+ * 0 <= nodes <= 100; links may be rewired only.
+ *
+ * Approach used by edSlash
  * 1. Use a dummy predecessor and rotate each two-node block.
- * 2. Advance or relink pointers while preserving the already-correct portion and required relative order.
- * 3. Return the resulting head or value.
- * INVARIANT: The processed list portion is correctly linked; pointer gaps or stack entries represent exactly the nodes still to process.
- * <p>
- * COMPLEXITY: O(n) time and O(1) auxiliary space.
- * DRY RUN: Main input 1->2->3 -> 2->1->3.; follow the numbered steps while maintaining the invariant, producing the value printed by main.
+ * 2. Use pointers to represent the already-processed part and the nodes that still need to be visited.
+ * 3. Save the next node before changing links, then advance the pointers while preserving the list structure.
+ *
+ * Dry run
+ * Example from main: 1->2->3 -> 2->1->3.
+ * 1. Initialize the pointers described in the approach.
+ * 2. Save the next node before changing a link or moving a pointer.
+ * 3. Update the links and advance until the required node or the end is reached.
+ * 4. Return the resulting head or answer.
+ *
+ * Complexity
+ * O(n) time and O(1) auxiliary space.
  */
 public class P73_SwapNodesInPairs {
     public static ListNode swapPairs(ListNode h) {

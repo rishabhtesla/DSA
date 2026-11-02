@@ -3,18 +3,32 @@ package DSA.Coding.DSABasic;
 import java.util.*;
 
 
-/**
- * QUESTION: Find the contiguous subarray with maximum sum.
- * EXAMPLE: [-2,1,-3,4,-1,2,1,-5,4] -> 6 from [4,-1,2,1].
- * CONSTRAINTS: 1 <= n <= 10^5; values fit 32-bit integers.
- * LOGIC / ALGORITHM:
+/*
+ * DSA BASIC P98: MAXIMUM SUBARRAY
+ *
+ * Question
+ * Find the contiguous subarray with maximum sum.
+ *
+ * Example
+ * [-2,1,-3,4,-1,2,1,-5,4] -> 6 from [4,-1,2,1].
+ *
+ * Constraints
+ * 1 <= n <= 10^5; values fit 32-bit integers.
+ *
+ * Approach used by edSlash
  * 1. Kadane's recurrence keeps the best subarray ending at the current element.
- * 2. Update the running result using the current value and retain only information that can affect later choices.
- * 3. Return the accumulated result after the final element.
- * INVARIANT: At each iteration, the processed prefix is already correct and only the remaining suffix can change the answer.
- * <p>
- * COMPLEXITY: O(n) time and O(1) auxiliary space.
- * DRY RUN: Main input [-2,1,-3,4,-1,2,1,-5,4] -> 6 from [4,-1,2,1].; follow the numbered steps while maintaining the invariant, producing the value printed by main.
+ * 2. Keep only the previous states needed to calculate the next state instead of recomputing earlier answers.
+ * 3. Update the state in the same order as the recurrence so each iteration represents one more input position.
+ *
+ * Dry run
+ * Example from main: [-2,1,-3,4,-1,2,1,-5,4] -> 6 from [4,-1,2,1].
+ * 1. Initialize the base state before processing the input.
+ * 2. Calculate the next state from the previous state values.
+ * 3. Shift the state variables and continue until the input is exhausted.
+ * 4. Return the state that represents the requested answer.
+ *
+ * Complexity
+ * O(n) time and O(1) auxiliary space.
  */
 public class P98_MaximumSubarray {
     public static int maxSubArray(int[] a) {

@@ -3,18 +3,31 @@ package DSA.Coding.DSABasic;
 import java.util.*;
 
 
-/**
- * QUESTION: Find minimum integer eating speed that finishes all piles within h hours.
- * EXAMPLE: [3,6,7,11], h=8 -> 4.
- * CONSTRAINTS: 1 <= piles.length <= 10^4; 1 <= h <= 10^9.
- * LOGIC / ALGORITHM:
+/*
+ * DSA BASIC P30: KOKO EATING BANANAS
+ *
+ * Question
+ * Find minimum integer eating speed that finishes all piles within h hours.
+ *
+ * Example
+ * [3,6,7,11], h=8 -> 4.
+ *
+ * Constraints
+ * 1 <= piles.length <= 10^4; 1 <= h <= 10^9.
+ *
+ * Approach used by edSlash
  * 1. Binary-search speed; compute required ceiling hours and keep feasible speeds.
- * 2. Use the comparison or feasibility test to discard the half that cannot contain a valid answer.
- * 3. Return the remaining boundary or found index.
- * INVARIANT: The current search interval contains every possible answer; discarded elements cannot satisfy the ordering or feasibility condition.
- * <p>
- * COMPLEXITY: O(n) time and O(1) auxiliary space.
- * DRY RUN: Main input [3,6,7,11], h=8 -> 4.; follow the numbered steps while maintaining the invariant, producing the value printed by main.
+ * 2. Use the sorted or rotated structure to discard the part of the search space that cannot contain the answer.
+ * 3. Move the left and right boundaries until the answer is found or the search interval becomes empty.
+ *
+ * Dry run
+ * Example from main: [3,6,7,11], h=8 -> 4.
+ * 1. Start with the complete valid search interval.
+ * 2. Inspect the middle position and decide which half can still contain the answer.
+ * 3. Discard the other half and repeat until the answer is found or the interval is empty.
+ *
+ * Complexity
+ * O(n) time and O(1) auxiliary space.
  */
 public class P30_KokoEatingBananas {
     public static int minEatingSpeed(int[] p, int h) {

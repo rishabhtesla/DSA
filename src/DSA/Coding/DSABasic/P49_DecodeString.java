@@ -3,18 +3,32 @@ package DSA.Coding.DSABasic;
 import java.util.*;
 
 
-/**
- * QUESTION: Decode nested repetition syntax k[encoded].
- * EXAMPLE: "3[a2[c]]" -> "accaccacc".
- * CONSTRAINTS: 1 <= s.length <= 30^4; digits, letters, brackets; encoded output <= 10^5.
- * LOGIC / ALGORITHM:
+/*
+ * DSA BASIC P49: DECODE STRING
+ *
+ * Question
+ * Decode nested repetition syntax k[encoded].
+ *
+ * Example
+ * "3[a2[c]]" -> "accaccacc".
+ *
+ * Constraints
+ * 1 <= s.length <= 30^4; digits, letters, brackets; encoded output <= 10^5.
+ *
+ * Approach used by edSlash
  * 1. Use stacks for repeat counts and previous strings when entering brackets.
- * 2. Scan once, updating frequencies or a stack while preserving the required character order or balance.
- * 3. Return the constructed string or final validity test.
- * INVARIANT: The processed character prefix remains valid, with counts and ordering sufficient to complete the answer.
- * <p>
- * COMPLEXITY: O(n) time and O(1) auxiliary space.
- * DRY RUN: Main input "3[a2[c]]" -> "accaccacc".; follow the numbered steps while maintaining the invariant, producing the value printed by main.
+ * 2. Process the input from left to right and keep unresolved values in the stack until a later value resolves them.
+ * 3. Remove or preserve stack entries according to the ordering or balance rule required by the problem.
+ *
+ * Dry run
+ * Example from main: "3[a2[c]]" -> "accaccacc".
+ * 1. Read each character or value from left to right.
+ * 2. Push unresolved values or state onto the stack.
+ * 3. When the current value resolves the top entry, pop and update the answer.
+ * 4. Process any remaining stack entries before returning.
+ *
+ * Complexity
+ * O(n) time and O(1) auxiliary space.
  */
 public class P49_DecodeString {
     public static String decodeString(String s) {

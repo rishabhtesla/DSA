@@ -3,18 +3,32 @@ package DSA.Coding.DSABasic;
 import java.util.*;
 
 
-/**
- * QUESTION: Merge k sorted linked lists into one sorted list.
- * EXAMPLE: [1] and [2] -> 1->2.
- * CONSTRAINTS: 0 <= k <= 10^4; total nodes <= 10^4; each list sorted.
- * LOGIC / ALGORITHM:
+/*
+ * DSA BASIC P76: MERGE K SORTED LISTS
+ *
+ * Question
+ * Merge k sorted linked lists into one sorted list.
+ *
+ * Example
+ * [1] and [2] -> 1->2.
+ *
+ * Constraints
+ * 0 <= k <= 10^4; total nodes <= 10^4; each list sorted.
+ *
+ * Approach used by edSlash
  * 1. Put each head in a min-heap and repeatedly extract the smallest, adding its successor.
- * 2. Advance or relink pointers while preserving the already-correct portion and required relative order.
- * 3. Return the resulting head or value.
- * INVARIANT: The processed list portion is correctly linked; pointer gaps or stack entries represent exactly the nodes still to process.
- * <p>
- * COMPLEXITY: O(n log n) time and O(n) auxiliary space.
- * DRY RUN: Main input [1] and [2] -> 1->2.; follow the numbered steps while maintaining the invariant, producing the value printed by main.
+ * 2. Use pointers to represent the already-processed part and the nodes that still need to be visited.
+ * 3. Save the next node before changing links, then advance the pointers while preserving the list structure.
+ *
+ * Dry run
+ * Example from main: [1] and [2] -> 1->2.
+ * 1. Initialize the pointers described in the approach.
+ * 2. Save the next node before changing a link or moving a pointer.
+ * 3. Update the links and advance until the required node or the end is reached.
+ * 4. Return the resulting head or answer.
+ *
+ * Complexity
+ * O(n log n) time and O(n) auxiliary space.
  */
 public class P76_MergeKSortedLists {
     public static ListNode mergeKLists(ListNode[] a) {

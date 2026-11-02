@@ -3,18 +3,32 @@ package DSA.Coding.DSABasic;
 import java.util.*;
 
 
-/**
- * QUESTION: Check whether brackets are correctly nested and matched.
- * EXAMPLE: "()[]{}" -> true; "([)]" -> false.
- * CONSTRAINTS: 1 <= s.length <= 10^4; only bracket characters.
- * LOGIC / ALGORITHM:
+/*
+ * DSA BASIC P53: VALID PARENTHESES
+ *
+ * Question
+ * Check whether brackets are correctly nested and matched.
+ *
+ * Example
+ * "()[]{}" -> true; "([)]" -> false.
+ *
+ * Constraints
+ * 1 <= s.length <= 10^4; only bracket characters.
+ *
+ * Approach used by edSlash
  * 1. Push opening brackets and require the matching opener for each closing bracket.
- * 2. Scan once, updating frequencies or a stack while preserving the required character order or balance.
- * 3. Return the constructed string or final validity test.
- * INVARIANT: The processed character prefix remains valid, with counts and ordering sufficient to complete the answer.
- * <p>
- * COMPLEXITY: O(n) time and O(1) auxiliary space.
- * DRY RUN: Main input "()[]{}" -> true; "([)]" -> false.; follow the numbered steps while maintaining the invariant, producing the value printed by main.
+ * 2. Process the input from left to right and keep unresolved values in the stack until a later value resolves them.
+ * 3. Remove or preserve stack entries according to the ordering or balance rule required by the problem.
+ *
+ * Dry run
+ * Example from main: "()[]{}" -> true; "([)]" -> false.
+ * 1. Read each character or value from left to right.
+ * 2. Push unresolved values or state onto the stack.
+ * 3. When the current value resolves the top entry, pop and update the answer.
+ * 4. Process any remaining stack entries before returning.
+ *
+ * Complexity
+ * O(n) time and O(1) auxiliary space.
  */
 public class P53_ValidParentheses {
     public static boolean isValid(String s) {

@@ -3,18 +3,32 @@ package DSA.Coding.DSABasic;
 import java.util.*;
 
 
-/**
- * QUESTION: Add one to a nonnegative integer represented by digits.
- * EXAMPLE: [1,2,9] -> [1,3,0].
- * CONSTRAINTS: 1 <= digits.length <= 100; digits are 0..9 and no leading zero except zero.
- * LOGIC / ALGORITHM:
+/*
+ * DSA BASIC P34: PLUS ONE
+ *
+ * Question
+ * Add one to a nonnegative integer represented by digits.
+ *
+ * Example
+ * [1,2,9] -> [1,3,0].
+ *
+ * Constraints
+ * 1 <= digits.length <= 100; digits are 0..9 and no leading zero except zero.
+ *
+ * Approach used by edSlash
  * 1. Process from right to left; stop when a digit does not overflow, otherwise create a leading 1.
- * 2. Update the running result using the current value and retain only information that can affect later choices.
- * 3. Return the accumulated result after the final element.
- * INVARIANT: At each iteration, the processed prefix is already correct and only the remaining suffix can change the answer.
- * <p>
- * COMPLEXITY: O(n) time and O(1) auxiliary space.
- * DRY RUN: Main input [1,2,9] -> [1,3,0].; follow the numbered steps while maintaining the invariant, producing the value printed by main.
+ * 2. Scan the input while keeping the smallest amount of state needed to make the next decision.
+ * 3. Update the result immediately when the current value proves a better answer or completes a valid condition.
+ *
+ * Dry run
+ * Example from main: [1,2,9] -> [1,3,0].
+ * 1. Read the input values from left to right.
+ * 2. Apply the decision described in the approach to the current value.
+ * 3. Update the running answer and continue until all values are processed.
+ * 4. Return the final answer produced after the last value.
+ *
+ * Complexity
+ * O(n) time and O(1) auxiliary space.
  */
 public class P34_PlusOne {
     public static int[] plusOne(int[] a) {

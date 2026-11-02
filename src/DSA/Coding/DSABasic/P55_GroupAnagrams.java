@@ -3,18 +3,32 @@ package DSA.Coding.DSABasic;
 import java.util.*;
 
 
-/**
- * QUESTION: Group strings that contain the same letters with the same multiplicities.
- * EXAMPLE: ["eat","tea","tan","ate","nat","bat"] -> groups [eat,tea,ate], [tan,nat], [bat].
- * CONSTRAINTS: 1 <= total characters <= 10^4; lowercase English letters.
- * LOGIC / ALGORITHM:
+/*
+ * DSA BASIC P55: GROUP ANAGRAMS
+ *
+ * Question
+ * Group strings that contain the same letters with the same multiplicities.
+ *
+ * Example
+ * ["eat","tea","tan","ate","nat","bat"] -> groups [eat,tea,ate], [tan,nat], [bat].
+ *
+ * Constraints
+ * 1 <= total characters <= 10^4; lowercase English letters.
+ *
+ * Approach used by edSlash
  * 1. Sort each word's characters as a canonical key and collect words by that key.
- * 2. Scan once, updating frequencies or a stack while preserving the required character order or balance.
- * 3. Return the constructed string or final validity test.
- * INVARIANT: The processed character prefix remains valid, with counts and ordering sufficient to complete the answer.
- * <p>
- * COMPLEXITY: O(n log n) time and O(n) auxiliary space.
- * DRY RUN: Main input ["eat","tea","tan","ate","nat","bat"] -> groups [eat,tea,ate], [tan,nat], [bat].; follow the numbered steps while maintaining the invariant, producing the value printed by main.
+ * 2. Process the input from left to right and keep unresolved values in the stack until a later value resolves them.
+ * 3. Remove or preserve stack entries according to the ordering or balance rule required by the problem.
+ *
+ * Dry run
+ * Example from main: ["eat","tea","tan","ate","nat","bat"] -> groups [eat,tea,ate], [tan,nat], [bat].
+ * 1. Read each character or value from left to right.
+ * 2. Push unresolved values or state onto the stack.
+ * 3. When the current value resolves the top entry, pop and update the answer.
+ * 4. Process any remaining stack entries before returning.
+ *
+ * Complexity
+ * O(n log n) time and O(n) auxiliary space.
  */
 public class P55_GroupAnagrams {
     public static List<List<String>> groupAnagrams(String[] a) {

@@ -3,18 +3,32 @@ package DSA.Coding.DSABasic;
 import java.util.*;
 
 
-/**
- * QUESTION: Rotate an n by n matrix 90 degrees clockwise in-place.
- * EXAMPLE: [[1,2],[3,4]] -> [[3,1],[4,2]].
- * CONSTRAINTS: 1 <= n <= 20; matrix is square.
- * LOGIC / ALGORITHM:
+/*
+ * DSA BASIC P60: ROTATE IMAGE
+ *
+ * Question
+ * Rotate an n by n matrix 90 degrees clockwise in-place.
+ *
+ * Example
+ * [[1,2],[3,4]] -> [[3,1],[4,2]].
+ *
+ * Constraints
+ * 1 <= n <= 20; matrix is square.
+ *
+ * Approach used by edSlash
  * 1. Transpose across the diagonal, then reverse every row.
- * 2. Update the running result using the current value and retain only information that can affect later choices.
- * 3. Return the accumulated result after the final element.
- * INVARIANT: At each iteration, the processed prefix is already correct and only the remaining suffix can change the answer.
- * <p>
- * COMPLEXITY: O(n) time and O(1) auxiliary space.
- * DRY RUN: Main input [[1,2],[3,4]] -> [[3,1],[4,2]].; follow the numbered steps while maintaining the invariant, producing the value printed by main.
+ * 2. Track the current row, column, or boundary so every cell is visited in the required order.
+ * 3. Update the boundary or position after each value is placed or read, avoiding repeated work.
+ *
+ * Dry run
+ * Example from main: [[1,2],[3,4]] -> [[3,1],[4,2]].
+ * 1. Start at the first valid row, column, or boundary.
+ * 2. Read or write the current cell and move in the required direction.
+ * 3. Shrink or update the boundary after completing a row, column, or rotation.
+ * 4. Stop after every cell has been processed.
+ *
+ * Complexity
+ * O(n) time and O(1) auxiliary space.
  */
 public class P60_RotateImage {
     public static void rotate(int[][] a) {

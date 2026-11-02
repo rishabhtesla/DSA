@@ -3,18 +3,32 @@ package DSA.Coding.DSABasic;
 import java.util.*;
 
 
-/**
- * QUESTION: Determine whether the last index is reachable using jump lengths.
- * EXAMPLE: [2,3,1,1,4] -> true.
- * CONSTRAINTS: 1 <= n <= 10^4; nums[i] >= 0.
- * LOGIC / ALGORITHM:
+/*
+ * DSA BASIC P99: JUMP GAME
+ *
+ * Question
+ * Determine whether the last index is reachable using jump lengths.
+ *
+ * Example
+ * [2,3,1,1,4] -> true.
+ *
+ * Constraints
+ * 1 <= n <= 10^4; nums[i] >= 0.
+ *
+ * Approach used by edSlash
  * 1. Track the farthest reachable index and stop if an index lies beyond it.
- * 2. Update the running result using the current value and retain only information that can affect later choices.
- * 3. Return the accumulated result after the final element.
- * INVARIANT: At each iteration, the processed prefix is already correct and only the remaining suffix can change the answer.
- * <p>
- * COMPLEXITY: O(n) time and O(1) auxiliary space.
- * DRY RUN: Main input [2,3,1,1,4] -> true.; follow the numbered steps while maintaining the invariant, producing the value printed by main.
+ * 2. Keep only the previous states needed to calculate the next state instead of recomputing earlier answers.
+ * 3. Update the state in the same order as the recurrence so each iteration represents one more input position.
+ *
+ * Dry run
+ * Example from main: [2,3,1,1,4] -> true.
+ * 1. Initialize the base state before processing the input.
+ * 2. Calculate the next state from the previous state values.
+ * 3. Shift the state variables and continue until the input is exhausted.
+ * 4. Return the state that represents the requested answer.
+ *
+ * Complexity
+ * O(n) time and O(1) auxiliary space.
  */
 public class P99_JumpGame {
     public static boolean canJump(int[] a) {

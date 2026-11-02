@@ -3,18 +3,32 @@ package DSA.Coding.DSABasic;
 import java.util.*;
 
 
-/**
- * QUESTION: For each query value, find its first greater value to the right in nums2.
- * EXAMPLE: nums1=[4,1,2], nums2=[1,3,4,2] -> [-1,3,-1].
- * CONSTRAINTS: nums2 values are distinct; nums1 is a subset.
- * LOGIC / ALGORITHM:
+/*
+ * DSA BASIC P40: NEXT GREATER ELEMENT I
+ *
+ * Question
+ * For each query value, find its first greater value to the right in nums2.
+ *
+ * Example
+ * nums1=[4,1,2], nums2=[1,3,4,2] -> [-1,3,-1].
+ *
+ * Constraints
+ * nums2 values are distinct; nums1 is a subset.
+ *
+ * Approach used by edSlash
  * 1. A decreasing monotonic stack resolves values when a larger value arrives, then map queries.
- * 2. When the current item resolves smaller pending candidates, pop them; push the current item as unresolved.
- * 3. Assign the default answer to candidates that never find a partner, then return the result.
- * INVARIANT: The stack contains exactly unresolved candidates in monotonic order; every popped item has just found its required neighbor.
- * <p>
- * COMPLEXITY: O(n) time and O(1) auxiliary space.
- * DRY RUN: Main input nums1=[4,1,2], nums2=[1,3,4,2] -> [-1,3,-1].; follow the numbered steps while maintaining the invariant, producing the value printed by main.
+ * 2. Process the input from left to right and keep unresolved values in the stack until a later value resolves them.
+ * 3. Remove or preserve stack entries according to the ordering or balance rule required by the problem.
+ *
+ * Dry run
+ * Example from main: nums1=[4,1,2], nums2=[1,3,4,2] -> [-1,3,-1].
+ * 1. Read each character or value from left to right.
+ * 2. Push unresolved values or state onto the stack.
+ * 3. When the current value resolves the top entry, pop and update the answer.
+ * 4. Process any remaining stack entries before returning.
+ *
+ * Complexity
+ * O(n) time and O(1) auxiliary space.
  */
 public class P40_NextGreaterElementI {
     public static int[] nextGreaterElement(int[] a, int[] b) {

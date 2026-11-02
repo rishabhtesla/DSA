@@ -3,18 +3,31 @@ package DSA.Coding.DSABasic;
 import java.util.*;
 
 
-/**
- * QUESTION: Find two distinct indices whose values add to target.
- * EXAMPLE: [2,7,11,15], 9 -> [0,1].
- * CONSTRAINTS: 2 <= n <= 10^4; exactly one answer; values fit 32-bit integers.
- * LOGIC / ALGORITHM:
+/*
+ * DSA BASIC P06: TWO SUM
+ *
+ * Question
+ * Find two distinct indices whose values add to target.
+ *
+ * Example
+ * [2,7,11,15], 9 -> [0,1].
+ *
+ * Constraints
+ * 2 <= n <= 10^4; exactly one answer; values fit 32-bit integers.
+ *
+ * Approach used by edSlash
  * 1. Store value-to-index complements while scanning once.
- * 2. Update the running result using the current value and retain only information that can affect later choices.
- * 3. Return the accumulated result after the final element.
- * INVARIANT: At each iteration, the processed prefix is already correct and only the remaining suffix can change the answer.
- * <p>
- * COMPLEXITY: O(n) time and O(1) auxiliary space.
- * DRY RUN: Main input [2,7,11,15], 9 -> [0,1].; follow the numbered steps while maintaining the invariant, producing the value printed by main.
+ * 2. For each value, check whether its complement target - value was seen earlier.
+ * 3. If the complement exists, return its saved index and the current index; otherwise save the current value.
+ *
+ * Dry run
+ * Example from main: [2,7,11,15], 9 -> [0,1].
+ * 1. At index 0, value 2 needs 7; 7 is not in the map, so save 2 -> 0.
+ * 2. At index 1, value 7 needs 2; 2 is in the map at index 0.
+ * 3. Return [0, 1] immediately because values 2 and 7 add to 9.
+ *
+ * Complexity
+ * O(n) time and O(n) auxiliary space for the value-to-index map.
  */
 public class P06_TwoSum {
     public static int[] twoSum(int[] a, int t) {

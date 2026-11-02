@@ -3,18 +3,32 @@ package DSA.Coding.DSABasic;
 import java.util.*;
 
 
-/**
- * QUESTION: Choose two vertical lines that hold the greatest water area.
- * EXAMPLE: [1,8,6,2,5,4,8,3,7] -> 49.
- * CONSTRAINTS: 2 <= n <= 10^5; heights are non-negative.
- * LOGIC / ALGORITHM:
+/*
+ * DSA BASIC P17: CONTAINER WITH MOST WATER
+ *
+ * Question
+ * Choose two vertical lines that hold the greatest water area.
+ *
+ * Example
+ * [1,8,6,2,5,4,8,3,7] -> 49.
+ *
+ * Constraints
+ * 2 <= n <= 10^5; heights are non-negative.
+ *
+ * Approach used by edSlash
  * 1. Start at both ends; discard the shorter wall because moving the taller wall cannot improve the limiting height.
- * 2. Update the running result using the current value and retain only information that can affect later choices.
- * 3. Return the accumulated result after the final element.
- * INVARIANT: At each iteration, the processed prefix is already correct and only the remaining suffix can change the answer.
- * <p>
- * COMPLEXITY: O(n) time and O(1) auxiliary space.
- * DRY RUN: Main input [1,8,6,2,5,4,8,3,7] -> 49.; follow the numbered steps while maintaining the invariant, producing the value printed by main.
+ * 2. Scan the input while keeping the smallest amount of state needed to make the next decision.
+ * 3. Update the result immediately when the current value proves a better answer or completes a valid condition.
+ *
+ * Dry run
+ * Example from main: [1,8,6,2,5,4,8,3,7] -> 49.
+ * 1. Read the input values from left to right.
+ * 2. Apply the decision described in the approach to the current value.
+ * 3. Update the running answer and continue until all values are processed.
+ * 4. Return the final answer produced after the last value.
+ *
+ * Complexity
+ * O(n) time and O(1) auxiliary space.
  */
 public class P17_ContainerWithMostWater {
     public static int maxArea(int[] a) {

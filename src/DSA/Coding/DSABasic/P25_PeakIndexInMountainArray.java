@@ -3,18 +3,31 @@ package DSA.Coding.DSABasic;
 import java.util.*;
 
 
-/**
- * QUESTION: Return the peak index of a mountain array.
- * EXAMPLE: [0,2,1,0] -> 1.
- * CONSTRAINTS: 3 <= n <= 10^5; values strictly rise then strictly fall.
- * LOGIC / ALGORITHM:
+/*
+ * DSA BASIC P25: PEAK INDEX IN MOUNTAIN ARRAY
+ *
+ * Question
+ * Return the peak index of a mountain array.
+ *
+ * Example
+ * [0,2,1,0] -> 1.
+ *
+ * Constraints
+ * 3 <= n <= 10^5; values strictly rise then strictly fall.
+ *
+ * Approach used by edSlash
  * 1. If a[mid] < a[mid+1], climb right; otherwise keep the peak at or left of mid.
- * 2. Use the comparison or feasibility test to discard the half that cannot contain a valid answer.
- * 3. Return the remaining boundary or found index.
- * INVARIANT: The current search interval contains every possible answer; discarded elements cannot satisfy the ordering or feasibility condition.
- * <p>
- * COMPLEXITY: O(n) time and O(1) auxiliary space.
- * DRY RUN: Main input [0,2,1,0] -> 1.; follow the numbered steps while maintaining the invariant, producing the value printed by main.
+ * 2. Use the sorted or rotated structure to discard the part of the search space that cannot contain the answer.
+ * 3. Move the left and right boundaries until the answer is found or the search interval becomes empty.
+ *
+ * Dry run
+ * Example from main: [0,2,1,0] -> 1.
+ * 1. Start with the complete valid search interval.
+ * 2. Inspect the middle position and decide which half can still contain the answer.
+ * 3. Discard the other half and repeat until the answer is found or the interval is empty.
+ *
+ * Complexity
+ * O(n) time and O(1) auxiliary space.
  */
 public class P25_PeakIndexInMountainArray {
     public static int peakIndexInMountainArray(int[] a) {

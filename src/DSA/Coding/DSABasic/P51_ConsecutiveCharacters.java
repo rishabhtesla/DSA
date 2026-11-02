@@ -3,18 +3,32 @@ package DSA.Coding.DSABasic;
 import java.util.*;
 
 
-/**
- * QUESTION: Return the maximum run length of one repeated character.
- * EXAMPLE: "abbcccddddeeeeedcba" -> 5.
- * CONSTRAINTS: 1 <= s.length <= 500; lowercase letters.
- * LOGIC / ALGORITHM:
+/*
+ * DSA BASIC P51: CONSECUTIVE CHARACTERS
+ *
+ * Question
+ * Return the maximum run length of one repeated character.
+ *
+ * Example
+ * "abbcccddddeeeeedcba" -> 5.
+ *
+ * Constraints
+ * 1 <= s.length <= 500; lowercase letters.
+ *
+ * Approach used by edSlash
  * 1. Track current run when the character matches the previous one and update the maximum.
- * 2. Scan once, updating frequencies or a stack while preserving the required character order or balance.
- * 3. Return the constructed string or final validity test.
- * INVARIANT: The processed character prefix remains valid, with counts and ordering sufficient to complete the answer.
- * <p>
- * COMPLEXITY: O(n) time and O(1) auxiliary space.
- * DRY RUN: Main input "abbcccddddeeeeedcba" -> 5.; follow the numbered steps while maintaining the invariant, producing the value printed by main.
+ * 2. Process the input from left to right and keep unresolved values in the stack until a later value resolves them.
+ * 3. Remove or preserve stack entries according to the ordering or balance rule required by the problem.
+ *
+ * Dry run
+ * Example from main: "abbcccddddeeeeedcba" -> 5.
+ * 1. Read each character or value from left to right.
+ * 2. Push unresolved values or state onto the stack.
+ * 3. When the current value resolves the top entry, pop and update the answer.
+ * 4. Process any remaining stack entries before returning.
+ *
+ * Complexity
+ * O(n) time and O(1) auxiliary space.
  */
 public class P51_ConsecutiveCharacters {
     public static int maxPower(String s) {

@@ -3,18 +3,32 @@ package DSA.Coding.DSABasic;
 import java.util.*;
 
 
-/**
- * QUESTION: Find the largest rectangle area under adjacent histogram bars.
- * EXAMPLE: [2,1,5,6,2,3] -> 10.
- * CONSTRAINTS: 1 <= n <= 10^5; heights are non-negative.
- * LOGIC / ALGORITHM:
+/*
+ * DSA BASIC P43: LARGEST RECTANGLE IN HISTOGRAM
+ *
+ * Question
+ * Find the largest rectangle area under adjacent histogram bars.
+ *
+ * Example
+ * [2,1,5,6,2,3] -> 10.
+ *
+ * Constraints
+ * 1 <= n <= 10^5; heights are non-negative.
+ *
+ * Approach used by edSlash
  * 1. A monotonic increasing stack identifies each bar's maximal left/right span when it is popped.
- * 2. When the current item resolves smaller pending candidates, pop them; push the current item as unresolved.
- * 3. Assign the default answer to candidates that never find a partner, then return the result.
- * INVARIANT: The stack contains exactly unresolved candidates in monotonic order; every popped item has just found its required neighbor.
- * <p>
- * COMPLEXITY: O(n log n) time and O(n) auxiliary space.
- * DRY RUN: Main input [2,1,5,6,2,3] -> 10.; follow the numbered steps while maintaining the invariant, producing the value printed by main.
+ * 2. Process the input from left to right and keep unresolved values in the stack until a later value resolves them.
+ * 3. Remove or preserve stack entries according to the ordering or balance rule required by the problem.
+ *
+ * Dry run
+ * Example from main: [2,1,5,6,2,3] -> 10.
+ * 1. Read each character or value from left to right.
+ * 2. Push unresolved values or state onto the stack.
+ * 3. When the current value resolves the top entry, pop and update the answer.
+ * 4. Process any remaining stack entries before returning.
+ *
+ * Complexity
+ * O(n log n) time and O(n) auxiliary space.
  */
 public class P43_LargestRectangleInHistogram {
     public static int largestRectangleArea(int[] a) {

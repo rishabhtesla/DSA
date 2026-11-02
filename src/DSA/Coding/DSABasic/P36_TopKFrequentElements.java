@@ -3,18 +3,32 @@ package DSA.Coding.DSABasic;
 import java.util.*;
 
 
-/**
- * QUESTION: Return the k values with highest frequencies.
- * EXAMPLE: [1,1,1,2,2,3], k=2 -> [1,2].
- * CONSTRAINTS: 1 <= n <= 10^5; answer is unique; values fit 32-bit integers.
- * LOGIC / ALGORITHM:
+/*
+ * DSA BASIC P36: TOP K FREQUENT ELEMENTS
+ *
+ * Question
+ * Return the k values with highest frequencies.
+ *
+ * Example
+ * [1,1,1,2,2,3], k=2 -> [1,2].
+ *
+ * Constraints
+ * 1 <= n <= 10^5; answer is unique; values fit 32-bit integers.
+ *
+ * Approach used by edSlash
  * 1. Count with a map, sort distinct keys by descending frequency, and take k.
- * 2. Update the running result using the current value and retain only information that can affect later choices.
- * 3. Return the accumulated result after the final element.
- * INVARIANT: At each iteration, the processed prefix is already correct and only the remaining suffix can change the answer.
- * <p>
- * COMPLEXITY: O(n log n) time and O(n) auxiliary space.
- * DRY RUN: Main input [1,1,1,2,2,3], k=2 -> [1,2].; follow the numbered steps while maintaining the invariant, producing the value printed by main.
+ * 2. Scan the input while keeping the smallest amount of state needed to make the next decision.
+ * 3. Update the result immediately when the current value proves a better answer or completes a valid condition.
+ *
+ * Dry run
+ * Example from main: [1,1,1,2,2,3], k=2 -> [1,2].
+ * 1. Read the input values from left to right.
+ * 2. Apply the decision described in the approach to the current value.
+ * 3. Update the running answer and continue until all values are processed.
+ * 4. Return the final answer produced after the last value.
+ *
+ * Complexity
+ * O(n log n) time and O(n) auxiliary space.
  */
 public class P36_TopKFrequentElements {
     public static int[] topKFrequent(int[] a, int k) {

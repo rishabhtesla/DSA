@@ -3,18 +3,32 @@ package DSA.Coding.DSABasic;
 import java.util.*;
 
 
-/**
- * QUESTION: Remove repeated letters for the lexicographically smallest subsequence containing each letter once.
- * EXAMPLE: "cbacdcbc" -> "acdb".
- * CONSTRAINTS: 1 <= s.length <= 10^4; lowercase English letters.
- * LOGIC / ALGORITHM:
+/*
+ * DSA BASIC P46: REMOVE DUPLICATE LETTERS
+ *
+ * Question
+ * Remove repeated letters for the lexicographically smallest subsequence containing each letter once.
+ *
+ * Example
+ * "cbacdcbc" -> "acdb".
+ *
+ * Constraints
+ * 1 <= s.length <= 10^4; lowercase English letters.
+ *
+ * Approach used by edSlash
  * 1. Use remaining counts and a monotonic stack; pop a larger letter only if it appears later.
- * 2. Scan once, updating frequencies or a stack while preserving the required character order or balance.
- * 3. Return the constructed string or final validity test.
- * INVARIANT: The processed character prefix remains valid, with counts and ordering sufficient to complete the answer.
- * <p>
- * COMPLEXITY: O(n) time and O(1) auxiliary space.
- * DRY RUN: Main input "cbacdcbc" -> "acdb".; follow the numbered steps while maintaining the invariant, producing the value printed by main.
+ * 2. Process the input from left to right and keep unresolved values in the stack until a later value resolves them.
+ * 3. Remove or preserve stack entries according to the ordering or balance rule required by the problem.
+ *
+ * Dry run
+ * Example from main: "cbacdcbc" -> "acdb".
+ * 1. Read each character or value from left to right.
+ * 2. Push unresolved values or state onto the stack.
+ * 3. When the current value resolves the top entry, pop and update the answer.
+ * 4. Process any remaining stack entries before returning.
+ *
+ * Complexity
+ * O(n) time and O(1) auxiliary space.
  */
 public class P46_RemoveDuplicateLetters {
     public static String removeDuplicateLetters(String s) {

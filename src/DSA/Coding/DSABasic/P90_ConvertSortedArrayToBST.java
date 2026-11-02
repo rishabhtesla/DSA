@@ -3,18 +3,32 @@ package DSA.Coding.DSABasic;
 import java.util.*;
 
 
-/**
- * QUESTION: Create a height-balanced BST from a sorted array.
- * EXAMPLE: [-10,-3,0,5,9] -> root 0 in one valid balanced tree.
- * CONSTRAINTS: 1 <= n <= 10^4; array strictly increasing.
- * LOGIC / ALGORITHM:
+/*
+ * DSA BASIC P90: CONVERT SORTED ARRAY TO BST
+ *
+ * Question
+ * Create a height-balanced BST from a sorted array.
+ *
+ * Example
+ * [-10,-3,0,5,9] -> root 0 in one valid balanced tree.
+ *
+ * Constraints
+ * 1 <= n <= 10^4; array strictly increasing.
+ *
+ * Approach used by edSlash
  * 1. Choose midpoint as root and recursively build left and right halves.
- * 2. Combine the child results while visiting each node once, carrying the needed value toward the root.
- * 3. Return the root/result assembled from the completed subtrees.
- * INVARIANT: Every completed subtree already satisfies its property, and combining child results preserves correctness.
- * <p>
- * COMPLEXITY: O(n) time and O(h) auxiliary space, where h is tree height.
- * DRY RUN: Main input [-10,-3,0,5,9] -> root 0 in one valid balanced tree.; follow the numbered steps while maintaining the invariant, producing the value printed by main.
+ * 2. Solve the same problem for the left and right subtrees, then combine their results at the current node.
+ * 3. The base case for a null node stops the recursion and supplies the identity value for the combination.
+ *
+ * Dry run
+ * Example from main: [-10,-3,0,5,9] -> root 0 in one valid balanced tree.
+ * 1. Start at the root and apply the base case if the node is null.
+ * 2. Recursively solve the left and right child subtrees.
+ * 3. Combine the child results at the current node.
+ * 4. Return the result assembled at the root.
+ *
+ * Complexity
+ * O(n) time and O(h) auxiliary space, where h is tree height.
  */
 public class P90_ConvertSortedArrayToBST {
     public static TreeNode sortedArrayToBST(int[] a) {

@@ -3,18 +3,31 @@ package DSA.Coding.DSABasic;
 import java.util.*;
 
 
-/**
- * QUESTION: Find target in a sorted array or return -1.
- * EXAMPLE: [-1,0,3,5,9,12], 9 -> 4.
- * CONSTRAINTS: 1 <= n <= 10^4; values are strictly increasing.
- * LOGIC / ALGORITHM:
+/*
+ * DSA BASIC P21: BINARY SEARCH
+ *
+ * Question
+ * Find target in a sorted array or return -1.
+ *
+ * Example
+ * [-1,0,3,5,9,12], 9 -> 4.
+ *
+ * Constraints
+ * 1 <= n <= 10^4; values are strictly increasing.
+ *
+ * Approach used by edSlash
  * 1. Compare target with the midpoint and discard the impossible half each iteration.
- * 2. Use the comparison or feasibility test to discard the half that cannot contain a valid answer.
- * 3. Return the remaining boundary or found index.
- * INVARIANT: The current search interval contains every possible answer; discarded elements cannot satisfy the ordering or feasibility condition.
- * <p>
- * COMPLEXITY: O(n) time and O(1) auxiliary space.
- * DRY RUN: Main input [-1,0,3,5,9,12], 9 -> 4.; follow the numbered steps while maintaining the invariant, producing the value printed by main.
+ * 2. Use the sorted or rotated structure to discard the part of the search space that cannot contain the answer.
+ * 3. Move the left and right boundaries until the answer is found or the search interval becomes empty.
+ *
+ * Dry run
+ * Example from main: [-1,0,3,5,9,12], 9 -> 4.
+ * 1. Start with the complete valid search interval.
+ * 2. Inspect the middle position and decide which half can still contain the answer.
+ * 3. Discard the other half and repeat until the answer is found or the interval is empty.
+ *
+ * Complexity
+ * O(n) time and O(1) auxiliary space.
  */
 public class P21_BinarySearch {
     public static int search(int[] a, int t) {

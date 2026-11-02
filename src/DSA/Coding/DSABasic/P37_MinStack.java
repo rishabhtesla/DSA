@@ -3,18 +3,32 @@ package DSA.Coding.DSABasic;
 import java.util.*;
 
 
-/**
- * QUESTION: Design a stack supporting push, pop, top, and minimum in constant time.
- * EXAMPLE: push(2), push(1), getMin() -> 1.
- * CONSTRAINTS: Operations <= 3*10^4; values fit 32-bit integers.
- * LOGIC / ALGORITHM:
+/*
+ * DSA BASIC P37: MIN STACK
+ *
+ * Question
+ * Design a stack supporting push, pop, top, and minimum in constant time.
+ *
+ * Example
+ * push(2), push(1), getMin() -> 1.
+ *
+ * Constraints
+ * Operations <= 3*10^4; values fit 32-bit integers.
+ *
+ * Approach used by edSlash
  * 1. Keep a parallel stack whose top is the minimum for every depth.
- * 2. When the current item resolves smaller pending candidates, pop them; push the current item as unresolved.
- * 3. Assign the default answer to candidates that never find a partner, then return the result.
- * INVARIANT: The stack contains exactly unresolved candidates in monotonic order; every popped item has just found its required neighbor.
- * <p>
- * COMPLEXITY: O(n) time and O(1) auxiliary space.
- * DRY RUN: Main input push(2), push(1), getMin() -> 1.; follow the numbered steps while maintaining the invariant, producing the value printed by main.
+ * 2. Process the input from left to right and keep unresolved values in the stack until a later value resolves them.
+ * 3. Remove or preserve stack entries according to the ordering or balance rule required by the problem.
+ *
+ * Dry run
+ * Example from main: push(2), push(1), getMin() -> 1.
+ * 1. Read each character or value from left to right.
+ * 2. Push unresolved values or state onto the stack.
+ * 3. When the current value resolves the top entry, pop and update the answer.
+ * 4. Process any remaining stack entries before returning.
+ *
+ * Complexity
+ * O(n) time and O(1) auxiliary space.
  */
 public class P37_MinStack {
     private final Deque<Integer> s = new ArrayDeque<>(), mins = new ArrayDeque<>();

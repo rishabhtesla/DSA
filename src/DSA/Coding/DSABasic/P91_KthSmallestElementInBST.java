@@ -3,18 +3,32 @@ package DSA.Coding.DSABasic;
 import java.util.*;
 
 
-/**
- * QUESTION: Return the kth smallest key in a BST.
- * EXAMPLE: BST [3,1,4,null,2], k=1 -> 1.
- * CONSTRAINTS: 1 <= k <= nodes <= 10^4; keys unique.
- * LOGIC / ALGORITHM:
+/*
+ * DSA BASIC P91: KTH SMALLEST ELEMENT IN BST
+ *
+ * Question
+ * Return the kth smallest key in a BST.
+ *
+ * Example
+ * BST [3,1,4,null,2], k=1 -> 1.
+ *
+ * Constraints
+ * 1 <= k <= nodes <= 10^4; keys unique.
+ *
+ * Approach used by edSlash
  * 1. Iterative inorder traversal visits BST keys in sorted order; stop at kth visit.
- * 2. Combine the child results while visiting each node once, carrying the needed value toward the root.
- * 3. Return the root/result assembled from the completed subtrees.
- * INVARIANT: Every completed subtree already satisfies its property, and combining child results preserves correctness.
- * <p>
- * COMPLEXITY: O(n) time and O(h) auxiliary space, where h is tree height.
- * DRY RUN: Main input BST [3,1,4,null,2], k=1 -> 1.; follow the numbered steps while maintaining the invariant, producing the value printed by main.
+ * 2. Solve the same problem for the left and right subtrees, then combine their results at the current node.
+ * 3. The base case for a null node stops the recursion and supplies the identity value for the combination.
+ *
+ * Dry run
+ * Example from main: BST [3,1,4,null,2], k=1 -> 1.
+ * 1. Start at the root and apply the base case if the node is null.
+ * 2. Recursively solve the left and right child subtrees.
+ * 3. Combine the child results at the current node.
+ * 4. Return the result assembled at the root.
+ *
+ * Complexity
+ * O(n) time and O(h) auxiliary space, where h is tree height.
  */
 public class P91_KthSmallestElementInBST {
     public static int kthSmallest(TreeNode r, int k) {

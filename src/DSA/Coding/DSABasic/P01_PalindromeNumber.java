@@ -1,33 +1,63 @@
 package DSA.Coding.DSABasic;
 
-import java.util.*;
-
-
-/**
- * QUESTION: Determine whether an integer reads identically forwards and backwards.
- * EXAMPLE: 121 -> true; -121 -> false because the minus sign is not mirrored.
- * CONSTRAINTS: -2^31 <= x <= 2^31-1; negative numbers are not palindromes.
- * LOGIC / ALGORITHM:
- * 1. Reject negatives, then repeatedly take the last digit to build the reversed number and compare it with x.
- * 2. Update the running result using the current value and retain only information that can affect later choices.
- * 3. Return the accumulated result after the final element.
- * INVARIANT: At each iteration, the processed prefix is already correct and only the remaining suffix can change the answer.
- * <p>
- * COMPLEXITY: O(n) time and O(1) auxiliary space.
- * DRY RUN: Main input 121 -> true; -121 -> false because the minus sign is not mirrored.; follow the numbered steps while maintaining the invariant, producing the value printed by main.
+/*
+ * LEETCODE 9: PALINDROME NUMBER
+ *
+ * Question
+ * Given an integer x, return true if x is a palindrome. Otherwise, return
+ * false. A palindrome reads the same from left to right and right to left.
+ *
+ * Examples
+ *   x = 121    -> true
+ *   x = -121   -> false
+ *   x = 10     -> false
+ *
+ * Constraints
+ *   -2^31 <= x <= 2^31 - 1
+ *
+ * Approach used by edSlash
+ * 1. A negative number cannot be a palindrome because its minus sign cannot
+ *    appear at the end of the number.
+ * 2. Store the original number in n.
+ * 3. Repeatedly take the last digit with n % 10.
+ * 4. Add that digit to the end of revNum.
+ * 5. Remove the last digit from n with integer division by 10.
+ * 6. Compare the reversed number with the original number.
+ *
+ * Dry run: x = 121
+ *   Start: n = 121, revNum = 0
+ *   Step 1: digit = 1, revNum = 1,   n = 12
+ *   Step 2: digit = 2, revNum = 12,  n = 1
+ *   Step 3: digit = 1, revNum = 121, n = 0
+ *   revNum == x, so return true.
+ *
+ * Complexity
+ *   Time: O(log10(x)), because each digit is processed once.
+ *   Space: O(1).
  */
 public class P01_PalindromeNumber {
     public static boolean isPalindrome(int x) {
-        if (x < 0) return false;
-        int y = x, r = 0;
-        while (y > 0) {
-            r = r * 10 + y % 10;
-            y /= 10;
-        }
-        return x == r;
+    if (x < 0) {
+        return false;
+    }
+
+    int n = x;
+    int revNum = 0;
+
+    while (n > 0) {
+        int digit = n % 10;
+        revNum = revNum * 10 + digit;
+        n = n / 10;
+    }
+
+    if (revNum == x) {
+        return true;
+    } else {
+        return false;
+    }
     }
 
     public static void main(String[] args) {
-        System.out.println(isPalindrome(121));
+    System.out.println(isPalindrome(121));
     }
 }
