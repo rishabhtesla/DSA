@@ -31,11 +31,11 @@ import java.util.*;
  * O(n) time and O(h) auxiliary space, where h is tree height.
  */
 public class P88_InsertIntoABinarySearchTree {
-    public static TreeNode insertIntoBST(TreeNode r, int v) {
-        if (r == null) return new TreeNode(v);
-        if (v < r.val) r.left = insertIntoBST(r.left, v);
-        else r.right = insertIntoBST(r.right, v);
-        return r;
+    public static TreeNode insertIntoBST(TreeNode root, int value) {
+        if (root == null) return new TreeNode(value);
+        if (value < root.val) root.left = insertIntoBST(root.left, value);
+        else root.right = insertIntoBST(root.right, value);
+        return root;
     }
 
     public static void main(String[] args) {

@@ -30,14 +30,14 @@ import java.util.*;
  * O(n) time and O(1) auxiliary space.
  */
 public class P24_FindMinimumInRotatedSortedArray {
-    public static int findMin(int[] a) {
-        int l = 0, r = a.length - 1;
-        while (l < r) {
-            int m = (l + r) / 2;
-            if (a[m] > a[r]) l = m + 1;
-            else r = m;
+    public static int findMin(int[] nums) {
+        int start = 0, end = nums.length - 1;
+        while (start < end) {
+            int mid = (start + end) / 2;
+            if (nums[mid] > nums[end]) start = mid + 1;
+            else end = mid;
         }
-        return a[l];
+        return nums[start];
     }
 
     public static void main(String[] args) {

@@ -31,9 +31,9 @@ import java.util.*;
  * O(n log n) time and O(n) auxiliary space.
  */
 public class P36_TopKFrequentElements {
-    public static int[] topKFrequent(int[] a, int k) {
+    public static int[] topKFrequent(int[] nums, int k) {
         Map<Integer, Integer> m = new HashMap<>();
-        for (int x : a) m.put(x, m.getOrDefault(x, 0) + 1);
+        for (int x : nums) m.put(x, m.getOrDefault(x, 0) + 1);
         List<Integer> l = new ArrayList<>(m.keySet());
         l.sort((x, y) -> m.get(y) - m.get(x));
         return l.subList(0, k).stream().mapToInt(Integer::intValue).toArray();

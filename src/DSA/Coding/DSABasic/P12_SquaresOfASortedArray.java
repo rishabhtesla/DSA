@@ -31,11 +31,11 @@ import java.util.*;
  * O(n) time and O(1) auxiliary space.
  */
 public class P12_SquaresOfASortedArray {
-    public static int[] sortedSquares(int[] a) {
-        int[] r = new int[a.length];
-        int l = 0, h = a.length - 1, k = h;
+    public static int[] sortedSquares(int[] nums) {
+        int[] r = new int[nums.length];
+        int l = 0, h = nums.length - 1, k = h;
         while (l <= h) {
-            int x = Math.abs(a[l]), y = Math.abs(a[h]);
+            int x = Math.abs(nums[l]), y = Math.abs(nums[h]);
             r[k--] = x > y ? x * x : y * y;
             if (x > y) l++;
             else h--;

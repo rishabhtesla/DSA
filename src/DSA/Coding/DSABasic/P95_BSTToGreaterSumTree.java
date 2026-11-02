@@ -33,10 +33,10 @@ import java.util.*;
 public class P95_BSTToGreaterSumTree {
     static int sum;
 
-    public static TreeNode bstToGst(TreeNode r) {
+    public static TreeNode bstToGst(TreeNode root) {
         sum = 0;
-        go(r);
-        return r;
+        go(root);
+        return root;
     }
 
     static void go(TreeNode n) {

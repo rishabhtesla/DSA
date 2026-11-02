@@ -31,9 +31,9 @@ import java.util.*;
  * O(n) time and O(1) auxiliary space.
  */
 public class P34_PlusOne {
-    public static int[] plusOne(int[] a) {
-        for (int i = a.length - 1; i >= 0; i--) if (a[i]++ < 9) return a;
-        int[] r = new int[a.length + 1];
+    public static int[] plusOne(int[] nums) {
+        for (int i = nums.length - 1; i >= 0; i--) if (nums[i]++ < 9) return nums;
+        int[] r = new int[nums.length + 1];
         r[0] = 1;
         return r;
     }

@@ -31,9 +31,9 @@ import java.util.*;
  * O(n) time and O(1) auxiliary space.
  */
 public class P72_NextGreaterNodeInLinkedList {
-    public static int[] nextLargerNodes(ListNode h) {
+    public static int[] nextLargerNodes(ListNode head) {
         ArrayList<Integer> a = new ArrayList<>();
-        for (; h != null; h = h.next) a.add(h.val);
+        for (; head != null; head = head.next) a.add(head.val);
         int[] r = new int[a.size()];
         Deque<Integer> s = new ArrayDeque<>();
         for (int i = 0; i < a.size(); i++) {

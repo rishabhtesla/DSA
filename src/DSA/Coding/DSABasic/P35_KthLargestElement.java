@@ -31,9 +31,9 @@ import java.util.*;
  * O(n log n) time and O(n) auxiliary space.
  */
 public class P35_KthLargestElement {
-    public static int findKthLargest(int[] a, int k) {
-        Arrays.sort(a);
-        return a[a.length - k];
+    public static int findKthLargest(int[] nums, int k) {
+        Arrays.sort(nums);
+        return nums[nums.length - k];
     }
 
     public static void main(String[] args) {

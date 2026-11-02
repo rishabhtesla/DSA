@@ -33,9 +33,9 @@ import java.util.*;
 public class P85_DiameterOfBinaryTree {
     static int best;
 
-    public static int diameterOfBinaryTree(TreeNode r) {
+    public static int diameterOfBinaryTree(TreeNode root) {
         best = 0;
-        d(r);
+        d(root);
         return best;
     }
 

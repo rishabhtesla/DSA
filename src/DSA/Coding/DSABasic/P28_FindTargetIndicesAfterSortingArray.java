@@ -30,11 +30,11 @@ import java.util.*;
  * O(n) time and O(1) auxiliary space.
  */
 public class P28_FindTargetIndicesAfterSortingArray {
-    public static List<Integer> targetIndices(int[] a, int t) {
-        Arrays.sort(a);
-        List<Integer> r = new ArrayList<>();
-        for (int i = 0; i < a.length; i++) if (a[i] == t) r.add(i);
-        return r;
+    public static List<Integer> targetIndices(int[] nums, int target) {
+        Arrays.sort(nums);
+        List<Integer> targetIndices = new ArrayList<>();
+        for (int i = 0; i < nums.length; i++) if (nums[i] == target) targetIndices.add(i);
+        return targetIndices;
     }
 
     public static void main(String[] args) {

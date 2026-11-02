@@ -31,11 +31,11 @@ import java.util.*;
  * O(n) time and O(1) auxiliary space.
  */
 public class P17_ContainerWithMostWater {
-    public static int maxArea(int[] a) {
-        int l = 0, r = a.length - 1, ans = 0;
+    public static int maxArea(int[] nums) {
+        int l = 0, r = nums.length - 1, ans = 0;
         while (l < r) {
-            ans = Math.max(ans, Math.min(a[l], a[r]) * (r - l));
-            if (a[l] < a[r]) l++;
+            ans = Math.max(ans, Math.min(nums[l], nums[r]) * (r - l));
+            if (nums[l] < nums[r]) l++;
             else r--;
         }
         return ans;

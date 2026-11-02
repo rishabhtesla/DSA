@@ -31,10 +31,10 @@ import java.util.*;
  * O(n) time and O(1) auxiliary space.
  */
 public class P50_RedistributeCharactersToMakeAllStringsEqual {
-    public static boolean makeEqual(String[] w) {
+    public static boolean makeEqual(String[] words) {
         int[] f = new int[26];
-        for (String s : w) for (char c : s.toCharArray()) f[c - 'a']++;
-        for (int x : f) if (x % w.length != 0) return false;
+        for (String s : words) for (char c : s.toCharArray()) f[c - 'a']++;
+        for (int x : f) if (x % words.length != 0) return false;
         return true;
     }
 

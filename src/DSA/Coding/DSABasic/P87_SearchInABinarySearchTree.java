@@ -31,9 +31,9 @@ import java.util.*;
  * O(n) time and O(h) auxiliary space, where h is tree height.
  */
 public class P87_SearchInABinarySearchTree {
-    public static TreeNode searchBST(TreeNode r, int v) {
-        while (r != null && r.val != v) r = v < r.val ? r.left : r.right;
-        return r;
+    public static TreeNode searchBST(TreeNode root, int value) {
+        while (root != null && root.val != value) root = value < root.val ? root.left : root.right;
+        return root;
     }
 
     public static void main(String[] args) {

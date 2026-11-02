@@ -31,9 +31,9 @@ import java.util.*;
  * O(n) time and O(1) auxiliary space.
  */
 public class P20_FindLuckyInteger {
-    public static int findLucky(int[] a) {
+    public static int findLucky(int[] nums) {
         int[] f = new int[501];
-        for (int x : a) f[x]++;
+        for (int x : nums) f[x]++;
         for (int i = 500; i > 0; i--) if (f[i] == i) return i;
         return -1;
     }

@@ -31,13 +31,13 @@ import java.util.*;
  * O(n) time and O(1) auxiliary space.
  */
 public class P67_LinkedListCycleII {
-    public static ListNode detectCycle(ListNode h) {
-        ListNode s = h, f = h;
+    public static ListNode detectCycle(ListNode head) {
+        ListNode s = head, f = head;
         while (f != null && f.next != null) {
             s = s.next;
             f = f.next.next;
             if (s == f) {
-                s = h;
+                s = head;
                 while (s != f) {
                     s = s.next;
                     f = f.next;

@@ -31,18 +31,18 @@ import java.util.*;
  * O(n) time and O(1) auxiliary space.
  */
 public class P14_ProductOfArrayExceptSelf {
-    public static int[] productExceptSelf(int[] a) {
-        int[] r = new int[a.length];
+    public static int[] productExceptSelf(int[] nums) {
+        int[] r = new int[nums.length];
         Arrays.fill(r, 1);
         int p = 1;
-        for (int i = 0; i < a.length; i++) {
+        for (int i = 0; i < nums.length; i++) {
             r[i] = p;
-            p *= a[i];
+            p *= nums[i];
         }
         p = 1;
-        for (int i = a.length - 1; i >= 0; i--) {
+        for (int i = nums.length - 1; i >= 0; i--) {
             r[i] *= p;
-            p *= a[i];
+            p *= nums[i];
         }
         return r;
     }

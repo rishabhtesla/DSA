@@ -30,13 +30,13 @@ import java.util.*;
  * O(n) time and O(1) auxiliary space.
  */
 public class P05_WaterBottles {
-    public static int numWaterBottles(int n, int e) {
-        int ans = 0;
-        while (n >= e) {
-            ans += n;
-            n = n / e + n % e;
+    public static int numWaterBottles(int numBottles, int numExchange) {
+        int totalBottles = 0;
+        while (numBottles >= numExchange) {
+            totalBottles += numBottles;
+            numBottles = numBottles / numExchange + numBottles % numExchange;
         }
-        return ans + n;
+        return totalBottles + numBottles;
     }
 
     public static void main(String[] args) {

@@ -31,19 +31,19 @@ import java.util.*;
  * O(n) time and O(h) auxiliary space, where h is tree height.
  */
 public class P89_DeleteNodeInABST {
-    public static TreeNode deleteNode(TreeNode r, int k) {
-        if (r == null) return null;
-        if (k < r.val) r.left = deleteNode(r.left, k);
-        else if (k > r.val) r.right = deleteNode(r.right, k);
+    public static TreeNode deleteNode(TreeNode root, int key) {
+        if (root == null) return null;
+        if (key < root.val) root.left = deleteNode(root.left, key);
+        else if (key > root.val) root.right = deleteNode(root.right, key);
         else {
-            if (r.left == null) return r.right;
-            if (r.right == null) return r.left;
-            TreeNode s = r.right;
+            if (root.left == null) return root.right;
+            if (root.right == null) return root.left;
+            TreeNode s = root.right;
             while (s.left != null) s = s.left;
-            r.val = s.val;
-            r.right = deleteNode(r.right, s.val);
+            root.val = s.val;
+            root.right = deleteNode(root.right, s.val);
         }
-        return r;
+        return root;
     }
 
     public static void main(String[] args) {

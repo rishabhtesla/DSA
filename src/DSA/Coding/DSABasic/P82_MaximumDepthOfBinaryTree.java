@@ -31,8 +31,8 @@ import java.util.*;
  * O(n) time and O(h) auxiliary space, where h is tree height.
  */
 public class P82_MaximumDepthOfBinaryTree {
-    public static int maxDepth(TreeNode r) {
-        return r == null ? 0 : 1 + Math.max(maxDepth(r.left), maxDepth(r.right));
+    public static int maxDepth(TreeNode root) {
+        return root == null ? 0 : 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
     }
 
     public static void main(String[] args) {

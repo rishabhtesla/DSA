@@ -31,9 +31,9 @@ import java.util.*;
  * O(n) time and O(1) auxiliary space.
  */
 public class P33_MaximumCountPositiveAndNegative {
-    public static int maximumCount(int[] a) {
+    public static int maximumCount(int[] nums) {
         int p = 0, n = 0;
-        for (int x : a) {
+        for (int x : nums) {
             if (x > 0) p++;
             if (x < 0) n++;
         }

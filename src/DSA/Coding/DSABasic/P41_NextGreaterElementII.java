@@ -31,13 +31,13 @@ import java.util.*;
  * O(n) time and O(1) auxiliary space.
  */
 public class P41_NextGreaterElementII {
-    public static int[] nextGreaterElements(int[] a) {
-        int n = a.length;
+    public static int[] nextGreaterElements(int[] nums) {
+        int n = nums.length;
         int[] r = new int[n];
         Arrays.fill(r, -1);
         Deque<Integer> s = new ArrayDeque<>();
         for (int i = 0; i < 2 * n; i++) {
-            while (!s.isEmpty() && a[s.peek()] < a[i % n]) r[s.pop()] = a[i % n];
+            while (!s.isEmpty() && nums[s.peek()] < nums[i % n]) r[s.pop()] = nums[i % n];
             if (i < n) s.push(i);
         }
         return r;

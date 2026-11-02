@@ -31,12 +31,12 @@ import java.util.*;
  * O(n) time and O(1) auxiliary space.
  */
 public class P59_SearchA2DMatrix {
-    public static boolean searchMatrix(int[][] a, int t) {
+    public static boolean searchMatrix(int[][] a, int target) {
         int m = a.length, n = a[0].length, l = 0, r = m * n - 1;
         while (l <= r) {
             int x = (l + r) / 2, v = a[x / n][x % n];
-            if (v == t) return true;
-            if (v < t) l = x + 1;
+            if (v == target) return true;
+            if (v < target) l = x + 1;
             else r = x - 1;
         }
         return false;

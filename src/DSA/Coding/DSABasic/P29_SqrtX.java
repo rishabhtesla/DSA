@@ -31,13 +31,13 @@ import java.util.*;
  */
 public class P29_SqrtX {
     public static int mySqrt(int x) {
-        long l = 0, r = x;
-        while (l <= r) {
-            long m = (l + r) / 2;
-            if (m * m <= x) l = m + 1;
-            else r = m - 1;
+        long start = 0, end = x;
+        while (start <= end) {
+            long mid = (start + end) / 2;
+            if (mid * mid <= x) start = mid + 1;
+            else end = mid - 1;
         }
-        return (int) r;
+        return (int) end;
     }
 
     public static void main(String[] args) {

@@ -31,24 +31,24 @@ import java.util.*;
  * O(n) time and O(1) auxiliary space.
  */
 public class P31_SortColors {
-    public static void sortColors(int[] a) {
-        int l = 0, m = 0, r = a.length - 1;
+    public static void sortColors(int[] nums) {
+        int l = 0, m = 0, r = nums.length - 1;
         while (m <= r) {
-            if (a[m] == 0) {
-                int t = a[l];
-                a[l++] = a[m];
-                a[m++] = t;
-            } else if (a[m] == 2) {
-                int t = a[m];
-                a[m] = a[r];
-                a[r--] = t;
+            if (nums[m] == 0) {
+                int target = nums[l];
+                nums[l++] = nums[m];
+                nums[m++] = target;
+            } else if (nums[m] == 2) {
+                int target = nums[m];
+                nums[m] = nums[r];
+                nums[r--] = target;
             } else m++;
         }
     }
 
     public static void main(String[] args) {
-        int[] a = {2, 0, 2, 1, 1, 0};
-        sortColors(a);
-        System.out.println(Arrays.toString(a));
+        int[] nums = {2, 0, 2, 1, 1, 0};
+        sortColors(nums);
+        System.out.println(Arrays.toString(nums));
     }
 }

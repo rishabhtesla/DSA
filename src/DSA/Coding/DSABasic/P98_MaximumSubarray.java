@@ -31,9 +31,9 @@ import java.util.*;
  * O(n) time and O(1) auxiliary space.
  */
 public class P98_MaximumSubarray {
-    public static int maxSubArray(int[] a) {
-        int best = a[0], cur = 0;
-        for (int x : a) {
+    public static int maxSubArray(int[] nums) {
+        int best = nums[0], cur = 0;
+        for (int x : nums) {
             cur = Math.max(x, cur + x);
             best = Math.max(best, cur);
         }

@@ -31,9 +31,9 @@ import java.util.*;
  * O(n) time and O(1) auxiliary space.
  */
 public class P32_LargestNumber {
-    public static String largestNumber(int[] a) {
-        String[] s = new String[a.length];
-        for (int i = 0; i < a.length; i++) s[i] = "" + a[i];
+    public static String largestNumber(int[] nums) {
+        String[] s = new String[nums.length];
+        for (int i = 0; i < nums.length; i++) s[i] = "" + nums[i];
         Arrays.sort(s, (x, y) -> (y + x).compareTo(x + y));
         String r = String.join("", s);
         return r.charAt(0) == '0' ? "0" : r;

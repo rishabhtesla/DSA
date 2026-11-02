@@ -31,10 +31,10 @@ import java.util.*;
  * O(n log n) time and O(n) auxiliary space.
  */
 public class P09_MedianOfTwoSortedArrays {
-    public static double findMedianSortedArrays(int[] a, int[] b) {
-        int[] c = new int[a.length + b.length];
-        System.arraycopy(a, 0, c, 0, a.length);
-        System.arraycopy(b, 0, c, a.length, b.length);
+    public static double findMedianSortedArrays(int[] firstArray, int[] secondArray) {
+        int[] c = new int[firstArray.length + secondArray.length];
+        System.arraycopy(firstArray, 0, c, 0, firstArray.length);
+        System.arraycopy(secondArray, 0, c, firstArray.length, secondArray.length);
         Arrays.sort(c);
         int n = c.length;
         return n % 2 == 1 ? c[n / 2] : (c[n / 2 - 1] + c[n / 2]) / 2.0;

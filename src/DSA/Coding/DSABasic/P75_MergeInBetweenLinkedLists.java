@@ -31,15 +31,15 @@ import java.util.*;
  * O(n) time and O(1) auxiliary space.
  */
 public class P75_MergeInBetweenLinkedLists {
-    public static ListNode mergeInBetween(ListNode a, int x, int y, ListNode b) {
-        ListNode p = a;
-        for (int i = 1; i < x; i++) p = p.next;
+    public static ListNode mergeInBetween(ListNode list1, int startIndex, int endIndex, ListNode list2) {
+        ListNode p = list1;
+        for (int i = 1; i < startIndex; i++) p = p.next;
         ListNode q = p;
-        for (int i = x; i <= y; i++) q = q.next;
-        p.next = b;
-        while (b.next != null) b = b.next;
-        b.next = q.next;
-        return a;
+        for (int i = startIndex; i <= endIndex; i++) q = q.next;
+        p.next = list2;
+        while (list2.next != null) list2 = list2.next;
+        list2.next = q.next;
+        return list1;
     }
 
     public static void main(String[] args) {

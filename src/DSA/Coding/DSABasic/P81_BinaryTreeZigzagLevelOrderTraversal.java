@@ -31,11 +31,11 @@ import java.util.*;
  * O(n) time and O(h) auxiliary space, where h is tree height.
  */
 public class P81_BinaryTreeZigzagLevelOrderTraversal {
-    public static List<List<Integer>> zigzagLevelOrder(TreeNode r) {
+    public static List<List<Integer>> zigzagLevelOrder(TreeNode root) {
         List<List<Integer>> o = new ArrayList<>();
-        if (r == null) return o;
+        if (root == null) return o;
         Queue<TreeNode> q = new ArrayDeque<>();
-        q.add(r);
+        q.add(root);
         boolean rev = false;
         while (!q.isEmpty()) {
             LinkedList<Integer> z = new LinkedList<>();

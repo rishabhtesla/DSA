@@ -31,8 +31,8 @@ import java.util.*;
  * O(n) time and O(1) auxiliary space.
  */
 public class P66_LinkedListCycle {
-    public static boolean hasCycle(ListNode h) {
-        ListNode s = h, f = h;
+    public static boolean hasCycle(ListNode head) {
+        ListNode s = head, f = head;
         while (f != null && f.next != null) {
             s = s.next;
             f = f.next.next;

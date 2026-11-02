@@ -37,8 +37,8 @@ public class P69_DeleteNodeInALinkedList {
     }
 
     public static void main(String[] args) {
-        ListNode h = new ListNode(1, new ListNode(2));
-        deleteNode(h);
-        System.out.println(h.val);
+        ListNode head = new ListNode(1, new ListNode(2));
+        deleteNode(head);
+        System.out.println(head.val);
     }
 }

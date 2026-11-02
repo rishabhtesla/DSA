@@ -31,11 +31,11 @@ import java.util.*;
  * O(n) time and O(1) auxiliary space.
  */
 public class P44_BoatsToSavePeople {
-    public static int numRescueBoats(int[] a, int lim) {
-        Arrays.sort(a);
-        int l = 0, r = a.length - 1, c = 0;
+    public static int numRescueBoats(int[] nums, int lim) {
+        Arrays.sort(nums);
+        int l = 0, r = nums.length - 1, c = 0;
         while (l <= r) {
-            if (a[l] + a[r] <= lim) l++;
+            if (nums[l] + nums[r] <= lim) l++;
             r--;
             c++;
         }

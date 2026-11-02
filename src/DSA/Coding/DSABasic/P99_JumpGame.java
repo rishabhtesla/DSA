@@ -31,10 +31,10 @@ import java.util.*;
  * O(n) time and O(1) auxiliary space.
  */
 public class P99_JumpGame {
-    public static boolean canJump(int[] a) {
+    public static boolean canJump(int[] nums) {
         int reach = 0;
-        for (int i = 0; i < a.length && i <= reach; i++) reach = Math.max(reach, i + a[i]);
-        return reach >= a.length - 1;
+        for (int i = 0; i < nums.length && i <= reach; i++) reach = Math.max(reach, i + nums[i]);
+        return reach >= nums.length - 1;
     }
 
     public static void main(String[] args) {

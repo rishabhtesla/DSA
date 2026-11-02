@@ -31,11 +31,11 @@ import java.util.*;
  * O(n) time and O(1) auxiliary space.
  */
 public class P74_ReverseLinkedListII {
-    public static ListNode reverseBetween(ListNode h, int l, int r) {
-        ListNode d = new ListNode(0, h), p = d;
-        for (int i = 1; i < l; i++) p = p.next;
+    public static ListNode reverseBetween(ListNode head, int leftPosition, int rightPosition) {
+        ListNode d = new ListNode(0, head), p = d;
+        for (int i = 1; i < leftPosition; i++) p = p.next;
         ListNode q = p.next;
-        for (int i = 0; i < r - l; i++) {
+        for (int i = 0; i < rightPosition - leftPosition; i++) {
             ListNode x = q.next;
             q.next = x.next;
             x.next = p.next;

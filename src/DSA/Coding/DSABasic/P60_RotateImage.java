@@ -35,15 +35,15 @@ public class P60_RotateImage {
         int n = a.length;
         for (int i = 0; i < n; i++)
             for (int j = i; j < n; j++) {
-                int t = a[i][j];
+                int target = a[i][j];
                 a[i][j] = a[j][i];
-                a[j][i] = t;
+                a[j][i] = target;
             }
         for (int[] r : a)
             for (int l = 0, h = n - 1; l < h; l++, h--) {
-                int t = r[l];
+                int target = r[l];
                 r[l] = r[h];
-                r[h] = t;
+                r[h] = target;
             }
     }
 

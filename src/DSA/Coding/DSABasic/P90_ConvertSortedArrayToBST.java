@@ -31,14 +31,14 @@ import java.util.*;
  * O(n) time and O(h) auxiliary space, where h is tree height.
  */
 public class P90_ConvertSortedArrayToBST {
-    public static TreeNode sortedArrayToBST(int[] a) {
-        return b(a, 0, a.length - 1);
+    public static TreeNode sortedArrayToBST(int[] nums) {
+        return b(nums, 0, nums.length - 1);
     }
 
-    static TreeNode b(int[] a, int l, int r) {
+    static TreeNode b(int[] nums, int l, int r) {
         if (l > r) return null;
         int m = (l + r) / 2;
-        return new TreeNode(a[m], b(a, l, m - 1), b(a, m + 1, r));
+        return new TreeNode(nums[m], b(nums, l, m - 1), b(nums, m + 1, r));
     }
 
     public static void main(String[] args) {

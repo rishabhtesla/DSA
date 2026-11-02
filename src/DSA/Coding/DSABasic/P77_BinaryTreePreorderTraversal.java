@@ -31,9 +31,9 @@ import java.util.*;
  * O(n) time and O(h) auxiliary space, where h is tree height.
  */
 public class P77_BinaryTreePreorderTraversal {
-    public static List<Integer> preorderTraversal(TreeNode r) {
+    public static List<Integer> preorderTraversal(TreeNode root) {
         List<Integer> o = new ArrayList<>();
-        pre(r, o);
+        pre(root, o);
         return o;
     }
 

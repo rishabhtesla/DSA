@@ -31,12 +31,12 @@ import java.util.*;
  * O(n) time and O(1) auxiliary space.
  */
 public class P13_TwoSumIIInputArrayIsSorted {
-    public static int[] twoSum(int[] a, int t) {
-        int l = 0, r = a.length - 1;
+    public static int[] twoSum(int[] nums, int target) {
+        int l = 0, r = nums.length - 1;
         while (l < r) {
-            int s = a[l] + a[r];
-            if (s == t) return new int[]{l + 1, r + 1};
-            if (s < t) l++;
+            int s = nums[l] + nums[r];
+            if (s == target) return new int[]{l + 1, r + 1};
+            if (s < target) l++;
             else r--;
         }
         return new int[0];

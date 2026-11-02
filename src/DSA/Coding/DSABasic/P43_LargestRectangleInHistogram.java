@@ -31,13 +31,13 @@ import java.util.*;
  * O(n log n) time and O(n) auxiliary space.
  */
 public class P43_LargestRectangleInHistogram {
-    public static int largestRectangleArea(int[] a) {
+    public static int largestRectangleArea(int[] nums) {
         Deque<Integer> s = new ArrayDeque<>();
         int ans = 0;
-        for (int i = 0; i <= a.length; i++) {
-            int h = i == a.length ? 0 : a[i];
-            while (!s.isEmpty() && h < a[s.peek()]) {
-                int ht = a[s.pop()], w = s.isEmpty() ? i : i - s.peek() - 1;
+        for (int i = 0; i <= nums.length; i++) {
+            int h = i == nums.length ? 0 : nums[i];
+            while (!s.isEmpty() && h < nums[s.peek()]) {
+                int ht = nums[s.pop()], w = s.isEmpty() ? i : i - s.peek() - 1;
                 ans = Math.max(ans, ht * w);
             }
             s.push(i);

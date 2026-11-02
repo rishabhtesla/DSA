@@ -31,8 +31,8 @@ import java.util.*;
  * O(n) time and O(h) auxiliary space, where h is tree height.
  */
 public class P83_BalancedBinaryTree {
-    public static boolean isBalanced(TreeNode r) {
-        return h(r) >= 0;
+    public static boolean isBalanced(TreeNode root) {
+        return h(root) >= 0;
     }
 
     static int h(TreeNode n) {

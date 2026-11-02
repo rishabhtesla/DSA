@@ -31,12 +31,12 @@ import java.util.*;
  * O(n) time and O(1) auxiliary space.
  */
 public class P54_ValidAnagram {
-    public static boolean isAnagram(String a, String b) {
-        if (a.length() != b.length()) return false;
+    public static boolean isAnagram(String first, String second) {
+        if (first.length() != second.length()) return false;
         int[] f = new int[26];
-        for (int i = 0; i < a.length(); i++) {
-            f[a.charAt(i) - 'a']++;
-            f[b.charAt(i) - 'a']--;
+        for (int i = 0; i < first.length(); i++) {
+            f[first.charAt(i) - 'a']++;
+            f[second.charAt(i) - 'a']--;
         }
         for (int x : f) if (x != 0) return false;
         return true;

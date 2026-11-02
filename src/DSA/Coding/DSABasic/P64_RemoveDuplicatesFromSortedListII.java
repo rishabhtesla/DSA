@@ -31,16 +31,16 @@ import java.util.*;
  * O(n) time and O(1) auxiliary space.
  */
 public class P64_RemoveDuplicatesFromSortedListII {
-    public static ListNode deleteDuplicates(ListNode h) {
-        ListNode d = new ListNode(0, h), p = d;
-        while (h != null) {
-            if (h.next != null && h.val == h.next.val) {
-                int v = h.val;
-                while (h != null && h.val == v) h = h.next;
-                p.next = h;
+    public static ListNode deleteDuplicates(ListNode head) {
+        ListNode d = new ListNode(0, head), p = d;
+        while (head != null) {
+            if (head.next != null && head.val == head.next.val) {
+                int v = head.val;
+                while (head != null && head.val == v) head = head.next;
+                p.next = head;
             } else {
-                p = h;
-                h = h.next;
+                p = head;
+                head = head.next;
             }
         }
         return d.next;

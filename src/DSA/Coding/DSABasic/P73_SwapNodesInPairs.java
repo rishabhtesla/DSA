@@ -31,8 +31,8 @@ import java.util.*;
  * O(n) time and O(1) auxiliary space.
  */
 public class P73_SwapNodesInPairs {
-    public static ListNode swapPairs(ListNode h) {
-        ListNode d = new ListNode(0, h);
+    public static ListNode swapPairs(ListNode head) {
+        ListNode d = new ListNode(0, head);
         for (ListNode p = d; p.next != null && p.next.next != null; ) {
             ListNode a = p.next, b = a.next;
             a.next = b.next;

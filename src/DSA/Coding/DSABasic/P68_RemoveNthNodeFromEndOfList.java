@@ -31,8 +31,8 @@ import java.util.*;
  * O(n) time and O(1) auxiliary space.
  */
 public class P68_RemoveNthNodeFromEndOfList {
-    public static ListNode removeNthFromEnd(ListNode h, int n) {
-        ListNode d = new ListNode(0, h), p = d;
+    public static ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode d = new ListNode(0, head), p = d;
         for (int i = 0; i < n; i++) p = p.next;
         ListNode q = d;
         while (p.next != null) {

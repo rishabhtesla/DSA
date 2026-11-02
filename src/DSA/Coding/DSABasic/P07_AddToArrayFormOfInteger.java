@@ -31,11 +31,11 @@ import java.util.*;
  * O(n) time and O(1) auxiliary space.
  */
 public class P07_AddToArrayFormOfInteger {
-    public static List<Integer> addToArrayForm(int[] a, int k) {
+    public static List<Integer> addToArrayForm(int[] nums, int k) {
         LinkedList<Integer> r = new LinkedList<>();
-        int i = a.length - 1, carry = k;
+        int i = nums.length - 1, carry = k;
         while (i >= 0 || carry > 0) {
-            if (i >= 0) carry += a[i--];
+            if (i >= 0) carry += nums[i--];
             r.addFirst(carry % 10);
             carry /= 10;
         }

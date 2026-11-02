@@ -31,19 +31,19 @@ import java.util.*;
  * O(n) time and O(1) auxiliary space.
  */
 public class P61_ReverseLinkedList {
-    public static ListNode reverseList(ListNode h) {
+    public static ListNode reverseList(ListNode head) {
         ListNode p = null;
-        while (h != null) {
-            ListNode n = h.next;
-            h.next = p;
-            p = h;
-            h = n;
+        while (head != null) {
+            ListNode n = head.next;
+            head.next = p;
+            p = head;
+            head = n;
         }
         return p;
     }
 
     public static void main(String[] args) {
-        ListNode h = new ListNode(1, new ListNode(2));
-        System.out.println(reverseList(h).val);
+        ListNode head = new ListNode(1, new ListNode(2));
+        System.out.println(reverseList(head).val);
     }
 }

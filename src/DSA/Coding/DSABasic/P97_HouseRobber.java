@@ -31,12 +31,12 @@ import java.util.*;
  * O(n) time and O(1) auxiliary space.
  */
 public class P97_HouseRobber {
-    public static int rob(int[] a) {
+    public static int rob(int[] nums) {
         int prev = 0, cur = 0;
-        for (int x : a) {
-            int t = cur;
+        for (int x : nums) {
+            int target = cur;
             cur = Math.max(cur, prev + x);
-            prev = t;
+            prev = target;
         }
         return cur;
     }

@@ -30,17 +30,19 @@ import java.util.*;
  * O(n) time and O(1) auxiliary space.
  */
 public class P30_KokoEatingBananas {
-    public static int minEatingSpeed(int[] p, int h) {
-        int l = 1, r = 0;
-        for (int x : p) r = Math.max(r, x);
-        while (l < r) {
-            int m = (l + r) / 2;
-            long hours = 0;
-            for (int x : p) hours += (x + m - 1) / m;
-            if (hours <= h) r = m;
-            else l = m + 1;
+    public static int minEatingSpeed(int[] piles, int hours) {
+        int start = 1, end = 0;
+        for (int x : piles) end = Math.max(end, x);
+        while (start < end) {
+            int mid = (start + end) / 2;
+            long requiredHours = 0;
+            for (int pile : piles) {
+                requiredHours += (pile + mid - 1) / mid;
+            }
+            if (requiredHours <= hours) end = mid;
+            else start = mid + 1;
         }
-        return l;
+        return start;
     }
 
     public static void main(String[] args) {

@@ -30,23 +30,23 @@ import java.util.*;
  * O(n) time and O(1) auxiliary space.
  */
 public class P22_FindFirstAndLastPosition {
-    public static int[] searchRange(int[] a, int t) {
-        int l = 0, r = a.length - 1, first = -1, last = -1;
-        while (l <= r) {
-            int m = (l + r) / 2;
-            if (a[m] >= t) {
-                if (a[m] == t) first = m;
-                r = m - 1;
-            } else l = m + 1;
+    public static int[] searchRange(int[] nums, int target) {
+        int start = 0, end = nums.length - 1, first = -1, last = -1;
+        while (start <= end) {
+            int mid = (start + end) / 2;
+            if (nums[mid] >= target) {
+                if (nums[mid] == target) first = mid;
+                end = mid - 1;
+            } else start = mid + 1;
         }
-        l = 0;
-        r = a.length - 1;
-        while (l <= r) {
-            int m = (l + r) / 2;
-            if (a[m] <= t) {
-                if (a[m] == t) last = m;
-                l = m + 1;
-            } else r = m - 1;
+        start = 0;
+        end = nums.length - 1;
+        while (start <= end) {
+            int mid = (start + end) / 2;
+            if (nums[mid] <= target) {
+                if (nums[mid] == target) last = mid;
+                start = mid + 1;
+            } else end = mid - 1;
         }
         return new int[]{first, last};
     }

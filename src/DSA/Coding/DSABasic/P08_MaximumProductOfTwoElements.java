@@ -31,9 +31,9 @@ import java.util.*;
  * O(n) time and O(1) auxiliary space.
  */
 public class P08_MaximumProductOfTwoElements {
-    public static int maxProduct(int[] a) {
+    public static int maxProduct(int[] nums) {
         int x = -1, y = -1;
-        for (int v : a) {
+        for (int v : nums) {
             if (v > x) {
                 y = x;
                 x = v;

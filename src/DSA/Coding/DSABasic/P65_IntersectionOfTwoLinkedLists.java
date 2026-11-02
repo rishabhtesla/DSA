@@ -31,11 +31,11 @@ import java.util.*;
  * O(n) time and O(1) auxiliary space.
  */
 public class P65_IntersectionOfTwoLinkedLists {
-    public static ListNode getIntersectionNode(ListNode a, ListNode b) {
-        ListNode p = a, q = b;
+    public static ListNode getIntersectionNode(ListNode firstHead, ListNode secondHead) {
+        ListNode p = firstHead, q = secondHead;
         while (p != q) {
-            p = p == null ? b : p.next;
-            q = q == null ? a : q.next;
+            p = p == null ? secondHead : p.next;
+            q = q == null ? firstHead : q.next;
         }
         return p;
     }

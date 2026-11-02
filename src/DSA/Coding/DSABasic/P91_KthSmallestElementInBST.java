@@ -31,16 +31,16 @@ import java.util.*;
  * O(n) time and O(h) auxiliary space, where h is tree height.
  */
 public class P91_KthSmallestElementInBST {
-    public static int kthSmallest(TreeNode r, int k) {
+    public static int kthSmallest(TreeNode root, int k) {
         Deque<TreeNode> s = new ArrayDeque<>();
         while (true) {
-            while (r != null) {
-                s.push(r);
-                r = r.left;
+            while (root != null) {
+                s.push(root);
+                root = root.left;
             }
-            r = s.pop();
-            if (--k == 0) return r.val;
-            r = r.right;
+            root = s.pop();
+            if (--k == 0) return root.val;
+            root = root.right;
         }
     }
 

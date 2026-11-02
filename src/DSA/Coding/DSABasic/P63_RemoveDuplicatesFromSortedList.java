@@ -31,11 +31,11 @@ import java.util.*;
  * O(n) time and O(1) auxiliary space.
  */
 public class P63_RemoveDuplicatesFromSortedList {
-    public static ListNode deleteDuplicates(ListNode h) {
-        for (ListNode p = h; p != null && p.next != null; )
+    public static ListNode deleteDuplicates(ListNode head) {
+        for (ListNode p = head; p != null && p.next != null; )
             if (p.val == p.next.val) p.next = p.next.next;
             else p = p.next;
-        return h;
+        return head;
     }
 
     public static void main(String[] args) {

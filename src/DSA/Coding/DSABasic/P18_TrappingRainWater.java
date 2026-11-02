@@ -31,15 +31,15 @@ import java.util.*;
  * O(n) time and O(1) auxiliary space.
  */
 public class P18_TrappingRainWater {
-    public static int trap(int[] a) {
-        int l = 0, r = a.length - 1, lm = 0, rm = 0, ans = 0;
+    public static int trap(int[] nums) {
+        int l = 0, r = nums.length - 1, lm = 0, rm = 0, ans = 0;
         while (l < r) {
-            if (a[l] < a[r]) {
-                lm = Math.max(lm, a[l]);
-                ans += lm - a[l++];
+            if (nums[l] < nums[r]) {
+                lm = Math.max(lm, nums[l]);
+                ans += lm - nums[l++];
             } else {
-                rm = Math.max(rm, a[r]);
-                ans += rm - a[r--];
+                rm = Math.max(rm, nums[r]);
+                ans += rm - nums[r--];
             }
         }
         return ans;

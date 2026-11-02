@@ -31,15 +31,15 @@ import java.util.*;
  * O(n) time and O(1) auxiliary space.
  */
 public class P40_NextGreaterElementI {
-    public static int[] nextGreaterElement(int[] a, int[] b) {
+    public static int[] nextGreaterElement(int[] findNums, int[] nums) {
         Map<Integer, Integer> m = new HashMap<>();
         Deque<Integer> s = new ArrayDeque<>();
-        for (int x : b) {
+        for (int x : nums) {
             while (!s.isEmpty() && s.peek() < x) m.put(s.pop(), x);
             s.push(x);
         }
-        int[] r = new int[a.length];
-        for (int i = 0; i < a.length; i++) r[i] = m.getOrDefault(a[i], -1);
+        int[] r = new int[findNums.length];
+        for (int i = 0; i < findNums.length; i++) r[i] = m.getOrDefault(findNums[i], -1);
         return r;
     }
 

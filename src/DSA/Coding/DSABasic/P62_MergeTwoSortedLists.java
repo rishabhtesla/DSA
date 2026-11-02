@@ -31,19 +31,19 @@ import java.util.*;
  * O(n) time and O(1) auxiliary space.
  */
 public class P62_MergeTwoSortedLists {
-    public static ListNode mergeTwoLists(ListNode a, ListNode b) {
+    public static ListNode mergeTwoLists(ListNode firstList, ListNode secondList) {
         ListNode d = new ListNode(), p = d;
-        while (a != null && b != null) {
-            if (a.val <= b.val) {
-                p.next = a;
-                a = a.next;
+        while (firstList != null && secondList != null) {
+            if (firstList.val <= secondList.val) {
+                p.next = firstList;
+                firstList = firstList.next;
             } else {
-                p.next = b;
-                b = b.next;
+                p.next = secondList;
+                secondList = secondList.next;
             }
             p = p.next;
         }
-        p.next = a == null ? b : a;
+        p.next = firstList == null ? secondList : firstList;
         return d.next;
     }
 

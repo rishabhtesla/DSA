@@ -30,14 +30,14 @@ import java.util.*;
  * O(n) time and O(1) auxiliary space.
  */
 public class P25_PeakIndexInMountainArray {
-    public static int peakIndexInMountainArray(int[] a) {
-        int l = 0, r = a.length - 1;
-        while (l < r) {
-            int m = (l + r) / 2;
-            if (a[m] < a[m + 1]) l = m + 1;
-            else r = m;
+    public static int peakIndexInMountainArray(int[] nums) {
+        int start = 0, end = nums.length - 1;
+        while (start < end) {
+            int mid = (start + end) / 2;
+            if (nums[mid] < nums[mid + 1]) start = mid + 1;
+            else end = mid;
         }
-        return l;
+        return start;
     }
 
     public static void main(String[] args) {

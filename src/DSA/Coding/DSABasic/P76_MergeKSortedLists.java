@@ -31,9 +31,9 @@ import java.util.*;
  * O(n log n) time and O(n) auxiliary space.
  */
 public class P76_MergeKSortedLists {
-    public static ListNode mergeKLists(ListNode[] a) {
+    public static ListNode mergeKLists(ListNode[] lists) {
         PriorityQueue<ListNode> q = new PriorityQueue<>((x, y) -> x.val - y.val);
-        for (ListNode n : a) if (n != null) q.add(n);
+        for (ListNode n : lists) if (n != null) q.add(n);
         ListNode d = new ListNode(), p = d;
         while (!q.isEmpty()) {
             ListNode n = q.poll();

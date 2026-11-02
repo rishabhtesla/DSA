@@ -31,14 +31,14 @@ import java.util.*;
  * O(n) time and O(1) auxiliary space.
  */
 public class P11_RemoveElement {
-    public static int removeElement(int[] a, int v) {
+    public static int removeElement(int[] nums, int v) {
         int k = 0;
-        for (int x : a) if (x != v) a[k++] = x;
+        for (int x : nums) if (x != v) nums[k++] = x;
         return k;
     }
 
     public static void main(String[] args) {
-        int[] a = {3, 2, 2, 3};
-        System.out.println(removeElement(a, 3));
+        int[] nums = {3, 2, 2, 3};
+        System.out.println(removeElement(nums, 3));
     }
 }

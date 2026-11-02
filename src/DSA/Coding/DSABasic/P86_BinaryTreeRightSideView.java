@@ -31,11 +31,11 @@ import java.util.*;
  * O(n) time and O(h) auxiliary space, where h is tree height.
  */
 public class P86_BinaryTreeRightSideView {
-    public static List<Integer> rightSideView(TreeNode r) {
+    public static List<Integer> rightSideView(TreeNode root) {
         List<Integer> o = new ArrayList<>();
-        if (r == null) return o;
+        if (root == null) return o;
         Queue<TreeNode> q = new ArrayDeque<>();
-        q.add(r);
+        q.add(root);
         while (!q.isEmpty()) {
             TreeNode x = null;
             for (int n = q.size(); n > 0; n--) {

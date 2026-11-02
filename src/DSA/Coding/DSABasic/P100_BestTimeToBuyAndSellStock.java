@@ -31,9 +31,9 @@ import java.util.*;
  * O(n) time and O(1) auxiliary space.
  */
 public class P100_BestTimeToBuyAndSellStock {
-    public static int maxProfit(int[] a) {
+    public static int maxProfit(int[] nums) {
         int min = Integer.MAX_VALUE, ans = 0;
-        for (int x : a) {
+        for (int x : nums) {
             min = Math.min(min, x);
             ans = Math.max(ans, x - min);
         }

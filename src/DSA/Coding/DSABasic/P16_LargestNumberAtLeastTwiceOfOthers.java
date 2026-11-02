@@ -31,15 +31,15 @@ import java.util.*;
  * O(n) time and O(1) auxiliary space.
  */
 public class P16_LargestNumberAtLeastTwiceOfOthers {
-    public static int dominantIndex(int[] a) {
+    public static int dominantIndex(int[] nums) {
         int m = 0, s = -1;
-        for (int i = 1; i < a.length; i++) {
-            if (a[i] > a[m]) {
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] > nums[m]) {
                 s = m;
                 m = i;
-            } else if (s < 0 || a[i] > a[s]) s = i;
+            } else if (s < 0 || nums[i] > nums[s]) s = i;
         }
-        return s < 0 || a[m] >= 2 * a[s] ? m : -1;
+        return s < 0 || nums[m] >= 2 * nums[s] ? m : -1;
     }
 
     public static void main(String[] args) {

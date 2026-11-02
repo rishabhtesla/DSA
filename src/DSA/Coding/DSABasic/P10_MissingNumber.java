@@ -31,9 +31,9 @@ import java.util.*;
  * O(n) time and O(1) auxiliary space.
  */
 public class P10_MissingNumber {
-    public static int missingNumber(int[] a) {
-        int x = a.length;
-        for (int i = 0; i < a.length; i++) x ^= i ^ a[i];
+    public static int missingNumber(int[] nums) {
+        int x = nums.length;
+        for (int i = 0; i < nums.length; i++) x ^= i ^ nums[i];
         return x;
     }
 

@@ -31,8 +31,8 @@ import java.util.*;
  * O(n) time and O(h) auxiliary space, where h is tree height.
  */
 public class P84_SymmetricTree {
-    public static boolean isSymmetric(TreeNode r) {
-        return r == null || same(r.left, r.right);
+    public static boolean isSymmetric(TreeNode root) {
+        return root == null || same(root.left, root.right);
     }
 
     static boolean same(TreeNode a, TreeNode b) {

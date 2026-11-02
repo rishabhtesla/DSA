@@ -31,9 +31,9 @@ import java.util.*;
  * O(n log n) time and O(n) auxiliary space.
  */
 public class P55_GroupAnagrams {
-    public static List<List<String>> groupAnagrams(String[] a) {
+    public static List<List<String>> groupAnagrams(String[] words) {
         Map<String, List<String>> m = new HashMap<>();
-        for (String s : a) {
+        for (String s : words) {
             char[] c = s.toCharArray();
             Arrays.sort(c);
             m.computeIfAbsent(new String(c), k -> new ArrayList<>()).add(s);

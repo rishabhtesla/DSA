@@ -30,15 +30,15 @@ import java.util.*;
  * O(n) time and O(1) auxiliary space.
  */
 public class P27_SingleElementInSortedArray {
-    public static int singleNonDuplicate(int[] a) {
-        int l = 0, r = a.length - 1;
-        while (l < r) {
-            int m = (l + r) / 2;
-            if ((m & 1) == 1) m--;
-            if (a[m] == a[m + 1]) l = m + 2;
-            else r = m;
+    public static int singleNonDuplicate(int[] nums) {
+        int start = 0, end = nums.length - 1;
+        while (start < end) {
+            int mid = (start + end) / 2;
+            if ((mid & 1) == 1) mid--;
+            if (nums[mid] == nums[mid + 1]) start = mid + 2;
+            else end = mid;
         }
-        return a[l];
+        return nums[start];
     }
 
     public static void main(String[] args) {

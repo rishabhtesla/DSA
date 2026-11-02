@@ -31,9 +31,9 @@ import java.util.*;
  * O(n) time and O(h) auxiliary space, where h is tree height.
  */
 public class P93_ConvertSortedListToBST {
-    public static TreeNode sortedListToBST(ListNode h) {
+    public static TreeNode sortedListToBST(ListNode head) {
         ArrayList<Integer> a = new ArrayList<>();
-        for (; h != null; h = h.next) a.add(h.val);
+        for (; head != null; head = head.next) a.add(head.val);
         return b(a, 0, a.size() - 1);
     }
 

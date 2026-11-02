@@ -31,9 +31,9 @@ import java.util.*;
  * O(n) time and O(1) auxiliary space.
  */
 public class P71_PalindromeLinkedList {
-    public static boolean isPalindrome(ListNode h) {
+    public static boolean isPalindrome(ListNode head) {
         ArrayList<Integer> a = new ArrayList<>();
-        for (; h != null; h = h.next) a.add(h.val);
+        for (; head != null; head = head.next) a.add(head.val);
         for (int i = 0, j = a.size() - 1; i < j; i++, j--) if (!a.get(i).equals(a.get(j))) return false;
         return true;
     }

@@ -34,9 +34,9 @@ public class P96_ClimbingStairs {
     public static int climbStairs(int n) {
         int a = 1, b = 1;
         for (int i = 0; i < n; i++) {
-            int t = a + b;
+            int target = a + b;
             a = b;
-            b = t;
+            b = target;
         }
         return a;
     }

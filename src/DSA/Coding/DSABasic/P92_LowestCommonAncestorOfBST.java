@@ -31,11 +31,11 @@ import java.util.*;
  * O(n) time and O(h) auxiliary space, where h is tree height.
  */
 public class P92_LowestCommonAncestorOfBST {
-    public static TreeNode lowestCommonAncestor(TreeNode r, TreeNode p, TreeNode q) {
-        while (r != null) {
-            if (p.val < r.val && q.val < r.val) r = r.left;
-            else if (p.val > r.val && q.val > r.val) r = r.right;
-            else return r;
+    public static TreeNode lowestCommonAncestor(TreeNode root, TreeNode firstNode, TreeNode secondNode) {
+        while (root != null) {
+            if (firstNode.val < root.val && secondNode.val < root.val) root = root.left;
+            else if (firstNode.val > root.val && secondNode.val > root.val) root = root.right;
+            else return root;
         }
         return null;
     }

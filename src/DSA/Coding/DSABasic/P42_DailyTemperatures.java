@@ -31,11 +31,11 @@ import java.util.*;
  * O(n) time and O(1) auxiliary space.
  */
 public class P42_DailyTemperatures {
-    public static int[] dailyTemperatures(int[] a) {
-        int[] r = new int[a.length];
+    public static int[] dailyTemperatures(int[] nums) {
+        int[] r = new int[nums.length];
         Deque<Integer> s = new ArrayDeque<>();
-        for (int i = 0; i < a.length; i++) {
-            while (!s.isEmpty() && a[i] > a[s.peek()]) {
+        for (int i = 0; i < nums.length; i++) {
+            while (!s.isEmpty() && nums[i] > nums[s.peek()]) {
                 int j = s.pop();
                 r[j] = i - j;
             }

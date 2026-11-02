@@ -31,11 +31,11 @@ import java.util.*;
  * O(n) time and O(h) auxiliary space, where h is tree height.
  */
 public class P80_BinaryTreeLevelOrderTraversal {
-    public static List<List<Integer>> levelOrder(TreeNode r) {
+    public static List<List<Integer>> levelOrder(TreeNode root) {
         List<List<Integer>> o = new ArrayList<>();
-        if (r == null) return o;
+        if (root == null) return o;
         Queue<TreeNode> q = new ArrayDeque<>();
-        q.add(r);
+        q.add(root);
         while (!q.isEmpty()) {
             List<Integer> z = new ArrayList<>();
             for (int n = q.size(); n > 0; n--) {

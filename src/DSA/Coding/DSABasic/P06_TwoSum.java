@@ -30,11 +30,11 @@ import java.util.*;
  * O(n) time and O(n) auxiliary space for the value-to-index map.
  */
 public class P06_TwoSum {
-    public static int[] twoSum(int[] a, int t) {
-        Map<Integer, Integer> m = new HashMap<>();
-        for (int i = 0; i < a.length; i++) {
-            if (m.containsKey(t - a[i])) return new int[]{m.get(t - a[i]), i};
-            m.put(a[i], i);
+    public static int[] twoSum(int[] nums, int target) {
+        Map<Integer, Integer> indexMap = new HashMap<>();
+        for (int index = 0; index < nums.length; index++) {
+            if (indexMap.containsKey(target - nums[index])) return new int[]{indexMap.get(target - nums[index]), index};
+            indexMap.put(nums[index], index);
         }
         return new int[0];
     }
