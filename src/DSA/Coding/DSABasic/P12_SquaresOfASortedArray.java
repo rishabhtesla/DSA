@@ -21,11 +21,12 @@ import java.util.*;
  * 3. Update the result immediately when the current value proves a better answer or completes a valid condition.
  *
  * Dry run
- * Example from main: [-4,-1,0,3,10] -> [0,1,9,16,100].
- * 1. Read the input values from left to right.
- * 2. Apply the decision described in the approach to the current value.
- * 3. Update the running answer and continue until all values are processed.
- * 4. Return the final answer produced after the last value.
+ *   State flow for [-4,-1,0,3,10]:
+ *     left=-4, right=10 -> place 100 at the end
+ *     left=-4, right=3  -> place 16 at the next position
+ *     left=-1, right=3  -> place 9 at the next position
+ *     left=-1, right=0  -> place 1, then place 0
+ *     result is filled from right to left: [0,1,9,16,100]
  *
  * Complexity
  * O(n) time and O(1) auxiliary space.

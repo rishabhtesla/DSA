@@ -21,11 +21,12 @@ import java.util.*;
  * 3. Update the boundary or position after each value is placed or read, avoiding repeated work.
  *
  * Dry run
- * Example from main: n=3 -> [[1,2,3],[8,9,4],[7,6,5]].
- * 1. Start at the first valid row, column, or boundary.
- * 2. Read or write the current cell and move in the required direction.
- * 3. Shrink or update the boundary after completing a row, column, or rotation.
- * 4. Stop after every cell has been processed.
+ *   Spiral-fill visual for n = 3:
+ *     top row:      1 2 3
+ *     right column:       4
+ *     bottom row:   7 6 5
+ *     left column and center: 8 9
+ *     result: [[1,2,3],[8,9,4],[7,6,5]]
  *
  * Complexity
  * O(n) time and O(1) auxiliary space.

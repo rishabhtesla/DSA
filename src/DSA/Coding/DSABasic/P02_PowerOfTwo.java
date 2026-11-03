@@ -24,17 +24,23 @@ package DSA.Coding.DSABasic;
  *    two.
  *
  * Dry run: n = 16
- *   Start: n = 16
- *   Divide by 2: n = 8
- *   Divide by 2: n = 4
- *   Divide by 2: n = 2
- *   Divide by 2: n = 1
- *   n == 1, so return true.
+ *   Visual state table:
  *
- * Dry run: n = 18
- *   Divide by 2: n = 9
- *   9 is not divisible by 2 and is not 1.
- *   Return false.
+ *   Step | current n | divisible by 2? | next n
+ *   -----|-----------|------------------|-------
+ *     0  |    16     |       yes        |   8
+ *     1  |     8     |       yes        |   4
+ *     2  |     4     |       yes        |   2
+ *     3  |     2     |       yes        |   1
+ *     4  |     1     |        no        | stop
+ *
+ *   The final value is 1, so return true.
+ *
+ *   Contrast with n = 18:
+ *
+ *   18 -> 9 -> stop
+ *
+ *   The final value is 9 rather than 1, so return false.
  *
  * Complexity
  *   Time: O(log n), because n is divided by 2 in every iteration.

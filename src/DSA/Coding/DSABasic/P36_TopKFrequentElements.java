@@ -21,11 +21,10 @@ import java.util.*;
  * 3. Update the result immediately when the current value proves a better answer or completes a valid condition.
  *
  * Dry run
- * Example from main: [1,1,1,2,2,3], k=2 -> [1,2].
- * 1. Read the input values from left to right.
- * 2. Apply the decision described in the approach to the current value.
- * 3. Update the running answer and continue until all values are processed.
- * 4. Return the final answer produced after the last value.
+ *   Frequency visual for [1,1,1,2,2,3], k = 2:
+ *     frequencies: 1 -> 3, 2 -> 2, 3 -> 1
+ *     sort values by frequency descending -> [1,2,3]
+ *     take the first 2 values -> [1,2]
  *
  * Complexity
  * O(n log n) time and O(n) auxiliary space.

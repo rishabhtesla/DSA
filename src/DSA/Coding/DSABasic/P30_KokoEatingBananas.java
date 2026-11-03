@@ -21,10 +21,11 @@ import java.util.*;
  * 3. Move the left and right boundaries until the answer is found or the search interval becomes empty.
  *
  * Dry run
- * Example from main: [3,6,7,11], h=8 -> 4.
- * 1. Start with the complete valid search interval.
- * 2. Inspect the middle position and decide which half can still contain the answer.
- * 3. Discard the other half and repeat until the answer is found or the interval is empty.
+ *   Speed-search visual for piles [3,6,7,11], h = 8:
+ *     speed 6 needs 1+1+2+2 = 6 hours, so try a slower speed
+ *     speed 3 needs 1+2+3+4 = 10 hours, too slow
+ *     speed 4 needs 1+2+2+3 = 8 hours, feasible
+ *     return the smallest feasible speed, 4
  *
  * Complexity
  * O(n) time and O(1) auxiliary space.

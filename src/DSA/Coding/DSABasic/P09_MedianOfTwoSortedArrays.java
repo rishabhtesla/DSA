@@ -22,10 +22,15 @@ import java.util.*;
  *
  * Dry run
  * Example from main: [1,3] and [2] -> 2.0.
- * 1. Read the input values from left to right.
- * 2. Apply the decision described in the approach to the current value.
- * 3. Update the running answer and continue until all values are processed.
- * 4. Return the final answer produced after the last value.
+ *   Visual transformation:
+ *
+ *   firstArray       = [1, 3]
+ *   secondArray      = [2]
+ *   copied combined  = [1, 3, 2]
+ *   sorted combined  = [1, 2, 3]
+ *   length           = 3
+ *   middle index     = 3 / 2 = 1
+ *   median           = combined[1] = 2.0
  *
  * Complexity
  * O(n log n) time and O(n) auxiliary space.

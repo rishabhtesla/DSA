@@ -21,11 +21,11 @@ import java.util.*;
  * 3. Save the next node before changing links, then advance the pointers while preserving the list structure.
  *
  * Dry run
- * Example from main: 1->2, n=1 -> 1.
- * 1. Initialize the pointers described in the approach.
- * 2. Save the next node before changing a link or moving a pointer.
- * 3. Update the links and advance until the required node or the end is reached.
- * 4. Return the resulting head or answer.
+ *   Gap-pointer visual for 1->2, n = 1:
+ *     move the fast pointer n+1 positions ahead of slow
+ *     advance both until fast reaches null
+ *     slow is just before the node to remove; remove node 2
+ *     result: 1
  *
  * Complexity
  * O(n) time and O(1) auxiliary space.

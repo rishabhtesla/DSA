@@ -21,10 +21,10 @@ import java.util.*;
  * 3. Move the left and right boundaries until the answer is found or the search interval becomes empty.
  *
  * Dry run
- * Example from main: [0,2,1,0] -> 1.
- * 1. Start with the complete valid search interval.
- * 2. Inspect the middle position and decide which half can still contain the answer.
- * 3. Discard the other half and repeat until the answer is found or the interval is empty.
+ *   Peak-search visual for [0,2,1,0]:
+ *     mid=1 -> 2 > 1, so the peak is at mid or to its left
+ *     move end to 1; start=end=1
+ *     return peak index 1
  *
  * Complexity
  * O(n) time and O(1) auxiliary space.

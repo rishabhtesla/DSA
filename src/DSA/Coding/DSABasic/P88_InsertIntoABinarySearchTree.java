@@ -21,11 +21,10 @@ import java.util.*;
  * 3. The base case for a null node stops the recursion and supplies the identity value for the combination.
  *
  * Dry run
- * Example from main: BST [4,2,7], insert 5 -> [4,2,7,null,null,5].
- * 1. Start at the root and apply the base case if the node is null.
- * 2. Recursively solve the left and right child subtrees.
- * 3. Combine the child results at the current node.
- * 4. Return the result assembled at the root.
+ *   BST-insert visual for value 5:
+ *     at 4: 5 > 4, move right to 7
+ *     at 7: 5 < 7, move left
+ *     left child is null, insert 5 there
  *
  * Complexity
  * O(n) time and O(h) auxiliary space, where h is tree height.

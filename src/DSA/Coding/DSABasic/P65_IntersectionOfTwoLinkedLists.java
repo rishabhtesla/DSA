@@ -21,11 +21,10 @@ import java.util.*;
  * 3. Save the next node before changing links, then advance the pointers while preserving the list structure.
  *
  * Dry run
- * Example from main: A and B both enter shared node 7 -> return that node.
- * 1. Initialize the pointers described in the approach.
- * 2. Save the next node before changing a link or moving a pointer.
- * 3. Update the links and advance until the required node or the end is reached.
- * 4. Return the resulting head or answer.
+ *   Two-pointer visual:
+ *     pointer A walks list A, pointer B walks list B
+ *     when a pointer reaches null, redirect it to the other list
+ *     both pointers then travel the same total distance and meet at node 7
  *
  * Complexity
  * O(n) time and O(1) auxiliary space.

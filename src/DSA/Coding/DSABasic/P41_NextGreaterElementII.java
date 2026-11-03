@@ -21,11 +21,11 @@ import java.util.*;
  * 3. Remove or preserve stack entries according to the ordering or balance rule required by the problem.
  *
  * Dry run
- * Example from main: [1,2,1] -> [2,-1,2].
- * 1. Read each character or value from left to right.
- * 2. Push unresolved values or state onto the stack.
- * 3. When the current value resolves the top entry, pop and update the answer.
- * 4. Process any remaining stack entries before returning.
+ *   Circular next-greater visual for [1,2,1]:
+ *     scan indices twice: [0,1,2,0,1,2]
+ *     1 at index 0 sees 2 -> answer 2
+ *     2 has no greater value -> -1
+ *     1 at index 2 wraps around and sees 2 -> answer 2
  *
  * Complexity
  * O(n) time and O(1) auxiliary space.

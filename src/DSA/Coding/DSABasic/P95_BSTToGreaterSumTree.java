@@ -21,11 +21,11 @@ import java.util.*;
  * 3. The base case for a null node stops the recursion and supplies the identity value for the combination.
  *
  * Dry run
- * Example from main: BST [4,1,6,0,2,5,7] -> node 4 becomes 22.
- * 1. Start at the root and apply the base case if the node is null.
- * 2. Recursively solve the left and right child subtrees.
- * 3. Combine the child results at the current node.
- * 4. Return the result assembled at the root.
+ *   Reverse-inorder GST visual for [4,1,6,0,2,5,7]:
+ *     visit values in descending order: 7,6,5,4,2,1,0
+ *     running sum at 7 = 7; at 6 = 13; at 5 = 18
+ *     running sum at 4 = 22, so node 4 becomes 22
+ *     continue updating smaller values with the running sum
  *
  * Complexity
  * O(n) time and O(h) auxiliary space, where h is tree height.

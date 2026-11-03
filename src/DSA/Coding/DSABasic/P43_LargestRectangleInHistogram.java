@@ -21,11 +21,10 @@ import java.util.*;
  * 3. Remove or preserve stack entries according to the ordering or balance rule required by the problem.
  *
  * Dry run
- * Example from main: [2,1,5,6,2,3] -> 10.
- * 1. Read each character or value from left to right.
- * 2. Push unresolved values or state onto the stack.
- * 3. When the current value resolves the top entry, pop and update the answer.
- * 4. Process any remaining stack entries before returning.
+ *   Histogram visual for [2,1,5,6,2,3]:
+ *     increasing bars 5 and 6 are kept on the stack
+ *     bar 2 closes height 6 with width 1 and height 5 with width 2
+ *     largest rectangle is height 5 * width 2 = 10
  *
  * Complexity
  * O(n log n) time and O(n) auxiliary space.

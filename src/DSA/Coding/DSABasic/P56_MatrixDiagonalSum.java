@@ -21,11 +21,11 @@ import java.util.*;
  * 3. Update the boundary or position after each value is placed or read, avoiding repeated work.
  *
  * Dry run
- * Example from main: [[1,2,3],[4,5,6],[7,8,9]] -> 25.
- * 1. Start at the first valid row, column, or boundary.
- * 2. Read or write the current cell and move in the required direction.
- * 3. Shrink or update the boundary after completing a row, column, or rotation.
- * 4. Stop after every cell has been processed.
+ *   Diagonal visual for the 3x3 matrix:
+ *     main diagonal: 1 + 5 + 9 = 15
+ *     secondary diagonal: 3 + 5 + 7 = 15
+ *     subtract the center 5 once because it was counted twice
+ *     total = 15 + 15 - 5 = 25
  *
  * Complexity
  * O(n) time and O(1) auxiliary space.

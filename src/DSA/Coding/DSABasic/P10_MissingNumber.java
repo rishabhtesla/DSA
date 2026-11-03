@@ -22,10 +22,17 @@ import java.util.*;
  *
  * Dry run
  * Example from main: [3,0,1] -> 2.
- * 1. Read the input values from left to right.
- * 2. Apply the decision described in the approach to the current value.
- * 3. Update the running answer and continue until all values are processed.
- * 4. Return the final answer produced after the last value.
+ *   Visual XOR state table:
+ *
+ *   Step | index i | nums[i] | x before | calculation        | x after
+ *   -----|---------|---------|----------|--------------------|--------
+ *     0  |    -    |    -    |    3     | start with n = 3  |   3
+ *     1  |    0    |    3    |    3     | 3 ^ 0 ^ 3          |   0
+ *     2  |    1    |    0    |    0     | 0 ^ 1 ^ 0          |   1
+ *     3  |    2    |    1    |    1     | 1 ^ 2 ^ 1          |   2
+ *
+ *   Matching values cancel because x ^ x = 0. The value left is 2,
+ *   so return 2.
  *
  * Complexity
  * O(n) time and O(1) auxiliary space.

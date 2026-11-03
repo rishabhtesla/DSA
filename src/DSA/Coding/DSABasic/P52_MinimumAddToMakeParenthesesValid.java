@@ -21,11 +21,11 @@ import java.util.*;
  * 3. Remove or preserve stack entries according to the ordering or balance rule required by the problem.
  *
  * Dry run
- * Example from main: "()))((" -> 4.
- * 1. Read each character or value from left to right.
- * 2. Push unresolved values or state onto the stack.
- * 3. When the current value resolves the top entry, pop and update the answer.
- * 4. Process any remaining stack entries before returning.
+ *   Parenthesis-balance visual for "()))(":
+ *     balance changes: 1 -> 0 -> 1 -> 0 -> -1 -> 0
+ *     one closing parenthesis has no matching opening parenthesis
+ *     one opening parenthesis remains unmatched at the end
+ *     additions needed = 1 + 1 = 2
  *
  * Complexity
  * O(n) time and O(1) auxiliary space.

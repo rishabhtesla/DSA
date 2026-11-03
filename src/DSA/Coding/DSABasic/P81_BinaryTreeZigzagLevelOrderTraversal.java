@@ -21,11 +21,11 @@ import java.util.*;
  * 3. The base case for a null node stops the recursion and supplies the identity value for the combination.
  *
  * Dry run
- * Example from main: [3,9,20,null,null,15,7] -> [[3],[20,9],[15,7]].
- * 1. Start at the root and apply the base case if the node is null.
- * 2. Recursively solve the left and right child subtrees.
- * 3. Combine the child results at the current node.
- * 4. Return the result assembled at the root.
+ *   Zigzag queue visual:
+ *     level 0 left-to-right -> [3]
+ *     level 1 right-to-left -> [20,9]
+ *     level 2 left-to-right -> [15,7]
+ *     result: [[3],[20,9],[15,7]]
  *
  * Complexity
  * O(n) time and O(h) auxiliary space, where h is tree height.

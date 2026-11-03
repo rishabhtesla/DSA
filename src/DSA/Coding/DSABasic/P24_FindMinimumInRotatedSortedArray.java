@@ -21,10 +21,10 @@ import java.util.*;
  * 3. Move the left and right boundaries until the answer is found or the search interval becomes empty.
  *
  * Dry run
- * Example from main: [3,4,5,1,2] -> 1.
- * 1. Start with the complete valid search interval.
- * 2. Inspect the middle position and decide which half can still contain the answer.
- * 3. Discard the other half and repeat until the answer is found or the interval is empty.
+ *   Minimum-search visual for [3,4,5,1,2]:
+ *     mid=2 -> 5 > nums[end]=2, so minimum is right of mid
+ *     search [1,2]; mid=3 -> 1 <= 2, keep the left side
+ *     start=end=3, return nums[3] = 1
  *
  * Complexity
  * O(n) time and O(1) auxiliary space.

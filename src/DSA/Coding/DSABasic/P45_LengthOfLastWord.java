@@ -21,11 +21,10 @@ import java.util.*;
  * 3. Update the state in the same order as the recurrence so each iteration represents one more input position.
  *
  * Dry run
- * Example from main: "Hello World" -> 5.
- * 1. Initialize the base state before processing the input.
- * 2. Calculate the next state from the previous state values.
- * 3. Shift the state variables and continue until the input is exhausted.
- * 4. Return the state that represents the requested answer.
+ *   Right-to-left word visual for "Hello World":
+ *     skip trailing spaces, then count letters in World -> 5
+ *     stop at the space before World
+ *     return 5
  *
  * Complexity
  * O(n) time and O(1) auxiliary space.

@@ -21,11 +21,11 @@ import java.util.*;
  * 3. Update the state in the same order as the recurrence so each iteration represents one more input position.
  *
  * Dry run
- * Example from main: [2,3,1,1,4] -> true.
- * 1. Initialize the base state before processing the input.
- * 2. Calculate the next state from the previous state values.
- * 3. Shift the state variables and continue until the input is exhausted.
- * 4. Return the state that represents the requested answer.
+ *   Reachability visual for [2,3,1,1,4]:
+ *     start at index 0, maximum reachable index = 2
+ *     index 1 extends reach to 4
+ *     index 4 is reachable, so the last position can be reached
+ *     return true
  *
  * Complexity
  * O(n) time and O(1) auxiliary space.

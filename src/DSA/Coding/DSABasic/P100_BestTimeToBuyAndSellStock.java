@@ -21,11 +21,12 @@ import java.util.*;
  * 3. Update the state in the same order as the recurrence so each iteration represents one more input position.
  *
  * Dry run
- * Example from main: [7,1,5,3,6,4] -> 5 (buy 1, sell 6).
- * 1. Initialize the base state before processing the input.
- * 2. Calculate the next state from the previous state values.
- * 3. Shift the state variables and continue until the input is exhausted.
- * 4. Return the state that represents the requested answer.
+ *   Profit-state visual for [7,1,5,3,6,4]:
+ *     minimum price starts at 7; profit = 0
+ *     read 1 -> minimum price becomes 1
+ *     read 5 -> profit = 5-1 = 4
+ *     read 6 -> profit = 6-1 = 5, the best result
+ *     return 5
  *
  * Complexity
  * O(n) time and O(1) auxiliary space.

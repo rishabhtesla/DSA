@@ -21,11 +21,11 @@ import java.util.*;
  * 3. Update the state in the same order as the recurrence so each iteration represents one more input position.
  *
  * Dry run
- * Example from main: n=3 -> 3 ways: 1+1+1, 1+2, 2+1.
- * 1. Initialize the base state before processing the input.
- * 2. Calculate the next state from the previous state values.
- * 3. Shift the state variables and continue until the input is exhausted.
- * 4. Return the state that represents the requested answer.
+ *   Stair-count visual for n = 3:
+ *     ways(1) = 1: [1]
+ *     ways(2) = 2: [1+1], [2]
+ *     ways(3) = ways(2)+ways(1) = 2+1 = 3
+ *     ways are [1+1+1], [1+2], [2+1]
  *
  * Complexity
  * O(n) time and O(1) auxiliary space.

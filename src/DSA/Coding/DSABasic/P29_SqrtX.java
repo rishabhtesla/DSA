@@ -21,10 +21,11 @@ import java.util.*;
  * 3. Move the left and right boundaries until the answer is found or the search interval becomes empty.
  *
  * Dry run
- * Example from main: x=8 -> 2.
- * 1. Start with the complete valid search interval.
- * 2. Inspect the middle position and decide which half can still contain the answer.
- * 3. Discard the other half and repeat until the answer is found or the interval is empty.
+ *   Binary-search table for x = 8:
+ *     test mid values and keep only values whose square may still be valid
+ *     2*2 = 4 <= 8, so 2 is feasible
+ *     3*3 = 9 > 8, so values from 3 upward are discarded
+ *     return the greatest feasible value, 2
  *
  * Complexity
  * O(n) time and O(1) auxiliary space.

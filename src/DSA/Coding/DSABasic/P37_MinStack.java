@@ -21,11 +21,10 @@ import java.util.*;
  * 3. Remove or preserve stack entries according to the ordering or balance rule required by the problem.
  *
  * Dry run
- * Example from main: push(2), push(1), getMin() -> 1.
- * 1. Read each character or value from left to right.
- * 2. Push unresolved values or state onto the stack.
- * 3. When the current value resolves the top entry, pop and update the answer.
- * 4. Process any remaining stack entries before returning.
+ *   MinStack state visual:
+ *     push(2): values = [2], minimums = [2]
+ *     push(1): values = [2,1], minimums = [2,1]
+ *     getMin() reads the top of minimums -> 1
  *
  * Complexity
  * O(n) time and O(1) auxiliary space.

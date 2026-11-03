@@ -21,10 +21,9 @@ import java.util.*;
  * 3. Move the left and right boundaries until the answer is found or the search interval becomes empty.
  *
  * Dry run
- * Example from main: [-1,0,3,5,9,12], 9 -> 4.
- * 1. Start with the complete valid search interval.
- * 2. Inspect the middle position and decide which half can still contain the answer.
- * 3. Discard the other half and repeat until the answer is found or the interval is empty.
+ *   Binary-search table for [-1,0,3,5,9,12], target = 9:
+ *     start=0, end=5, mid=2 -> 3 < 9, move start to 3
+ *     start=3, end=5, mid=4 -> nums[4]=9, return 4
  *
  * Complexity
  * O(n) time and O(1) auxiliary space.

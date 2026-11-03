@@ -21,11 +21,11 @@ import java.util.*;
  * 3. The base case for a null node stops the recursion and supplies the identity value for the combination.
  *
  * Dry run
- * Example from main: BST 1->2->3 -> balanced root 2.
- * 1. Start at the root and apply the base case if the node is null.
- * 2. Recursively solve the left and right child subtrees.
- * 3. Combine the child results at the current node.
- * 4. Return the result assembled at the root.
+ *   Balance-BST visual for 1->2->3:
+ *     inorder values are [1,2,3]
+ *     choose middle value 2 as the new root
+ *     attach 1 to the left and 3 to the right
+ *     return balanced root 2
  *
  * Complexity
  * O(n) time and O(h) auxiliary space, where h is tree height.

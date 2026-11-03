@@ -21,11 +21,11 @@ import java.util.*;
  * 3. Save the next node before changing links, then advance the pointers while preserving the list structure.
  *
  * Dry run
- * Example from main: 1->2 and 1->3 -> 1->1->2->3.
- * 1. Initialize the pointers described in the approach.
- * 2. Save the next node before changing a link or moving a pointer.
- * 3. Update the links and advance until the required node or the end is reached.
- * 4. Return the resulting head or answer.
+ *   Merge visual for 1->2 and 1->3:
+ *     compare 1 and 1 -> attach first 1
+ *     compare 2 and 1 -> attach second 1
+ *     attach 2, then remaining 3
+ *     result: 1->1->2->3
  *
  * Complexity
  * O(n) time and O(1) auxiliary space.

@@ -21,11 +21,10 @@ import java.util.*;
  * 3. Remove or preserve stack entries according to the ordering or balance rule required by the problem.
  *
  * Dry run
- * Example from main: push(1), push(2), pop() -> 2.
- * 1. Read each character or value from left to right.
- * 2. Push unresolved values or state onto the stack.
- * 3. When the current value resolves the top entry, pop and update the answer.
- * 4. Process any remaining stack entries before returning.
+ *   Stack-using-queue visual:
+ *     push(1) -> queue [1]
+ *     push(2) -> add 2, then rotate old values -> queue [2,1]
+ *     pop() removes the front value -> 2
  *
  * Complexity
  * O(n) time and O(1) auxiliary space.

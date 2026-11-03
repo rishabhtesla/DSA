@@ -21,11 +21,11 @@ import java.util.*;
  * 3. The base case for a null node stops the recursion and supplies the identity value for the combination.
  *
  * Dry run
- * Example from main: tree [3,9,20,null,null,15,7] -> [[3],[9,20],[15,7]].
- * 1. Start at the root and apply the base case if the node is null.
- * 2. Recursively solve the left and right child subtrees.
- * 3. Combine the child results at the current node.
- * 4. Return the result assembled at the root.
+ *   Level-order queue visual:
+ *     queue [3] -> output [3], enqueue 9 and 20
+ *     queue [9,20] -> output [9,20], enqueue 15 and 7
+ *     queue [15,7] -> output [15,7]
+ *     result: [[3],[9,20],[15,7]]
  *
  * Complexity
  * O(n) time and O(h) auxiliary space, where h is tree height.

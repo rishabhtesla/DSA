@@ -21,11 +21,11 @@ import java.util.*;
  * 3. Update the result immediately when the current value proves a better answer or completes a valid condition.
  *
  * Dry run
- * Example from main: [1,8,6,2,5,4,8,3,7] -> 49.
- * 1. Read the input values from left to right.
- * 2. Apply the decision described in the approach to the current value.
- * 3. Update the running answer and continue until all values are processed.
- * 4. Return the final answer produced after the last value.
+ *   Two-pointer visual for [1,8,6,2,5,4,8,3,7]:
+ *     start at heights 1 and 7 -> area = 8
+ *     move the shorter side and keep the best area
+ *     the best pair is height 8 at index 1 and height 7 at index 8
+ *     width = 7, area = 7*7 = 49
  *
  * Complexity
  * O(n) time and O(1) auxiliary space.

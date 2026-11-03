@@ -21,11 +21,11 @@ import java.util.*;
  * 3. Remove or preserve stack entries according to the ordering or balance rule required by the problem.
  *
  * Dry run
- * Example from main: ["eat","tea","tan","ate","nat","bat"] -> groups [eat,tea,ate], [tan,nat], [bat].
- * 1. Read each character or value from left to right.
- * 2. Push unresolved values or state onto the stack.
- * 3. When the current value resolves the top entry, pop and update the answer.
- * 4. Process any remaining stack entries before returning.
+ *   Anagram-group visual:
+ *     "eat", "tea", "ate" share sorted key "aet"
+ *     "tan", "nat" share sorted key "ant"
+ *     "bat" has key "abt"
+ *     return three groups
  *
  * Complexity
  * O(n log n) time and O(n) auxiliary space.

@@ -21,11 +21,10 @@ import java.util.*;
  * 3. Remove or preserve stack entries according to the ordering or balance rule required by the problem.
  *
  * Dry run
- * Example from main: "abbcccddddeeeeedcba" -> 5.
- * 1. Read each character or value from left to right.
- * 2. Push unresolved values or state onto the stack.
- * 3. When the current value resolves the top entry, pop and update the answer.
- * 4. Process any remaining stack entries before returning.
+ *   Run-length visual for "abbcccddddeeeeedcba":
+ *     runs have lengths 1,2,3,4,5,1,1,1,1,1
+ *     the longest run is "eeeee" with length 5
+ *     return 5
  *
  * Complexity
  * O(n) time and O(1) auxiliary space.

@@ -27,14 +27,19 @@ package DSA.Coding.DSABasic;
  * 5. Repeat until the required position is reached.
  *
  * Dry run: n = 6
- *   Start: ft = 0, st = 1
- *   i = 1: tt = 1, ft = 1, st = 1
- *   i = 2: tt = 2, ft = 1, st = 2
- *   i = 3: tt = 3, ft = 2, st = 3
- *   i = 4: tt = 5, ft = 3, st = 5
- *   i = 5: tt = 8, ft = 5, st = 8
- *   i = 6: tt = 13, ft = 8, st = 13
- *   Return ft = 8.
+ *   Visual state table:
+ *
+ *   Step | ft before | st before | tt = ft + st | ft after | st after
+ *   -----|-----------|-----------|---------------|----------|---------
+ *     0  |     0     |     1     |       -       |    0     |    1
+ *     1  |     0     |     1     |       1       |    1     |    1
+ *     2  |     1     |     1     |       2       |    1     |    2
+ *     3  |     1     |     2     |       3       |    2     |    3
+ *     4  |     2     |     3     |       5       |    3     |    5
+ *     5  |     3     |     5     |       8       |    5     |    8
+ *     6  |     5     |     8     |      13       |    8     |   13
+ *
+ *   After step 6, ft stores F(6) = 8, so return 8.
  *
  * Complexity
  *   Time: O(n).

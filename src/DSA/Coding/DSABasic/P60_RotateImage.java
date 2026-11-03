@@ -21,11 +21,10 @@ import java.util.*;
  * 3. Update the boundary or position after each value is placed or read, avoiding repeated work.
  *
  * Dry run
- * Example from main: [[1,2],[3,4]] -> [[3,1],[4,2]].
- * 1. Start at the first valid row, column, or boundary.
- * 2. Read or write the current cell and move in the required direction.
- * 3. Shrink or update the boundary after completing a row, column, or rotation.
- * 4. Stop after every cell has been processed.
+ *   Clockwise-rotation visual for [[1,2],[3,4]]:
+ *     transpose -> [[1,3],[2,4]]
+ *     reverse each row -> [[3,1],[4,2]]
+ *     return the rotated matrix
  *
  * Complexity
  * O(n) time and O(1) auxiliary space.

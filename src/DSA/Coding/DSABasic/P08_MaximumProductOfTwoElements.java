@@ -22,10 +22,16 @@ import java.util.*;
  *
  * Dry run
  * Example from main: [3,4,5,2] -> 12 from 5 and 4.
- * 1. Read the input values from left to right.
- * 2. Apply the decision described in the approach to the current value.
- * 3. Update the running answer and continue until all values are processed.
- * 4. Return the final answer produced after the last value.
+ *   Visual state table:
+ *
+ *   Value | largest x | second-largest y | action
+ *   ------|-----------|------------------|--------------------
+ *      3  |     3     |        -1        | x = 3
+ *      4  |     4     |         3        | x = 4, y = 3
+ *      5  |     5     |         4        | x = 5, y = 4
+ *      2  |     5     |         4        | no change
+ *
+ *   Final calculation: (5 - 1) * (4 - 1) = 4 * 3 = 12.
  *
  * Complexity
  * O(n) time and O(1) auxiliary space.

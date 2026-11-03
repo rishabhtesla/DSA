@@ -21,11 +21,11 @@ import java.util.*;
  * 3. Remove or preserve stack entries according to the ordering or balance rule required by the problem.
  *
  * Dry run
- * Example from main: nums1=[4,1,2], nums2=[1,3,4,2] -> [-1,3,-1].
- * 1. Read each character or value from left to right.
- * 2. Push unresolved values or state onto the stack.
- * 3. When the current value resolves the top entry, pop and update the answer.
- * 4. Process any remaining stack entries before returning.
+ *   Next-greater mapping for nums2 = [1,3,4,2]:
+ *     read 1, then 3 resolves 1 -> next greater is 3
+ *     read 4 resolves 3 -> next greater is 4
+ *     4 and 2 have no greater value to their right -> -1
+ *     nums1 [4,1,2] maps to [-1,3,-1]
  *
  * Complexity
  * O(n) time and O(1) auxiliary space.

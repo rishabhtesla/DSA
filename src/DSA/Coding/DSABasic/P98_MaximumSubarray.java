@@ -21,11 +21,11 @@ import java.util.*;
  * 3. Update the state in the same order as the recurrence so each iteration represents one more input position.
  *
  * Dry run
- * Example from main: [-2,1,-3,4,-1,2,1,-5,4] -> 6 from [4,-1,2,1].
- * 1. Initialize the base state before processing the input.
- * 2. Calculate the next state from the previous state values.
- * 3. Shift the state variables and continue until the input is exhausted.
- * 4. Return the state that represents the requested answer.
+ *   Kadane-state visual for [-2,1,-3,4,-1,2,1,-5,4]:
+ *     restart at 1 after the negative prefix
+ *     best subarray grows: [4] -> [4,-1,2,1] with sum 6
+ *     later values do not exceed 6
+ *     return 6
  *
  * Complexity
  * O(n) time and O(1) auxiliary space.

@@ -21,10 +21,10 @@ import java.util.*;
  * 3. Move the left and right boundaries until the answer is found or the search interval becomes empty.
  *
  * Dry run
- * Example from main: [4,5,6,7,0,1,2], 0 -> 4.
- * 1. Start with the complete valid search interval.
- * 2. Inspect the middle position and decide which half can still contain the answer.
- * 3. Discard the other half and repeat until the answer is found or the interval is empty.
+ *   Rotated-search visual for [4,5,6,7,0,1,2], target = 0:
+ *     mid=3 -> 7; left half [4,5,6,7] is sorted, target is outside it
+ *     search right half: [0,1,2]
+ *     mid=4 -> 0, return index 4
  *
  * Complexity
  * O(n) time and O(1) auxiliary space.

@@ -21,11 +21,11 @@ import java.util.*;
  * 3. The base case for a null node stops the recursion and supplies the identity value for the combination.
  *
  * Dry run
- * Example from main: [1,2,3,4,5] -> 3.
- * 1. Start at the root and apply the base case if the node is null.
- * 2. Recursively solve the left and right child subtrees.
- * 3. Combine the child results at the current node.
- * 4. Return the result assembled at the root.
+ *   Diameter visual for [1,2,3,4,5]:
+ *     subtree at 2 has left and right heights 1 and 1
+ *     path through 2 has 2 edges
+ *     path 4->2->1->3 has 3 edges, which is the best
+ *     return 3
  *
  * Complexity
  * O(n) time and O(h) auxiliary space, where h is tree height.

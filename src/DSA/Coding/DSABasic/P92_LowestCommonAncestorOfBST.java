@@ -21,11 +21,10 @@ import java.util.*;
  * 3. The base case for a null node stops the recursion and supplies the identity value for the combination.
  *
  * Dry run
- * Example from main: BST [6,2,8,0,4,7,9], p=2,q=8 -> 6.
- * 1. Start at the root and apply the base case if the node is null.
- * 2. Recursively solve the left and right child subtrees.
- * 3. Combine the child results at the current node.
- * 4. Return the result assembled at the root.
+ *   BST-LCA visual for p=2 and q=8:
+ *     root 6 lies between 2 and 8
+ *     one target is on each side of 6
+ *     first split point is 6, so return 6
  *
  * Complexity
  * O(n) time and O(h) auxiliary space, where h is tree height.

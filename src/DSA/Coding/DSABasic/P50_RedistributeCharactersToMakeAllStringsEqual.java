@@ -21,11 +21,10 @@ import java.util.*;
  * 3. Remove or preserve stack entries according to the ordering or balance rule required by the problem.
  *
  * Dry run
- * Example from main: ["abc","aabc","bc"] -> true.
- * 1. Read each character or value from left to right.
- * 2. Push unresolved values or state onto the stack.
- * 3. When the current value resolves the top entry, pop and update the answer.
- * 4. Process any remaining stack entries before returning.
+ *   Character-count visual for ["abc","aabc","bc"]:
+ *     total counts: a=3, b=3, c=3
+ *     there are 3 strings, and each count is divisible by 3
+ *     every character can be evenly redistributed -> true
  *
  * Complexity
  * O(n) time and O(1) auxiliary space.

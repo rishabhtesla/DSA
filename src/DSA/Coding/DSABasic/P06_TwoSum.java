@@ -22,9 +22,14 @@ import java.util.*;
  *
  * Dry run
  * Example from main: [2,7,11,15], 9 -> [0,1].
- * 1. At index 0, value 2 needs 7; 7 is not in the map, so save 2 -> 0.
- * 2. At index 1, value 7 needs 2; 2 is in the map at index 0.
- * 3. Return [0, 1] immediately because values 2 and 7 add to 9.
+ *   Visual state table:
+ *
+ *   Index | nums[index] | needed value | indexMap before | action
+ *   ------|-------------|--------------|-----------------|--------------------
+ *     0   |      2      |       7      |       {}        | save 2 -> 0
+ *     1   |      7      |       2      |     {2 -> 0}     | found 2 at index 0
+ *
+ *   Return [0, 1] because nums[0] + nums[1] = 2 + 7 = 9.
  *
  * Complexity
  * O(n) time and O(n) auxiliary space for the value-to-index map.

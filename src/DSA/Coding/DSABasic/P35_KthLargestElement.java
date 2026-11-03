@@ -21,11 +21,10 @@ import java.util.*;
  * 3. Update the result immediately when the current value proves a better answer or completes a valid condition.
  *
  * Dry run
- * Example from main: [3,2,1,5,6,4], k=2 -> 5.
- * 1. Read the input values from left to right.
- * 2. Apply the decision described in the approach to the current value.
- * 3. Update the running answer and continue until all values are processed.
- * 4. Return the final answer produced after the last value.
+ *   Sorted-order visual for [3,2,1,5,6,4], k = 2:
+ *     sort values -> [1,2,3,4,5,6]
+ *     the 2nd largest value is at index length-k = 4
+ *     return sorted[4] = 5
  *
  * Complexity
  * O(n log n) time and O(n) auxiliary space.

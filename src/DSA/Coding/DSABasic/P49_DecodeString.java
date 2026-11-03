@@ -21,11 +21,10 @@ import java.util.*;
  * 3. Remove or preserve stack entries according to the ordering or balance rule required by the problem.
  *
  * Dry run
- * Example from main: "3[a2[c]]" -> "accaccacc".
- * 1. Read each character or value from left to right.
- * 2. Push unresolved values or state onto the stack.
- * 3. When the current value resolves the top entry, pop and update the answer.
- * 4. Process any remaining stack entries before returning.
+ *   Nested-stack visual for "3[a2[c]]":
+ *     read 3 -> repeat count 3; read a -> current text "a"
+ *     read 2 -> nested count; read c -> nested text "c"
+ *     close inner bracket -> "acc"; close outer bracket -> "accaccacc"
  *
  * Complexity
  * O(n) time and O(1) auxiliary space.

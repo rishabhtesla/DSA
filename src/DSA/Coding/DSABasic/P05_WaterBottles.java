@@ -22,9 +22,14 @@ import java.util.*;
  *
  * Dry run
  * Example from main: 9 bottles, exchange 3 -> 13 bottles drunk.
- * 1. Start with 9 full bottles, so the total is 9 and 9 empty bottles are available.
- * 2. Exchange the 9 empty bottles for 3 full bottles and drink them; the total is now 12.
- * 3. Those 3 new empties exchange for 1 more bottle, so the method returns 13 after drinking it.
+ *   Visual state table:
+ *
+ *   Step | numBottles before | totalBottles before | add to total | next numBottles
+ *   -----|-------------------|---------------------|--------------|----------------
+ *     0  |         9         |          0          |      9       |       3
+ *     1  |         3         |          9          |      3       |       1
+ *   Stop because 1 < numExchange (3).
+ *   Final answer = totalBottles 12 + remaining numBottles 1 = 13.
  *
  * Complexity
  * O(n) time and O(1) auxiliary space.

@@ -21,11 +21,11 @@ import java.util.*;
  * 3. The base case for a null node stops the recursion and supplies the identity value for the combination.
  *
  * Dry run
- * Example from main: BST [5,3,6,2,4,null,7], delete 3 -> valid BST rooted at 5.
- * 1. Start at the root and apply the base case if the node is null.
- * 2. Recursively solve the left and right child subtrees.
- * 3. Combine the child results at the current node.
- * 4. Return the result assembled at the root.
+ *   BST-delete visual for key 3:
+ *     at 5: 3 < 5, move left to 3
+ *     node 3 has two children; replace it with its inorder successor 4
+ *     remove the original successor node 4
+ *     the tree remains a valid BST
  *
  * Complexity
  * O(n) time and O(h) auxiliary space, where h is tree height.

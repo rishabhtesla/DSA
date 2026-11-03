@@ -21,11 +21,10 @@ import java.util.*;
  * 3. Update the result immediately when the current value proves a better answer or completes a valid condition.
  *
  * Dry run
- * Example from main: [2,7,11,15], 9 -> [1,2].
- * 1. Read the input values from left to right.
- * 2. Apply the decision described in the approach to the current value.
- * 3. Update the running answer and continue until all values are processed.
- * 4. Return the final answer produced after the last value.
+ *   Pointer table for [2,7,11,15], target = 9:
+ *     left=0, right=3: 2+15=17, too large -> move right
+ *     left=0, right=2: 2+11=13, too large -> move right
+ *     left=0, right=1: 2+7=9, found -> return [1,2]
  *
  * Complexity
  * O(n) time and O(1) auxiliary space.

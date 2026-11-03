@@ -21,11 +21,10 @@ import java.util.*;
  * 3. Remove or preserve stack entries according to the ordering or balance rule required by the problem.
  *
  * Dry run
- * Example from main: push(1), push(2), peek() -> 1.
- * 1. Read each character or value from left to right.
- * 2. Push unresolved values or state onto the stack.
- * 3. When the current value resolves the top entry, pop and update the answer.
- * 4. Process any remaining stack entries before returning.
+ *   Queue-using-stacks visual:
+ *     push(1), push(2) -> input stack [1,2]
+ *     move values to output stack -> output top is 1
+ *     peek() reads 1 without removing it
  *
  * Complexity
  * O(n) time and O(1) auxiliary space.

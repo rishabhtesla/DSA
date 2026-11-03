@@ -21,11 +21,10 @@ import java.util.*;
  * 3. Remove or preserve stack entries according to the ordering or balance rule required by the problem.
  *
  * Dry run
- * Example from main: "the sky is blue" -> "blue is sky the".
- * 1. Read each character or value from left to right.
- * 2. Push unresolved values or state onto the stack.
- * 3. When the current value resolves the top entry, pop and update the answer.
- * 4. Process any remaining stack entries before returning.
+ *   Word-order visual for "the sky is blue":
+ *     read words from right to left: blue, is, sky, the
+ *     join them with one space
+ *     result: "blue is sky the"
  *
  * Complexity
  * O(n) time and O(1) auxiliary space.

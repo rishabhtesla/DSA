@@ -21,11 +21,11 @@ import java.util.*;
  * 3. The base case for a null node stops the recursion and supplies the identity value for the combination.
  *
  * Dry run
- * Example from main: [-10,-3,0,5,9] -> root 0 in one valid balanced tree.
- * 1. Start at the root and apply the base case if the node is null.
- * 2. Recursively solve the left and right child subtrees.
- * 3. Combine the child results at the current node.
- * 4. Return the result assembled at the root.
+ *   Balanced-BST visual for [-10,-3,0,5,9]:
+ *     choose middle value 0 as root
+ *     recursively build left subtree from [-10,-3]
+ *     recursively build right subtree from [5,9]
+ *     root of one valid balanced tree is 0
  *
  * Complexity
  * O(n) time and O(h) auxiliary space, where h is tree height.

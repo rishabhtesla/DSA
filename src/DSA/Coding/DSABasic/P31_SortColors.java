@@ -21,11 +21,11 @@ import java.util.*;
  * 3. Update the result immediately when the current value proves a better answer or completes a valid condition.
  *
  * Dry run
- * Example from main: [2,0,2,1,1,0] -> [0,0,1,1,2,2].
- * 1. Read the input values from left to right.
- * 2. Apply the decision described in the approach to the current value.
- * 3. Update the running answer and continue until all values are processed.
- * 4. Return the final answer produced after the last value.
+ *   Dutch National Flag visual for [2,0,2,1,1,0]:
+ *     low marks the next 0 position, mid scans, high marks the next 2 position
+ *     move 0 to the low region and 2 to the high region
+ *     leave 1 in the middle region
+ *     final array: [0,0,1,1,2,2]
  *
  * Complexity
  * O(n) time and O(1) auxiliary space.

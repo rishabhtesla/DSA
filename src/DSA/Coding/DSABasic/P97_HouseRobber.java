@@ -21,11 +21,12 @@ import java.util.*;
  * 3. Update the state in the same order as the recurrence so each iteration represents one more input position.
  *
  * Dry run
- * Example from main: [2,7,9,3,1] -> 12.
- * 1. Initialize the base state before processing the input.
- * 2. Calculate the next state from the previous state values.
- * 3. Shift the state variables and continue until the input is exhausted.
- * 4. Return the state that represents the requested answer.
+ *   House-robber state visual for [2,7,9,3,1]:
+ *     house 2 -> best = 2
+ *     house 7 -> best = 7
+ *     house 9 -> max(7,2+9) = 11
+ *     house 3 -> max(11,7+3) = 11; house 1 -> max(11,11+1) = 12
+ *     return 12
  *
  * Complexity
  * O(n) time and O(1) auxiliary space.

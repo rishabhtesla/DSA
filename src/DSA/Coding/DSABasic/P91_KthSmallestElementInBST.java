@@ -21,11 +21,10 @@ import java.util.*;
  * 3. The base case for a null node stops the recursion and supplies the identity value for the combination.
  *
  * Dry run
- * Example from main: BST [3,1,4,null,2], k=1 -> 1.
- * 1. Start at the root and apply the base case if the node is null.
- * 2. Recursively solve the left and right child subtrees.
- * 3. Combine the child results at the current node.
- * 4. Return the result assembled at the root.
+ *   Inorder/BST-order visual for [3,1,4,null,2], k = 1:
+ *     inorder traversal visits 1, then 2, then 3, then 4
+ *     the first visited value is the smallest value
+ *     return 1
  *
  * Complexity
  * O(n) time and O(h) auxiliary space, where h is tree height.

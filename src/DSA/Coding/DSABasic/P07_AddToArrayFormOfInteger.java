@@ -22,10 +22,17 @@ import java.util.*;
  *
  * Dry run
  * Example from main: [1,2,0,0]+34 -> [1,2,3,4].
- * 1. Read the input values from left to right.
- * 2. Apply the decision described in the approach to the current value.
- * 3. Update the running answer and continue until all values are processed.
- * 4. Return the final answer produced after the last value.
+ *   Digits are processed from right to left:
+ *
+ *   Step | index used | digit added | carry before | output digit | carry after | result
+ *   -----|------------|-------------|---------------|--------------|-------------|--------
+ *     1  |      3     |      0      |      34       |      4       |      3      | [4]
+ *     2  |      2     |      0      |       3       |      3       |      0      | [3,4]
+ *     3  |      1     |      2      |       0       |      2       |      0      | [2,3,4]
+ *     4  |      0     |      1      |       0       |      1       |      0      | [1,2,3,4]
+ *
+ *   The result is built from the front because the least significant digit
+ *   is calculated first.
  *
  * Complexity
  * O(n) time and O(1) auxiliary space.

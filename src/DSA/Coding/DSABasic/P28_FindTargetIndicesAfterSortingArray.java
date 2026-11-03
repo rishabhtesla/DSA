@@ -21,10 +21,10 @@ import java.util.*;
  * 3. Move the left and right boundaries until the answer is found or the search interval becomes empty.
  *
  * Dry run
- * Example from main: [1,2,5,2,3], target 2 -> [1,2].
- * 1. Start with the complete valid search interval.
- * 2. Inspect the middle position and decide which half can still contain the answer.
- * 3. Discard the other half and repeat until the answer is found or the interval is empty.
+ *   Sort-and-collect visual for [1,2,5,2,3], target = 2:
+ *     sort input -> [1,2,2,3,5]
+ *     scan indices: index 1 matches, index 2 matches
+ *     return target indices [1,2]
  *
  * Complexity
  * O(n) time and O(1) auxiliary space.

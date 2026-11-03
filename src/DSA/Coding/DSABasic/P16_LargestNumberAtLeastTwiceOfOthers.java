@@ -21,11 +21,11 @@ import java.util.*;
  * 3. Update the result immediately when the current value proves a better answer or completes a valid condition.
  *
  * Dry run
- * Example from main: [3,6,1,0] -> 1 because 6 >= 2*3.
- * 1. Read the input values from left to right.
- * 2. Apply the decision described in the approach to the current value.
- * 3. Update the running answer and continue until all values are processed.
- * 4. Return the final answer produced after the last value.
+ *   Largest-value state for [3,6,1,0]:
+ *     read 3 -> largest index = 0
+ *     read 6 -> largest index = 1, second-largest index = 0
+ *     read 1, then 0 -> largest remains 6
+ *     6 >= 2*3, so return index 1
  *
  * Complexity
  * O(n) time and O(1) auxiliary space.

@@ -21,11 +21,10 @@ import java.util.*;
  * 3. Save the next node before changing links, then advance the pointers while preserving the list structure.
  *
  * Dry run
- * Example from main: 1->2->1 cycle -> true.
- * 1. Initialize the pointers described in the approach.
- * 2. Save the next node before changing a link or moving a pointer.
- * 3. Update the links and advance until the required node or the end is reached.
- * 4. Return the resulting head or answer.
+ *   Cycle-detection visual for 1->2->1:
+ *     slow moves one node and fast moves two nodes
+ *     slow and fast eventually point to the same node
+ *     meeting means a cycle exists -> true
  *
  * Complexity
  * O(n) time and O(1) auxiliary space.

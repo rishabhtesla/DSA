@@ -21,11 +21,10 @@ import java.util.*;
  * 3. Remove or preserve stack entries according to the ordering or balance rule required by the problem.
  *
  * Dry run
- * Example from main: "leetcode" -> 0.
- * 1. Read each character or value from left to right.
- * 2. Push unresolved values or state onto the stack.
- * 3. When the current value resolves the top entry, pop and update the answer.
- * 4. Process any remaining stack entries before returning.
+ *   Frequency visual for "leetcode":
+ *     count each character; l, e, t, c, o, d occur once and e occurs twice
+ *     scan from left: l is the first character with count 1
+ *     return index 0
  *
  * Complexity
  * O(n) time and O(1) auxiliary space.

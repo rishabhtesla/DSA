@@ -25,11 +25,17 @@ package DSA.Coding.DSABasic;
  * 6. Compare the reversed number with the original number.
  *
  * Dry run: x = 121
- *   Start: n = 121, revNum = 0
- *   Step 1: digit = 1, revNum = 1,   n = 12
- *   Step 2: digit = 2, revNum = 12,  n = 1
- *   Step 3: digit = 1, revNum = 121, n = 0
- *   revNum == x, so return true.
+ *   Visual state table:
+ *
+ *   Step | n before | digit = n % 10 | revNum after | n after
+ *   -----|----------|----------------|--------------|--------
+ *     0  |   121    |       -        |      0       |   121
+ *     1  |    12    |       1        |      1       |    12
+ *     2  |     1    |       2        |     12       |     1
+ *     3  |     0    |       1        |    121       |     0
+ *
+ *   Digits are taken from right to left: 1 -> 2 -> 1.
+ *   The reversed number is 121, which matches x, so return true.
  *
  * Complexity
  *   Time: O(log10(x)), because each digit is processed once.

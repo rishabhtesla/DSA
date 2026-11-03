@@ -21,10 +21,10 @@ import java.util.*;
  * 3. Move the left and right boundaries until the answer is found or the search interval becomes empty.
  *
  * Dry run
- * Example from main: [5,7,7,8,8,10], 8 -> [3,4].
- * 1. Start with the complete valid search interval.
- * 2. Inspect the middle position and decide which half can still contain the answer.
- * 3. Discard the other half and repeat until the answer is found or the interval is empty.
+ *   Two binary searches for [5,7,7,8,8,10], target = 8:
+ *     lower-bound search keeps moving left after finding 8 -> first = 3
+ *     upper-bound search keeps moving right after finding 8 -> last = 4
+ *     return [first,last] = [3,4]
  *
  * Complexity
  * O(n) time and O(1) auxiliary space.

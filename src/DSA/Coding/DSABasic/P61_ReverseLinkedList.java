@@ -21,11 +21,10 @@ import java.util.*;
  * 3. Save the next node before changing links, then advance the pointers while preserving the list structure.
  *
  * Dry run
- * Example from main: 1->2->null -> 2->1->null.
- * 1. Initialize the pointers described in the approach.
- * 2. Save the next node before changing a link or moving a pointer.
- * 3. Update the links and advance until the required node or the end is reached.
- * 4. Return the resulting head or answer.
+ *   Pointer visual for 1->2->null:
+ *     current=1: save next=2, point 1 to null
+ *     current=2: save next=null, point 2 to 1
+ *     current=null: stop; new head is 2 -> 1 -> null
  *
  * Complexity
  * O(n) time and O(1) auxiliary space.

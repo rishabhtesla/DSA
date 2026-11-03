@@ -21,11 +21,10 @@ import java.util.*;
  * 3. Update the boundary or position after each value is placed or read, avoiding repeated work.
  *
  * Dry run
- * Example from main: [[1,2,3],[4,5,6]] -> [[1,4],[2,5],[3,6]].
- * 1. Start at the first valid row, column, or boundary.
- * 2. Read or write the current cell and move in the required direction.
- * 3. Shrink or update the boundary after completing a row, column, or rotation.
- * 4. Stop after every cell has been processed.
+ *   Transpose visual:
+ *     row [1,2,3] becomes column [1,2,3]
+ *     row [4,5,6] becomes column [4,5,6]
+ *     result rows are [1,4], [2,5], [3,6]
  *
  * Complexity
  * O(n) time and O(1) auxiliary space.

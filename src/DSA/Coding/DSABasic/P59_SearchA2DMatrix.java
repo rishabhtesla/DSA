@@ -21,11 +21,10 @@ import java.util.*;
  * 3. Update the boundary or position after each value is placed or read, avoiding repeated work.
  *
  * Dry run
- * Example from main: [[1,3,5],[7,9,11]], target=9 -> true.
- * 1. Start at the first valid row, column, or boundary.
- * 2. Read or write the current cell and move in the required direction.
- * 3. Shrink or update the boundary after completing a row, column, or rotation.
- * 4. Stop after every cell has been processed.
+ *   Matrix-search visual for target 9:
+ *     start at matrix[0][0] = 1 and move through the sorted row/column order
+ *     values 1,3,5,7 are smaller than 9, so continue
+ *     reach 9 -> return true
  *
  * Complexity
  * O(n) time and O(1) auxiliary space.

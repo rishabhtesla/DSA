@@ -21,11 +21,10 @@ import java.util.*;
  * 3. Save the next node before changing links, then advance the pointers while preserving the list structure.
  *
  * Dry run
- * Example from main: 1->2, delete node 1 -> 2.
- * 1. Initialize the pointers described in the approach.
- * 2. Save the next node before changing a link or moving a pointer.
- * 3. Update the links and advance until the required node or the end is reached.
- * 4. Return the resulting head or answer.
+ *   In-place delete visual for 1->2:
+ *     copy the next node's value 2 into the node to delete
+ *     bypass the next node
+ *     remaining list is 2
  *
  * Complexity
  * O(n) time and O(1) auxiliary space.

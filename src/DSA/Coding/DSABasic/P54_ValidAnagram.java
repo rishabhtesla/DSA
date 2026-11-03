@@ -21,11 +21,10 @@ import java.util.*;
  * 3. Remove or preserve stack entries according to the ordering or balance rule required by the problem.
  *
  * Dry run
- * Example from main: "anagram", "nagaram" -> true.
- * 1. Read each character or value from left to right.
- * 2. Push unresolved values or state onto the stack.
- * 3. When the current value resolves the top entry, pop and update the answer.
- * 4. Process any remaining stack entries before returning.
+ *   Character-count visual for "anagram" and "nagaram":
+ *     add counts for the first string and subtract counts for the second
+ *     every count ends at zero
+ *     return true
  *
  * Complexity
  * O(n) time and O(1) auxiliary space.
