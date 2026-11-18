@@ -6,16 +6,54 @@ import java.util.Arrays;
  * ============================================================================
  * [AG-01 / 06] - AIRPLANE / DEFENSE SHOOTDOWN (Agoda OA Frequent / LC 1921)
  * ============================================================================
- * 
- * PROBLEM:
- *   You have n enemy airplanes approaching a defense base. You are given two arrays:
- *   dist[] where dist[i] is the initial distance of the ith plane, and speed[]
- *   where speed[i] is its constant speed.
- *   Each plane reaches the base in time t_i = dist[i] / speed[i] seconds.
- *   Your defense weapon can vaporize exactly 1 plane at t = 0, and recharge takes 
- *   exactly 1 second (so you can fire at t = 0, 1, 2, ...).
- *   Planes move continuously. If an airplane reaches the base at or before time t,
- *   you lose. Find the maximum number of planes you can eliminate before losing.
+ *
+ /*
+ * PROBLEM: Defense Grid
+ *
+ * You are operating an automated defense turret protecting a strategic military base.
+ * Radar has detected n incoming enemy aircraft, each flying directly toward the base
+ * at a constant speed.
+ *
+ * You are given two 0-indexed integer arrays of length n:
+ *   - dist[i]  : initial distance (in km) of the i-th aircraft from the base.
+ *   - speed[i] : constant speed (in km/s) of the i-th aircraft.
+ *
+ * The turret is fully charged at t = 0 seconds and can vaporize at most 1 aircraft
+ * per shot. Once fired, the weapon requires exactly 1 second to recharge, meaning
+ * you can fire at timestamps t = 0, 1, 2, ..., n - 1.
+ *
+ * Aircraft move continuously. If any remaining aircraft reaches the base (distance <= 0)
+ * at the exact moment you are ready to fire—or at any time prior—the base is breached
+ * and you lose immediately.
+ *
+ * Return the maximum number of aircraft you can eliminate before losing (or n if all
+ * aircraft can be eliminated).
+ *
+ * CONSTRAINTS:
+ *   - 1 <= n <= 10^5
+ *   - 1 <= dist[i], speed[i] <= 10^5
+ *
+ * EXAMPLES:
+ *
+ *   Example 1:
+ *     Input:  dist = [1, 3, 4], speed = [1, 1, 1]
+ *     Output: 3
+ *     Explanation: Arrival times are [1, 3, 4]. Eliminate plane 0 at t = 0,
+ *                  plane 1 at t = 1, and plane 2 at t = 2.
+ *
+ *   Example 2:
+ *     Input:  dist = [1, 1, 2, 3], speed = [1, 1, 1, 1]
+ *     Output: 1
+ *     Explanation: Arrival times are [1, 1, 2, 3]. Eliminate plane 0 at t = 0.
+ *                  At t = 1, plane 1 reaches the base at the exact moment you
+ *                  are ready to fire, causing a loss.
+ *
+ *   Example 3:
+ *     Input:  dist = [3, 2, 4], speed = [5, 3, 2]
+ *     Output: 1
+ *     Explanation: Arrival times are [0.6, 0.67, 2.0]. Eliminate one plane at t = 0;
+ *                  the other fast plane breaches the base before t = 1.
+ *
  *
  * INTERVIEW INTUITION & "AHA!" MOMENT:
  *   - The bottleneck is NOT how far a plane starts, nor how fast it moves individually,
